@@ -1,32 +1,40 @@
 # Ritik Singh Portfolio
 
-A modern developer portfolio built with **Next.js** and **TypeScript** to showcase my projects, technical skills, experience, certifications, and journey as a Full Stack Developer exploring AI-powered applications.
+<p align="center">
+  <img src="./public/portfolio-preview.png" alt="Ritik Singh Portfolio Preview" width="100%" />
+</p>
+
+<p align="center">
+  A modern developer portfolio built with <strong>Next.js</strong> and <strong>TypeScript</strong> to showcase my projects, technical skills, experience, certifications, and journey as a Full Stack Developer exploring AI-powered applications.
+</p>
+
+---
 
 ## ✨ Features
 
-- Modern responsive portfolio
+- Modern and fully responsive portfolio
 - Built with Next.js App Router
 - TypeScript throughout the project
-- Tailwind CSS UI
+- Tailwind CSS & shadcn/ui components
 - Dark & Light theme support
 - Smooth animations with Framer Motion
-- Project showcase
+- Project showcase with images & videos
 - Experience & Education timeline
 - Skills & Certifications
 - MDX Blog support
 - SEO Friendly
-- Fully Responsive
+- Optimized performance
 
 ---
 
-# 🛠 Tech Stack
+## 🛠 Tech Stack
 
 | Area | Technology |
 |------|------------|
 | Framework | Next.js |
 | Language | TypeScript |
 | Styling | Tailwind CSS |
-| UI | shadcn/ui |
+| UI Components | shadcn/ui |
 | Animation | Framer Motion |
 | Content | MDX |
 | Icons | Lucide React |
@@ -34,9 +42,9 @@ A modern developer portfolio built with **Next.js** and **TypeScript** to showca
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
-```bash
+```text
 Portfolio/
 ├── public/
 ├── content/
@@ -53,7 +61,7 @@ Portfolio/
 
 ---
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
 Clone the repository
 
@@ -61,7 +69,7 @@ Clone the repository
 git clone https://github.com/RITIKSINGH-DEOS/your-portfolio.git
 ```
 
-Go to the project
+Navigate to the project
 
 ```bash
 cd your-portfolio
@@ -73,13 +81,13 @@ Install dependencies
 npm install
 ```
 
-Run development server
+Start the development server
 
 ```bash
 npm run dev
 ```
 
-Visit
+Open your browser and visit
 
 ```text
 http://localhost:3000
@@ -87,7 +95,7 @@ http://localhost:3000
 
 ---
 
-# 📦 Available Scripts
+## 📦 Available Scripts
 
 ```bash
 npm run dev
@@ -98,21 +106,24 @@ npm run lint
 
 ---
 
-# 👨‍💻 About Me
+## 👨‍💻 About Me
 
-I'm **Ritik Singh**, a B.Tech CSE student and Full Stack Developer passionate about building scalable web applications and AI-powered products. My interests include React, Next.js, Node.js, MongoDB, TypeScript, and Google Gemini AI.
+I'm **Ritik Singh**, a B.Tech Computer Science student and Full Stack Developer passionate about building scalable web applications and AI-powered products.
+
+### Interests
+
+- Full Stack Development
+- Artificial Intelligence
+- React & Next.js
+- TypeScript
+- Node.js
+- MongoDB
+- Google Gemini AI
+- UI/UX Development
 
 ---
 
-# 📸 Portfolio Preview
-
-<p align="center">
-  <img src="./public/porfoliohomepage.png" alt="Ritik Singh Portfolio Preview" width="100%" />
-</p>
-
----
-
-# 📬 Contact
+## 📬 Contact
 
 - **Email:** businessritiksinghdeos@gmail.com
 - **GitHub:** https://github.com/RITIKSINGH-DEOS
@@ -120,6 +131,6 @@ I'm **Ritik Singh**, a B.Tech CSE student and Full Stack Developer passionate ab
 
 ---
 
-# 📄 License
+## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
