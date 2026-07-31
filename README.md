@@ -98,29 +98,25 @@ npm run lint
 
 ---
 
-# 🔐 Environment Variables
-
-If you use API keys or external services, create a `.env.local` file and keep sensitive credentials out of version control.
-
----
-
 # 👨‍💻 About Me
 
 I'm **Ritik Singh**, a B.Tech CSE student and Full Stack Developer passionate about building scalable web applications and AI-powered products. My interests include React, Next.js, Node.js, MongoDB, TypeScript, and Google Gemini AI.
 
 ---
 
-# 🌐 Live Demo
+# 📸 Portfolio Preview
 
-https://your-portfolio-url.vercel.app
+<p align="center">
+  <img src="./public/porfoliohomepage.png" alt="Ritik Singh Portfolio Preview" width="100%" />
+</p>
 
 ---
 
 # 📬 Contact
 
-- Email: businessritiksinghdeos@gmail.com
-- GitHub: https://github.com/RITIKSINGH-DEOS
-- LinkedIn: https://linkedin.com/in/ritiksinghdeos
+- **Email:** businessritiksinghdeos@gmail.com
+- **GitHub:** https://github.com/RITIKSINGH-DEOS
+- **LinkedIn:** https://linkedin.com/in/ritiksinghdeos
 
 ---
 
