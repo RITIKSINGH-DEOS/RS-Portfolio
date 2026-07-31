@@ -129,7 +129,7 @@ export const DATA = {
         { type: "GitHub", href: "https://github.com/RITIKSINGH-DEOS/ResumeAI.git" },
       ],
       image: "",
-      video: "/resumeai.MP4",
+      video: "/resumeai.mp4",
     },
     {
       title: "MedConnect",
@@ -150,7 +150,7 @@ export const DATA = {
         { type: "GitHub", href: "https://github.com/RITIKSINGH-DEOS/MedConnect.git" },
       ],
       image: "",
-      video: "/medconnect.MP4",
+      video: "/medconnect.mp4",
     },
     {
       title: "AI Learning Assistant",
