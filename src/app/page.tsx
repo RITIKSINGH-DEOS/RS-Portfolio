@@ -222,7 +222,7 @@ export default function Page() {
                 >
                   LinkedIn
                 </Link>
-                , and I&apos;ll respond when I can. I'll respond as soon as I can.
+               , and I&apos;ll respond as soon as I can.
               </p>
             </div>
           </BlurFade>
