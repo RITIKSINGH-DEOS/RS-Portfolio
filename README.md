@@ -1,7 +1,7 @@
 # Ritik Singh Portfolio
 
 <p align="center">
-  <img src="./public/portfolio-preview.png" alt="Ritik Singh Portfolio Preview" width="100%" />
+  <img src="./public/porfoliohomepage.png.png" alt="Ritik Singh Portfolio Preview" width="100%" />
 </p>
 
 <p align="center">
