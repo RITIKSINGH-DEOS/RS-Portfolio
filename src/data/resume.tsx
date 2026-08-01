@@ -232,7 +232,7 @@ export const DATA = {
       title: "MERN Stack Full Course",
       issuer: "Coding Shuttle",
       date: "2023",
-      href: "https://drive.google.com/file/d/1XecnLr0HoFsCGU0x7_B75kccauLRUvwf/view?usp=drivesdk",
+      href: "https://drive.google.com/file/d/1YrFVDxd6WUs_TrKNpSJr6H7cfLzkZTh0/view?usp=sharing",
       description: "**MERN** — Mongo, Express, React, Node end-to-end.",
       logoUrl: "/codingshuttle.png",
     },
