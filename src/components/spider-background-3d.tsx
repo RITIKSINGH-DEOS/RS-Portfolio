@@ -136,7 +136,7 @@ export function SpiderBackground3D() {
     emblemVertices.push({ x: 0, y: 52, z: 0 });    // 11: Abdomen Stinger
 
     // Body Edges (Red & Blue faceted suit core)
-    const bodyConnections: [number, number, "red" | "blue"][] = [
+    const bodyConnections: [number, number, "red" | "blue" | "white"][] = [
       [0, 1, "red"], [0, 2, "red"], [0, 3, "blue"], [0, 4, "blue"],
       [1, 5, "red"], [2, 5, "red"], [3, 6, "blue"], [4, 6, "blue"],
       [1, 2, "red"], [3, 4, "blue"], [1, 3, "white"], [2, 4, "white"],
