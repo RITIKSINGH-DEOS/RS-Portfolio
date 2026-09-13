@@ -70,8 +70,58 @@
     * {
       @apply border-border;
     }
+    html {
+      color-scheme: light;
+    }
+    html.dark {
+      color-scheme: dark;
+    }
     body {
       @apply bg-background text-foreground;
+    }
+    body,
+    header,
+    nav,
+    footer,
+    main,
+    section,
+    div,
+    span,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    button,
+    svg {
+      transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 300ms;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body,
+      header,
+      nav,
+      footer,
+      main,
+      section,
+      div,
+      span,
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      a,
+      button,
+      svg {
+        transition-duration: 0.01ms !important;
+      }
     }
   }
 
@@ -141,4 +191,63 @@ code[data-line-numbers-max-digits="2"] > [data-line]::before {
  
 code[data-line-numbers-max-digits="3"] > [data-line]::before {
   width: 3rem;
+}
+
+/* ========================================================
+   SPIDER-MAN THEMED CUSTOM SCROLLBAR
+   ======================================================== */
+/* Modern Firefox standard */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #dc2626 rgba(15, 23, 42, 0.08);
+}
+
+.dark * {
+  scrollbar-color: #ef4444 rgba(15, 23, 42, 0.45);
+}
+
+/* Chrome, Edge, Safari, Opera (Webkit) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.05);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Remove default Windows arrows */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Spider-Man Red & Blue Gradient Thumb */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #dc2626 0%, #2563eb 50%, #dc2626 100%);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.45);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ef4444 0%, #3b82f6 50%, #ef4444 100%);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f87171 0%, #60a5fa 50%, #f87171 100%);
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.9), 0 0 10px rgba(59, 130, 246, 0.8);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

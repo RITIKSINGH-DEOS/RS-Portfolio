@@ -1,4 +1,7 @@
+import { DesktopSpideySides } from "@/components/desktop-spidey-sides";
 import Navbar from "@/components/navbar";
+import { SpiderBackground3D } from "@/components/spider-background-3d";
+import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -59,8 +62,13 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
-            {children}
+            <SpiderBackground3D />
+            <DesktopSpideySides />
+            <div className="relative z-10">
+              {children}
+            </div>
             <Navbar />
+            <SpiderCanvas />
           </TooltipProvider>
         </ThemeProvider>
       </body>

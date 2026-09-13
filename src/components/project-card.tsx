@@ -42,9 +42,15 @@ export function ProjectCard({
 }: Props) {
   return (
     <Card
-      className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
-      }
+      className={cn(
+        "flex flex-col overflow-hidden border transition-all duration-300 ease-out h-full bg-card/95 backdrop-blur-sm",
+        // Spider-Man Themed Drop Shadow (Desktop, Mobile, Tablet)
+        "shadow-[0_4px_22px_-2px_rgba(220,38,38,0.22),0_2px_14px_-2px_rgba(37,99,235,0.22)]",
+        "border-red-500/25 dark:border-blue-500/30",
+        "hover:shadow-[0_22px_55px_-5px_rgba(220,38,38,0.5),0_0_32px_rgba(37,99,235,0.45)]",
+        "hover:border-red-500/70 dark:hover:border-blue-400/70",
+        className
+      )}
     >
       {/* Main card clickable area */}
       <Link href={href || "#"} className={cn("block cursor-pointer", className)}>
