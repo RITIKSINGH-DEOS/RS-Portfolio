@@ -13,9 +13,9 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex origin-bottom h-full max-h-14">
-      <div className="fixed bottom-0 inset-x-0 h-16 w-full bg-background/50 to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"></div>
-      <Dock className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1.5 rounded-full bg-background/85 backdrop-blur-xl border border-red-500/40 dark:border-blue-500/40 shadow-[0_8px_32px_rgba(220,38,38,0.35),0_0_22px_rgba(37,99,235,0.32)] hover:shadow-[0_12px_42px_rgba(220,38,38,0.55),0_0_30px_rgba(37,99,235,0.5)] transition-all duration-300 transform-gpu">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex origin-bottom h-full max-h-14 w-full max-w-full justify-center overflow-x-hidden">
+      <div className="fixed bottom-0 inset-x-0 h-16 w-full pointer-events-none bg-background/50 to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"></div>
+      <Dock className="z-50 pointer-events-auto relative mx-auto flex min-h-full h-full items-center px-1.5 rounded-full bg-background/85 backdrop-blur-xl border border-red-500/40 dark:border-blue-500/40 shadow-[0_8px_32px_rgba(220,38,38,0.35),0_0_22px_rgba(37,99,235,0.32)] sm:hover:shadow-[0_12px_42px_rgba(220,38,38,0.55),0_0_30px_rgba(37,99,235,0.5)] transition-[background-color,border-color,box-shadow] duration-300">
         {DATA.navbar.map((item) => (
           <DockIcon key={item.href}>
             <Tooltip>
@@ -25,13 +25,13 @@ export default function Navbar() {
                   {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
-                    "size-12 rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-all duration-200"
+                    "size-10 rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-all duration-200"
                   )}
                 >
                   <item.icon className="size-4" />
                 </Link>
               </TooltipTrigger>
-              <TooltipContent className="border border-red-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(220,38,38,0.25)]">
+              <TooltipContent className="hidden sm:block border border-red-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(220,38,38,0.25)]">
                 <p>{item.label}</p>
               </TooltipContent>
             </Tooltip>
@@ -51,13 +51,13 @@ export default function Navbar() {
                       : {})}
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-12 rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-all duration-200"
+                      "size-10 rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-all duration-200"
                     )}
                   >
                     <social.icon className="size-4" />
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent className="border border-blue-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(37,99,235,0.25)]">
+                <TooltipContent className="hidden sm:block border border-blue-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(37,99,235,0.25)]">
                   <p>{name}</p>
                 </TooltipContent>
               </Tooltip>
@@ -69,7 +69,7 @@ export default function Navbar() {
             <TooltipTrigger asChild>
               <ModeToggle />
             </TooltipTrigger>
-            <TooltipContent className="border border-red-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(220,38,38,0.25)]">
+            <TooltipContent className="hidden sm:block border border-red-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(220,38,38,0.25)]">
               <p>Theme</p>
             </TooltipContent>
           </Tooltip>

@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import React, { PropsWithChildren, useRef } from "react";
+import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 export interface DockProps extends VariantProps<typeof dockVariants> {
   className?: string;
@@ -31,14 +31,31 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
     ref
   ) => {
     const mousex = useMotionValue(Infinity);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(
+          window.matchMedia("(pointer: coarse)").matches ||
+          window.innerWidth < 768 ||
+          "ontouchstart" in window
+        );
+      };
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    const effectiveMagnification = isMobile ? 40 : magnification;
 
     const renderChildren = () => {
       return React.Children.map(children, (child: any) => {
         if (React.isValidElement(child)) {
           return React.cloneElement(child, {
             mousex,
-            magnification,
+            magnification: effectiveMagnification,
             distance,
+            isMobile,
           } as DockIconProps);
         }
         return child;
@@ -48,8 +65,14 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
     return (
       <motion.div
         ref={ref}
-        onMouseMove={(e) => mousex.set(e.pageX)}
+        onMouseMove={(e) => {
+          if (!isMobile) {
+            mousex.set(e.pageX);
+          }
+        }}
         onMouseLeave={() => mousex.set(Infinity)}
+        onTouchStart={() => mousex.set(Infinity)}
+        onTouchEnd={() => mousex.set(Infinity)}
         {...props}
         className={cn(dockVariants({ className }))}
       >
@@ -66,6 +89,7 @@ export interface DockIconProps {
   magnification?: number;
   distance?: number;
   mousex?: any;
+  isMobile?: boolean;
   className?: string;
   children?: React.ReactNode;
   props?: PropsWithChildren;
@@ -76,6 +100,7 @@ const DockIcon = ({
   magnification = DEFAULT_MAGNIFICATION,
   distance = DEFAULT_DISTANCE,
   mousex,
+  isMobile = false,
   className,
   children,
   ...props
@@ -102,9 +127,9 @@ const DockIcon = ({
   return (
     <motion.div
       ref={ref}
-      style={{ width }}
+      style={isMobile ? { width: 40 } : { width }}
       className={cn(
-        "flex aspect-square cursor-pointer items-center justify-center rounded-full",
+        "flex aspect-square cursor-pointer items-center justify-center rounded-full shrink-0",
         className
       )}
       {...props}
