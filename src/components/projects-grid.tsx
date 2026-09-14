@@ -42,7 +42,7 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 max-w-[800px] mx-auto w-full relative">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 max-w-2xl mx-auto w-full relative">
       {projects.map((project, id) => {
         const isThisHovered = isDesktop && hoveredTitle === project.title;
         const isOtherHovered = isDesktop && hoveredTitle !== null && !isThisHovered;

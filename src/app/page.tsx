@@ -24,9 +24,9 @@ export default function Page() {
   };
 
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
+    <main className="flex flex-col min-h-[100dvh] space-y-10 w-full max-w-2xl mx-auto">
       {/* Hero Section */}
-      <section id="hero">
+      <section id="hero" className="w-full">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="flex justify-between gap-2">
             <div className="flex flex-col flex-1 space-y-1.5">
@@ -56,7 +56,7 @@ export default function Page() {
       </section>
 
       {/* About Section */}
-      <section id="about">
+      <section id="about" className="w-full">
         <div className="flex flex-col gap-y-2">
           <BlurFade delay={getDelay(0.06)}>
             <h2 className="text-xl font-bold">About</h2>
@@ -74,7 +74,7 @@ export default function Page() {
       </section>
 
       {/* Work Section */}
-      <section id="work">
+      <section id="work" className="w-full">
         <div className="flex flex-col gap-y-3">
           <BlurFade delay={getDelay(0.06)}>
             <h2 className="text-xl font-bold">Work Experience</h2>
@@ -96,7 +96,7 @@ export default function Page() {
       </section>
 
       {/* Education Section */}
-      <section id="education">
+      <section id="education" className="w-full">
         <div className="flex flex-col gap-y-3">
           <BlurFade delay={getDelay(0.06)}>
             <h2 className="text-xl font-bold">Education</h2>
@@ -117,7 +117,7 @@ export default function Page() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills">
+      <section id="skills" className="w-full">
         <div className="flex flex-col gap-y-3">
           <BlurFade delay={getDelay(0.06)}>
             <h2 className="text-xl font-bold">Skills</h2>
@@ -133,7 +133,7 @@ export default function Page() {
       </section>
 
       {/* Achievements (hackathons, publications, etc.) */}
-      <section id="achievements">
+      <section id="achievements" className="w-full">
         <div className="flex flex-col gap-y-3">
           <BlurFade delay={getDelay(0.06)}>
             <h2 className="text-xl font-bold">Achievements</h2>
@@ -154,7 +154,7 @@ export default function Page() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects">
+      <section id="projects" className="w-full">
         <div className="space-y-12 w-full py-12">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
@@ -184,7 +184,7 @@ export default function Page() {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications">
+      <section id="certifications" className="w-full">
         <div className="flex flex-col gap-y-3">
           <BlurFade delay={getDelay(0.06)}>
             <h2 className="text-xl font-bold">Certifications</h2>
@@ -206,7 +206,7 @@ export default function Page() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact">
+      <section id="contact" className="w-full">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-3">

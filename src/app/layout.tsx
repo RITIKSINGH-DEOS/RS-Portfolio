@@ -53,10 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden max-w-full">
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6 overflow-x-hidden max-w-full",
+          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto py-12 sm:py-24 px-6 overflow-x-hidden",
           fontSans.variable
         )}
       >
@@ -64,7 +64,7 @@ export default function RootLayout({
           <TooltipProvider delayDuration={0}>
             <SpiderBackground3D />
             <DesktopSpideySides />
-            <div className="relative z-10">
+            <div className="relative z-10 w-full max-w-2xl mx-auto">
               {children}
             </div>
             <Navbar />
