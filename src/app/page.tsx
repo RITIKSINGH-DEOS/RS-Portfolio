@@ -210,8 +210,20 @@ export default function Page() {
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-3">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                Contact
+              <div className="flex flex-col items-center gap-2">
+                <a
+                  href="/resume.pdf"
+                  download="Ritik_Singh_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg bg-foreground text-background w-20 py-1 text-sm hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                  title="Download Resume"
+                >
+                  Resume
+                </a>
+                <div className="inline-flex items-center justify-center rounded-lg bg-foreground text-background w-20 py-1 text-sm">
+                  Contact
+                </div>
               </div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                 Get in Touch
