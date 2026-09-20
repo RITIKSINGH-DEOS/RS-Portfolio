@@ -22,13 +22,13 @@ export function TopNav() {
       {/* ============================================================ */}
       <Link href="/" className="group focus:outline-none" aria-label="Home">
         {/* Mobile View: Squircle Avatar Only (< sm) */}
-        <div className="sm:hidden size-9 rounded-xl overflow-hidden border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl p-0.5 shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] group-hover:scale-105 transition-all">
+        <div className="sm:hidden size-9 rounded-xl overflow-hidden border border-red-500/40 dark:border-blue-500/40 bg-black dark:bg-black shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] group-hover:scale-105 transition-all flex items-center justify-center">
           <Image
             src={DATA.avatarUrl}
             alt={DATA.name}
             width={36}
             height={36}
-            className="size-full rounded-[10px] object-cover"
+            className="size-full scale-[1.28] object-cover"
           />
         </div>
 
@@ -91,12 +91,14 @@ export function TopNav() {
           )}
         </button>
 
-        {/* Call Button (Mobile & Desktop) */}
+        {/* Call Button (Redirects to WhatsApp) */}
         <a
-          href={`tel:${DATA.contact.tel}`}
+          href={DATA.contact.social.WhatsApp.url}
+          target="_blank"
+          rel="noopener noreferrer"
           className="h-9 px-4 sm:px-5 rounded-xl bg-foreground text-background font-semibold text-xs sm:text-sm flex items-center justify-center border border-red-500/40 dark:border-blue-500/40 shadow-[0_4px_20px_rgba(220,38,38,0.35),0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.55),0_0_22px_rgba(37,99,235,0.45)] hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer select-none"
-          title={`Call ${DATA.contact.tel}`}
-          aria-label="Call Ritik"
+          title="Connect on WhatsApp"
+          aria-label="Chat on WhatsApp"
         >
           Call
         </a>
