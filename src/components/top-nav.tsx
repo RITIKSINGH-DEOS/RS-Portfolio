@@ -50,7 +50,7 @@ export function TopNav() {
             </div>
 
             {/* Desktop View: Pill with Avatar + Location (>= sm) */}
-            <div className="hidden sm:flex items-center gap-2.5 rounded-full border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl p-1 pr-3.5 shadow-[0_4px_20px_rgba(220,38,38,0.3),0_0_15px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.5),0_0_20px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all">
+            <div className="hidden sm:flex items-center gap-2.5 rounded-full border border-red-500/40 dark:border-blue-500/40 bg-background p-1 pr-3.5 shadow-[0_4px_20px_rgba(220,38,38,0.3),0_0_15px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.5),0_0_20px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all">
               <div className="size-7 rounded-full overflow-hidden border border-red-500/30 dark:border-blue-500/30 shrink-0">
                 <Image
                   src={DATA.avatarUrl}
@@ -75,7 +75,7 @@ export function TopNav() {
         {/* ============================================================ */}
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-2.5">
           {/* Desktop View: Resume & Linkedin Pill (>= sm) */}
-          <div className="hidden sm:flex items-center gap-4 rounded-full border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl px-4 py-1.5 shadow-[0_4px_20px_rgba(220,38,38,0.3),0_0_15px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.5),0_0_20px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all text-xs sm:text-[13px]">
+          <div className="hidden sm:flex items-center gap-4 rounded-full border border-red-500/40 dark:border-blue-500/40 bg-background px-4 py-1.5 shadow-[0_4px_20px_rgba(220,38,38,0.3),0_0_15px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.5),0_0_20px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all text-xs sm:text-[13px]">
             <a
               href="/resume.pdf"
               download="Ritik_Singh_Resume.pdf"
@@ -99,7 +99,7 @@ export function TopNav() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="size-9 rounded-xl border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl flex items-center justify-center text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all focus:outline-none cursor-pointer"
+            className="size-9 rounded-xl border border-red-500/40 dark:border-blue-500/40 bg-background flex items-center justify-center text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all focus:outline-none cursor-pointer"
             aria-label="Toggle theme"
           >
             {mounted && theme === "light" ? (

@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { SpiderBackground3D } from "@/components/spider-background-3d";
+import { DottedCanvas } from "@/components/dotted-canvas";
 import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TopNav } from "@/components/top-nav";
@@ -74,6 +75,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>
           <TooltipProvider delayDuration={0}>
             <SmoothScrollProvider>
+              <DottedCanvas />
               <SpiderBackground3D />
               <DesktopSpideySides />
               <TopNav />

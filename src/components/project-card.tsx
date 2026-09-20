@@ -43,7 +43,7 @@ export function ProjectCard({
   return (
     <Card
       className={cn(
-        "flex flex-col overflow-hidden border transition-all duration-300 ease-out h-full bg-card/95 backdrop-blur-sm",
+        "flex flex-col overflow-hidden border transition-all duration-300 ease-out h-full bg-card",
         // Spider-Man Themed Drop Shadow (Desktop, Mobile, Tablet)
         "shadow-[0_4px_22px_-2px_rgba(220,38,38,0.22),0_2px_14px_-2px_rgba(37,99,235,0.22)]",
         "border-red-500/25 dark:border-blue-500/30",
