@@ -39,7 +39,7 @@ export default function Page() {
       <section id="about" className="w-full">
         <BlurFade delay={0.02}>
           <div className="flex flex-col gap-y-2">
-            <h2 className="text-xl font-bold">About</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">About</h2>
             <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert leading-relaxed">
               {DATA.summary}
             </Markdown>
@@ -51,7 +51,7 @@ export default function Page() {
       <section id="work" className="w-full">
         <BlurFade delay={0.04} inView>
           <div className="flex flex-col gap-y-3">
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Work Experience</h2>
             {DATA.work?.map((work) => (
               <ResumeCard
                 key={work.company}
@@ -72,7 +72,7 @@ export default function Page() {
       <section id="education" className="w-full">
         <BlurFade delay={0.06} inView>
           <div className="flex flex-col gap-y-3">
-            <h2 className="text-xl font-bold">Education</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Education</h2>
             {DATA.education?.map((edu) => (
               <ResumeCard
                 key={edu.school}
@@ -92,7 +92,7 @@ export default function Page() {
       <section id="skills" className="w-full">
         <BlurFade delay={0.08} inView>
           <div className="flex flex-col gap-y-3">
-            <h2 className="text-xl font-bold">Skills</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Skills</h2>
             <div className="flex flex-wrap gap-1">
               {DATA.skills?.map((skill) => (
                 <Badge key={skill}>{skill}</Badge>
@@ -106,7 +106,7 @@ export default function Page() {
       <section id="achievements" className="w-full">
         <BlurFade delay={0.10} inView>
           <div className="flex flex-col gap-y-3">
-            <h2 className="text-xl font-bold">Achievements</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Achievements</h2>
             {DATA.achievements?.map((item) => (
               <ResumeCard
                 key={item.title}
@@ -131,7 +131,7 @@ export default function Page() {
                 <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
                   My Projects
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.1]">
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -152,7 +152,7 @@ export default function Page() {
       <section id="certifications" className="w-full">
         <BlurFade delay={0.14} inView>
           <div className="flex flex-col gap-y-3">
-            <h2 className="text-xl font-bold">Certifications</h2>
+            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Certifications</h2>
             {DATA.certifications?.map((cert) => (
               <ResumeCard
                 key={cert.title}
@@ -189,7 +189,7 @@ export default function Page() {
                   Contact
                 </div>
               </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.1]">
                 Get in Touch
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
