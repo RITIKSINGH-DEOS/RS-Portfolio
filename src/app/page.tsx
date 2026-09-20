@@ -19,8 +19,8 @@ export default function Page() {
       {/* Hero Section */}
       <section id="hero" className="w-full">
         <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="flex justify-between gap-2">
-            <div className="flex flex-col flex-1 space-y-1.5">
+          <div className="flex justify-between items-start gap-4">
+            <div className="flex flex-col flex-1 space-y-2 w-full">
               <BlurFade delay={0}>
                 <Interactive3DName
                   prefix="Hi, I'm"
@@ -30,11 +30,11 @@ export default function Page() {
               </BlurFade>
               <BlurFadeText
                 delay={0}
-                className="max-w-[600px] md:text-xl"
+                className="w-full max-w-full sm:max-w-[600px] text-base md:text-xl text-muted-foreground leading-relaxed"
                 text={DATA.description ?? ""}
               />
             </div>
-            <BlurFade delay={0}>
+            <BlurFade delay={0} className="hidden sm:block shrink-0">
               <Avatar3D
                 src={DATA.avatarUrl}
                 alt={DATA.name}

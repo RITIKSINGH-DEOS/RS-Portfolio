@@ -61,7 +61,7 @@ const BlurFadeText = ({
   }
 
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <AnimatePresence>
         <motion.span
           initial="hidden"
@@ -73,7 +73,7 @@ const BlurFadeText = ({
             duration: 0.25,
             ease: "easeOut",
           }}
-          className={cn("inline-block", className)}
+          className={cn("inline-block w-full", className)}
         >
           {text}
         </motion.span>
