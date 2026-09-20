@@ -1,6 +1,7 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Interactive3DName } from "@/components/interactive-3d-name";
+import { CommitMatrixCanvas } from "@/components/commit-matrix-canvas";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectsGrid } from "@/components/projects-grid";
 import { ResumeCard } from "@/components/resume-card";
@@ -48,6 +49,11 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      {/* Spider-Man Themed Commit Matrix Skyline Animation */}
+      <BlurFade delay={0.015}>
+        <CommitMatrixCanvas />
+      </BlurFade>
 
       {/* About Section */}
       <section id="about" className="w-full">
