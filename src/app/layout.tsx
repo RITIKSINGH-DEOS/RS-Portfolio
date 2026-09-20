@@ -56,10 +56,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
+    <html lang="en" suppressHydrationWarning className="overflow-x-clip">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto pt-5 sm:pt-8 pb-24 sm:pb-32 px-6 overflow-x-hidden",
+          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto pt-20 sm:pt-24 pb-24 sm:pb-32 px-6 overflow-x-clip",
           fontSans.variable
         )}
       >
@@ -68,8 +68,8 @@ export default function RootLayout({
             <SmoothScrollProvider>
               <SpiderBackground3D />
               <DesktopSpideySides />
+              <TopNav />
               <div className="relative z-10 w-full max-w-2xl mx-auto">
-                <TopNav />
                 {children}
               </div>
               <Navbar />
