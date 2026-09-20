@@ -31,6 +31,20 @@ export default function Page() {
               className="w-full max-w-full font-serif font-light text-xl sm:text-2xl md:text-[27px] text-foreground/90 leading-[1.32] tracking-[-0.02em]"
               text={DATA.description ?? ""}
             />
+            <BlurFade delay={0.01}>
+              <div className="pt-2 sm:pt-3 flex justify-center w-full">
+                <a
+                  href={DATA.contact.social.WhatsApp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-red-600 via-rose-600 to-red-600 hover:from-red-500 hover:via-red-600 hover:to-blue-600 px-7 py-3 text-sm sm:text-[15px] font-medium text-white border border-white/25 shadow-[0_10px_30px_-4px_rgba(220,38,38,0.55),0_4px_18px_rgba(37,99,235,0.35)] hover:shadow-[0_14px_40px_-2px_rgba(220,38,38,0.8),0_4px_24px_rgba(37,99,235,0.55)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 cursor-pointer select-none"
+                  title="Book a short call"
+                  aria-label="Book a short call on WhatsApp"
+                >
+                  Book a short call
+                </a>
+              </div>
+            </BlurFade>
           </div>
         </div>
       </section>
