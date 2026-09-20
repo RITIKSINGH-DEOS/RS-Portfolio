@@ -1,6 +1,5 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { Avatar3D } from "@/components/avatar-3d";
 import { Interactive3DName } from "@/components/interactive-3d-name";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectsGrid } from "@/components/projects-grid";
@@ -19,29 +18,19 @@ export default function Page() {
       {/* Hero Section */}
       <section id="hero" className="w-full">
         <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="flex justify-between items-start gap-4">
-            <div className="flex flex-col flex-1 space-y-2 w-full">
-              <BlurFade delay={0}>
-                <Interactive3DName
-                  prefix="Hi, I'm"
-                  name={DATA.name?.split(" ")[0] ?? "Ritik"}
-                  suffix="👋"
-                />
-              </BlurFade>
-              <BlurFadeText
-                delay={0}
-                className="w-full max-w-full sm:max-w-[600px] text-base md:text-xl text-muted-foreground leading-relaxed"
-                text={DATA.description ?? ""}
-              />
-            </div>
-            <BlurFade delay={0} className="hidden sm:block shrink-0">
-              <Avatar3D
-                src={DATA.avatarUrl}
-                alt={DATA.name}
-                initials={DATA.initials}
-                className="size-28"
+          <div className="flex flex-col space-y-2 w-full">
+            <BlurFade delay={0}>
+              <Interactive3DName
+                prefix="Hi, I'm"
+                name={DATA.name?.split(" ")[0] ?? "Ritik"}
+                suffix="👋"
               />
             </BlurFade>
+            <BlurFadeText
+              delay={0}
+              className="w-full max-w-full text-base md:text-xl text-muted-foreground leading-relaxed"
+              text={DATA.description ?? ""}
+            />
           </div>
         </div>
       </section>
