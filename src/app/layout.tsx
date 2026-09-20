@@ -1,4 +1,3 @@
-import { DesktopSpideySides } from "@/components/desktop-spidey-sides";
 import Navbar from "@/components/navbar";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
@@ -77,7 +76,6 @@ export default function RootLayout({
             <SmoothScrollProvider>
               <DottedCanvas />
               <ShootingStars />
-              <DesktopSpideySides />
               <TopNav />
               <div className="relative z-10 w-full max-w-2xl mx-auto px-6">
                 {children}
