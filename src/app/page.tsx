@@ -18,7 +18,7 @@ export default function Page() {
       {/* Hero Section */}
       <section id="hero" className="w-full">
         <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="flex flex-col space-y-2 w-full">
+          <div className="flex flex-col space-y-3 sm:space-y-4 w-full">
             <BlurFade delay={0}>
               <Interactive3DName
                 prefix="Hi, I'm"
@@ -28,7 +28,7 @@ export default function Page() {
             </BlurFade>
             <BlurFadeText
               delay={0}
-              className="w-full max-w-full text-base md:text-xl text-muted-foreground leading-relaxed"
+              className="w-full max-w-full font-serif font-light text-xl sm:text-2xl md:text-[27px] text-foreground/90 leading-[1.32] tracking-[-0.02em]"
               text={DATA.description ?? ""}
             />
           </div>

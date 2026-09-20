@@ -10,12 +10,18 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Inter as FontSans, Fraunces as FontSerif } from "next/font/google";
 import "./globals.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const fontSerif = FontSerif({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +66,8 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto pt-20 sm:pt-24 pb-24 sm:pb-32 px-6 overflow-x-clip",
-          fontSans.variable
+          fontSans.variable,
+          fontSerif.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>
