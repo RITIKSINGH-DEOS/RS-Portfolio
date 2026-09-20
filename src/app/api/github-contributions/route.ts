@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export const revalidate = 3600; // Cache for 1 hour
+export const revalidate = 120; // Cache for 2 minutes for fast updates
 
 export async function GET() {
   const username = "RITIKSINGH-DEOS";
@@ -11,7 +11,7 @@ export async function GET() {
         headers: {
           "User-Agent": "Portfolio-App",
         },
-        next: { revalidate: 3600 },
+        next: { revalidate: 120 },
       }
     );
 
