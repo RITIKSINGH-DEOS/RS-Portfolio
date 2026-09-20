@@ -2,6 +2,7 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Interactive3DName } from "@/components/interactive-3d-name";
 import { CommitMatrixCanvas } from "@/components/commit-matrix-canvas";
+import { GithubContributions } from "@/components/github-contributions";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectsGrid } from "@/components/projects-grid";
 import { ResumeCard } from "@/components/resume-card";
@@ -186,6 +187,13 @@ export default function Page() {
               />
             ))}
           </div>
+        </BlurFade>
+      </section>
+
+      {/* Live GitHub Contributions Section (Spider-Man Theme) */}
+      <section id="contributions" className="w-full">
+        <BlurFade delay={0.15} inView>
+          <GithubContributions />
         </BlurFade>
       </section>
 
