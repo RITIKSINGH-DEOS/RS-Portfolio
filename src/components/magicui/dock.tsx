@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export interface DockProps extends VariantProps<typeof dockVariants> {
   className?: string;
@@ -18,6 +18,20 @@ const DEFAULT_DISTANCE = 140;
 const dockVariants = cva(
   "mx-auto w-max h-full p-2 flex items-end rounded-full border"
 );
+
+interface DockContextType {
+  mousex: any;
+  magnification: number;
+  distance: number;
+  isMobile: boolean;
+}
+
+const DockContext = createContext<DockContextType>({
+  mousex: null,
+  magnification: DEFAULT_MAGNIFICATION,
+  distance: DEFAULT_DISTANCE,
+  isMobile: false,
+});
 
 const Dock = React.forwardRef<HTMLDivElement, DockProps>(
   (
@@ -48,36 +62,31 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 
     const effectiveMagnification = isMobile ? 40 : magnification;
 
-    const renderChildren = () => {
-      return React.Children.map(children, (child: any) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, {
-            mousex,
-            magnification: effectiveMagnification,
-            distance,
-            isMobile,
-          } as DockIconProps);
-        }
-        return child;
-      });
-    };
-
     return (
-      <motion.div
-        ref={ref}
-        onMouseMove={(e) => {
-          if (!isMobile) {
-            mousex.set(e.pageX);
-          }
+      <DockContext.Provider
+        value={{
+          mousex,
+          magnification: effectiveMagnification,
+          distance,
+          isMobile,
         }}
-        onMouseLeave={() => mousex.set(Infinity)}
-        onTouchStart={() => mousex.set(Infinity)}
-        onTouchEnd={() => mousex.set(Infinity)}
-        {...props}
-        className={cn(dockVariants({ className }))}
       >
-        {renderChildren()}
-      </motion.div>
+        <motion.div
+          ref={ref}
+          onMouseMove={(e) => {
+            if (!isMobile) {
+              mousex.set(e.pageX);
+            }
+          }}
+          onMouseLeave={() => mousex.set(Infinity)}
+          onTouchStart={() => mousex.set(Infinity)}
+          onTouchEnd={() => mousex.set(Infinity)}
+          {...props}
+          className={cn(dockVariants({ className }))}
+        >
+          {children}
+        </motion.div>
+      </DockContext.Provider>
     );
   }
 );
@@ -86,28 +95,27 @@ Dock.displayName = "Dock";
 
 export interface DockIconProps {
   size?: number;
-  magnification?: number;
-  distance?: number;
-  mousex?: any;
-  isMobile?: boolean;
   className?: string;
   children?: React.ReactNode;
-  props?: PropsWithChildren;
 }
 
 const DockIcon = ({
   size,
-  magnification = DEFAULT_MAGNIFICATION,
-  distance = DEFAULT_DISTANCE,
-  mousex,
-  isMobile = false,
   className,
   children,
   ...props
 }: DockIconProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const context = useContext(DockContext);
+  const mousex = context?.mousex;
+  const magnification = context?.magnification ?? DEFAULT_MAGNIFICATION;
+  const distance = context?.distance ?? DEFAULT_DISTANCE;
+  const isMobile = context?.isMobile ?? false;
 
-  const distanceCalc = useTransform(mousex, (val: number) => {
+  const fallbackMouseX = useMotionValue(Infinity);
+  const activeMouseX = mousex ?? fallbackMouseX;
+
+  const distanceCalc = useTransform(activeMouseX, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });

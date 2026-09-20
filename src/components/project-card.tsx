@@ -61,6 +61,7 @@ export function ProjectCard({
             loop
             muted
             playsInline
+            preload="metadata"
             className="pointer-events-none mx-auto h-40 w-full object-cover object-top"
           />
         )}
@@ -70,6 +71,7 @@ export function ProjectCard({
             alt={title}
             width={500}
             height={300}
+            loading="lazy"
             className="h-40 w-full overflow-hidden object-cover object-top"
           />
         )}

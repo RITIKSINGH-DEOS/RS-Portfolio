@@ -50,7 +50,7 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
         return (
           <BlurFade
             key={project.title}
-            delay={(baseDelay !== undefined ? baseDelay : blurFadeDelay * 12) + id * 0.08}
+            delay={(baseDelay !== undefined ? baseDelay : 0.05) + id * 0.03}
             className="h-full"
           >
             <motion.div
