@@ -196,7 +196,7 @@ export default function Page() {
                 Want to chat? Message on{" "}
                 <Link
                   href={DATA.contact?.social?.WhatsApp?.url ?? "#"}
-                  className="text-blue-500 hover:underline"
+                  className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground transition-colors font-medium"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -205,7 +205,7 @@ export default function Page() {
                 , connect on{" "}
                 <Link
                   href={DATA.contact?.social?.LinkedIn?.url ?? "#"}
-                  className="text-blue-500 hover:underline"
+                  className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground transition-colors font-medium"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

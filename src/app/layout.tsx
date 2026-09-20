@@ -67,7 +67,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="overflow-x-clip">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased max-w-2xl mx-auto pt-20 sm:pt-24 pb-24 sm:pb-32 px-6 overflow-x-clip",
+          "min-h-screen bg-background font-sans antialiased pt-20 sm:pt-24 pb-24 sm:pb-32 overflow-x-clip",
           fontSans.variable,
           fontSerif.variable
         )}
@@ -79,7 +79,7 @@ export default function RootLayout({
               <SpiderBackground3D />
               <DesktopSpideySides />
               <TopNav />
-              <div className="relative z-10 w-full max-w-2xl mx-auto">
+              <div className="relative z-10 w-full max-w-2xl mx-auto px-6">
                 {children}
               </div>
               <Navbar />

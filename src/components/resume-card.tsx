@@ -51,15 +51,15 @@ export const ResumeCard = ({
   };
 
   const card = (
-    <Card className="flex">
-      <div className="flex-none">
-        <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
+    <Card className="flex items-start p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-card border-[0.5px] border-black/[0.05] dark:border-white/[0.06] shadow-none transition-colors duration-200">
+      <div className="flex-none pt-0.5">
+        <Avatar className="border-[0.5px] border-black/[0.05] dark:border-white/[0.06] size-11 sm:size-12 m-auto bg-muted dark:bg-foreground">
           <AvatarImage src={logoUrl} alt={altText} className="object-contain" />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="min-w-0 flex-grow ml-4 flex-col group">
-        <CardHeader>
+      <div className="min-w-0 flex-grow ml-3 sm:ml-4 flex-col group">
+        <CardHeader className="p-0 space-y-1">
           <div className="flex items-center justify-between gap-x-2 text-base">
             <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">
               {title}
@@ -130,7 +130,7 @@ export const ResumeCard = ({
         role="button"
         tabIndex={0}
         aria-expanded={isExpanded}
-        className="block cursor-pointer rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="block cursor-pointer rounded-xl sm:rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         onClick={() => setIsExpanded((v) => !v)}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -145,7 +145,7 @@ export const ResumeCard = ({
   }
 
   return (
-    <Link href={href || "#"} className="block cursor-pointer rounded-xl">
+    <Link href={href || "#"} className="block cursor-pointer rounded-xl sm:rounded-2xl">
       {card}
     </Link>
   );

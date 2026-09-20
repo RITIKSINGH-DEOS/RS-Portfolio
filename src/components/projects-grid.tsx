@@ -68,7 +68,7 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
                         scale: 1.12,
                         zIndex: 40,
                         opacity: 1,
-                        filter: "blur(0px)",
+                        filter: "none",
                       }
                     : isOtherHovered
                     ? {
@@ -81,13 +81,13 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
                         scale: 1,
                         zIndex: 1,
                         opacity: 1,
-                        filter: "blur(0px)",
+                        filter: "none",
                       }
                   : {
                       scale: 1,
                       zIndex: 1,
                       opacity: 1,
-                      filter: "blur(0px)",
+                      filter: "none",
                     }
               }
               transition={{
