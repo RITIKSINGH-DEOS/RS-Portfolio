@@ -44,10 +44,10 @@ export function TopNav() {
             />
           </div>
           <span className="text-xs sm:text-[13px] font-medium text-neutral-800 dark:text-neutral-200 whitespace-nowrap">
-            New Delhi, India
-          </span>
-          <span className="text-[10px] font-bold text-neutral-500 dark:text-neutral-400 tracking-wider uppercase">
-            IN
+            Lucknow, India{" "}
+            <span className="text-[10px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase">
+              IN
+            </span>
           </span>
         </div>
       </Link>
