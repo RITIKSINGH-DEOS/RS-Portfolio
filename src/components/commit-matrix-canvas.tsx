@@ -444,16 +444,6 @@ export function CommitMatrixCanvas() {
         className="block w-full h-full cursor-crosshair"
       />
 
-      {/* Futuristic Spider-Sense HUD Micro-Pill */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-0.5 rounded-full border border-red-500/20 dark:border-red-500/25 bg-background/70 dark:bg-zinc-900/70 backdrop-blur-md text-[10px] tracking-widest font-mono text-muted-foreground/80 select-none pointer-events-none shadow-sm transition-opacity duration-300 group-hover:opacity-100 opacity-70">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500"></span>
-        </span>
-        <span className="text-foreground/80 font-medium">SPIDER-SENSE MATRIX</span>
-        <span className="text-red-500/40">/</span>
-        <span className="text-blue-500 dark:text-blue-400 font-medium">INTERACTIVE</span>
-      </div>
     </div>
   );
 }
