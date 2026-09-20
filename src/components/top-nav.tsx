@@ -22,7 +22,7 @@ export function TopNav() {
       {/* ============================================================ */}
       <Link href="/" className="group focus:outline-none" aria-label="Home">
         {/* Mobile View: Squircle Avatar Only (< sm) */}
-        <div className="sm:hidden size-9 rounded-xl overflow-hidden border border-neutral-300/70 dark:border-neutral-800/90 bg-white/80 dark:bg-neutral-900/90 p-0.5 shadow-sm group-hover:scale-105 transition-transform">
+        <div className="sm:hidden size-9 rounded-xl overflow-hidden border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl p-0.5 shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] group-hover:scale-105 transition-all">
           <Image
             src={DATA.avatarUrl}
             alt={DATA.name}
@@ -33,8 +33,8 @@ export function TopNav() {
         </div>
 
         {/* Desktop View: Pill with Avatar + Location (>= sm) */}
-        <div className="hidden sm:flex items-center gap-2.5 rounded-full border border-neutral-300/70 dark:border-neutral-800/90 bg-white/80 dark:bg-neutral-900/90 backdrop-blur-md p-1 pr-3.5 shadow-sm group-hover:border-neutral-400 dark:group-hover:border-neutral-700 transition-colors">
-          <div className="size-7 rounded-full overflow-hidden border border-neutral-200 dark:border-white/10 shrink-0">
+        <div className="hidden sm:flex items-center gap-2.5 rounded-full border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl p-1 pr-3.5 shadow-[0_4px_20px_rgba(220,38,38,0.3),0_0_15px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.5),0_0_20px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all">
+          <div className="size-7 rounded-full overflow-hidden border border-red-500/30 dark:border-blue-500/30 shrink-0">
             <Image
               src={DATA.avatarUrl}
               alt={DATA.name}
@@ -43,9 +43,9 @@ export function TopNav() {
               className="size-full object-cover"
             />
           </div>
-          <span className="text-xs sm:text-[13px] font-medium text-neutral-800 dark:text-neutral-200 whitespace-nowrap">
+          <span className="text-xs sm:text-[13px] font-medium text-foreground/90 whitespace-nowrap">
             Lucknow, India{" "}
-            <span className="text-[10px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase">
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase">
               IN
             </span>
           </span>
@@ -57,13 +57,13 @@ export function TopNav() {
       {/* ============================================================ */}
       <div className="flex items-center gap-2 sm:gap-2.5">
         {/* Desktop View: Resume & Linkedin Pill (>= sm) */}
-        <div className="hidden sm:flex items-center gap-4 rounded-full border border-neutral-300/70 dark:border-neutral-800/90 bg-white/80 dark:bg-neutral-900/90 backdrop-blur-md px-4 py-1.5 shadow-sm text-xs sm:text-[13px]">
+        <div className="hidden sm:flex items-center gap-4 rounded-full border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl px-4 py-1.5 shadow-[0_4px_20px_rgba(220,38,38,0.3),0_0_15px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_28px_rgba(220,38,38,0.5),0_0_20px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all text-xs sm:text-[13px]">
           <a
             href="/resume.pdf"
             download="Ritik_Singh_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
+            className="font-medium text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
           >
             Resume
           </a>
@@ -71,7 +71,7 @@ export function TopNav() {
             href={DATA.contact.social.LinkedIn.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
+            className="font-medium text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 transition-colors cursor-pointer"
           >
             Linkedin
           </a>
@@ -81,20 +81,20 @@ export function TopNav() {
         <button
           type="button"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="size-9 rounded-xl border border-neutral-300/70 dark:border-neutral-800/90 bg-white/80 dark:bg-neutral-900/90 flex items-center justify-center text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/90 transition-all shadow-sm focus:outline-none cursor-pointer"
+          className="size-9 rounded-xl border border-red-500/40 dark:border-blue-500/40 bg-background/85 backdrop-blur-xl flex items-center justify-center text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all focus:outline-none cursor-pointer"
           aria-label="Toggle theme"
         >
           {mounted && theme === "light" ? (
-            <MoonIcon className="size-4 text-neutral-800 transition-transform" />
+            <MoonIcon className="size-4 text-blue-600 dark:text-blue-400 transition-transform" />
           ) : (
-            <SunIcon className="size-4 text-neutral-200 transition-transform" />
+            <SunIcon className="size-4 text-amber-500 dark:text-blue-400 transition-transform" />
           )}
         </button>
 
         {/* Call Button (Mobile & Desktop) */}
         <a
           href={`tel:${DATA.contact.tel}`}
-          className="h-9 px-4 sm:px-5 rounded-xl bg-foreground text-background font-semibold text-xs sm:text-sm flex items-center justify-center shadow-sm hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer select-none"
+          className="h-9 px-4 sm:px-5 rounded-xl bg-foreground text-background font-semibold text-xs sm:text-sm flex items-center justify-center border border-red-500/40 dark:border-blue-500/40 shadow-[0_4px_20px_rgba(220,38,38,0.35),0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_8px_30px_rgba(220,38,38,0.55),0_0_22px_rgba(37,99,235,0.45)] hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer select-none"
           title={`Call ${DATA.contact.tel}`}
           aria-label="Call Ritik"
         >
