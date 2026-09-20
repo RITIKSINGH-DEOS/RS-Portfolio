@@ -186,16 +186,16 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 /* Modern Firefox standard */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #dc2626 rgba(15, 23, 42, 0.08);
+  scrollbar-color: #dc2626 transparent;
 }
 
 .dark * {
-  scrollbar-color: #ef4444 rgba(15, 23, 42, 0.45);
+  scrollbar-color: #ef4444 transparent;
 }
 
-/* Chrome, Edge, Safari, Opera (Webkit) - Vertical only */
+/* Chrome, Edge, Safari, Opera (Webkit) - Ultra-thin Vertical only */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 4px;
 }
 
 /* Hide and remove horizontal scrollbar completely */
@@ -206,13 +206,11 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.05);
-  border-radius: 9999px;
+  background: transparent;
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  background: transparent;
 }
 
 /* Remove default Windows arrows */
@@ -222,23 +220,21 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   height: 0;
 }
 
-/* Spider-Man Red & Blue Gradient Thumb */
+/* Spider-Man Red & Blue Gradient Thumb - Ultra Thin Micro-Filament */
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #dc2626 0%, #2563eb 50%, #dc2626 100%);
   border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  box-shadow: 0 0 10px rgba(220, 38, 38, 0.45);
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);
 }
 
 .dark ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #ef4444 0%, #3b82f6 50%, #ef4444 100%);
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), 0 0 6px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #f87171 0%, #60a5fa 50%, #f87171 100%);
-  box-shadow: 0 0 18px rgba(239, 68, 68, 0.9), 0 0 10px rgba(59, 130, 246, 0.8);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
 }
 
 ::-webkit-scrollbar-corner {
@@ -276,4 +272,29 @@ html.theme-transitioning *::after {
   ::view-transition-new(root) {
     animation: none !important;
   }
-}
+}
+
+/* ============================================================ */
+/* LENIS SMOOTH MOMENTUM SCROLLING                             */
+/* ============================================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+

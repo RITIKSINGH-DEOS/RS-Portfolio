@@ -1,5 +1,7 @@
 import { DesktopSpideySides } from "@/components/desktop-spidey-sides";
 import Navbar from "@/components/navbar";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { SpiderBackground3D } from "@/components/spider-background-3d";
 import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -63,14 +65,17 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>
           <TooltipProvider delayDuration={0}>
-            <SpiderBackground3D />
-            <DesktopSpideySides />
-            <div className="relative z-10 w-full max-w-2xl mx-auto">
-              <TopNav />
-              {children}
-            </div>
-            <Navbar />
-            <SpiderCanvas />
+            <SmoothScrollProvider>
+              <SpiderBackground3D />
+              <DesktopSpideySides />
+              <div className="relative z-10 w-full max-w-2xl mx-auto">
+                <TopNav />
+                {children}
+              </div>
+              <Navbar />
+              <ScrollToTop />
+              <SpiderCanvas />
+            </SmoothScrollProvider>
           </TooltipProvider>
         </ThemeProvider>
       </body>
