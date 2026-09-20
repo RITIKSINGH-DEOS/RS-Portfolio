@@ -2,8 +2,8 @@ import { DesktopSpideySides } from "@/components/desktop-spidey-sides";
 import Navbar from "@/components/navbar";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
-import { SpiderBackground3D } from "@/components/spider-background-3d";
 import { DottedCanvas } from "@/components/dotted-canvas";
+import { ShootingStars } from "@/components/shooting-stars";
 import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TopNav } from "@/components/top-nav";
@@ -76,7 +76,7 @@ export default function RootLayout({
           <TooltipProvider delayDuration={0}>
             <SmoothScrollProvider>
               <DottedCanvas />
-              <SpiderBackground3D />
+              <ShootingStars />
               <DesktopSpideySides />
               <TopNav />
               <div className="relative z-10 w-full max-w-2xl mx-auto px-6">

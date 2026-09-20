@@ -295,4 +295,36 @@ html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* ============================================================ */
+/* SHOOTING STARS / METEOR ANIMATION                           */
+/* ============================================================ */
+@keyframes meteor-drift {
+  0% {
+    transform: translate(0, 0) rotate(var(--meteor-angle, 22.6deg));
+    opacity: 0;
+  }
+  8%, 85% {
+    opacity: var(--meteor-opacity, 0.4);
+  }
+  100% {
+    transform: translate(var(--meteor-dx, 1480px), var(--meteor-dy, 615px)) rotate(var(--meteor-angle, 22.6deg));
+    opacity: 0;
+  }
+}
+
+.meteor {
+  will-change: transform, opacity;
+  animation-name: meteor-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meteor {
+    animation: none !important;
+    display: none !important;
+  }
+}
+
 
