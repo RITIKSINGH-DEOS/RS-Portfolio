@@ -9,8 +9,43 @@ export function useThemeTransition() {
   const isTransitioningRef = useRef(false);
 
   const toggleTheme = useCallback(
-    async (eventOrElement?: React.MouseEvent | HTMLElement | null) => {
+    async (eventOrElement?: React.MouseEvent | React.TouchEvent | HTMLElement | Element | null) => {
       if (isTransitioningRef.current) return;
+
+      // 1. SYNCHRONOUSLY capture target element and screen coordinates BEFORE any async await or ViewTransition!
+      let x = window.innerWidth / 2;
+      let y = window.innerHeight / 2;
+
+      let element: Element | null = null;
+
+      if (eventOrElement) {
+        if (eventOrElement instanceof Element) {
+          element = eventOrElement;
+        } else if ("currentTarget" in eventOrElement && eventOrElement.currentTarget instanceof Element) {
+          element = eventOrElement.currentTarget;
+        } else if ("target" in eventOrElement && eventOrElement.target instanceof Element) {
+          element = eventOrElement.target;
+        }
+      }
+
+      // If clicked element is inside a button (e.g. svg, path, span), find the button
+      const button = element ? (element.closest("button") || element) : null;
+
+      if (button) {
+        const rect = button.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          x = rect.left + rect.width / 2;
+          y = rect.top + rect.height / 2;
+        }
+      } else if (
+        eventOrElement &&
+        "clientX" in eventOrElement &&
+        typeof eventOrElement.clientX === "number" &&
+        (eventOrElement.clientX > 0 || eventOrElement.clientY > 0)
+      ) {
+        x = eventOrElement.clientX;
+        y = eventOrElement.clientY;
+      }
 
       const currentTheme = resolvedTheme || theme || "light";
       const nextTheme = currentTheme === "dark" ? "light" : "dark";
@@ -22,26 +57,6 @@ export function useThemeTransition() {
       ) {
         setTheme(nextTheme);
         return;
-      }
-
-      // Extract target button or coordinates from click event or passed element
-      let target: HTMLElement | null = null;
-      let clientX: number | null = null;
-      let clientY: number | null = null;
-
-      if (eventOrElement) {
-        if ("currentTarget" in eventOrElement && eventOrElement.currentTarget instanceof HTMLElement) {
-          target = eventOrElement.currentTarget;
-        } else if ("target" in eventOrElement && eventOrElement.target instanceof HTMLElement) {
-          target = eventOrElement.target;
-        } else if (eventOrElement instanceof HTMLElement) {
-          target = eventOrElement;
-        }
-
-        if ("clientX" in eventOrElement && typeof eventOrElement.clientX === "number") {
-          clientX = eventOrElement.clientX;
-          clientY = eventOrElement.clientY;
-        }
       }
 
       isTransitioningRef.current = true;
@@ -63,20 +78,7 @@ export function useThemeTransition() {
 
         await transition.ready;
 
-        // Calculate origin x and y (center of the clicked button)
-        let x = window.innerWidth / 2;
-        let y = window.innerHeight / 2;
-
-        if (target) {
-          const rect = target.getBoundingClientRect();
-          x = rect.left + rect.width / 2;
-          y = rect.top + rect.height / 2;
-        } else if (clientX !== null && clientY !== null) {
-          x = clientX;
-          y = clientY;
-        }
-
-        // Calculates the radius of circle that can cover the screen
+        // Calculates the radius of circle that can cover the screen from the exact button coordinates
         const right = window.innerWidth - x;
         const bottom = window.innerHeight - y;
         const maxRadius = Math.hypot(
