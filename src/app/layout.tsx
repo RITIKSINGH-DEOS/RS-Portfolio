@@ -6,6 +6,7 @@ import { SpiderBackground3D } from "@/components/spider-background-3d";
 import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TopNav } from "@/components/top-nav";
+import { RoundedCanvasFrame } from "@/components/rounded-canvas-frame";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -82,6 +83,7 @@ export default function RootLayout({
               <Navbar />
               <ScrollToTop />
               <SpiderCanvas />
+              <RoundedCanvasFrame />
             </SmoothScrollProvider>
           </TooltipProvider>
         </ThemeProvider>

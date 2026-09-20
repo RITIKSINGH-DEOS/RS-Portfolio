@@ -183,19 +183,17 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 /* ========================================================
    SPIDER-MAN THEMED CUSTOM SCROLLBAR
    ======================================================== */
-/* Modern Firefox standard */
+/* Modern Firefox & Chromium standard: Hide native window scrollbar for seamless framed canvas */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #dc2626 transparent;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
-.dark * {
-  scrollbar-color: #ef4444 transparent;
-}
-
-/* Chrome, Edge, Safari, Opera (Webkit) - Ultra-thin Vertical only */
+/* Chrome, Edge, Safari, Opera (Webkit) - Seamless bezel */
 ::-webkit-scrollbar {
-  width: 4px;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Hide and remove horizontal scrollbar completely */
