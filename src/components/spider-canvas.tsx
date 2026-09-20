@@ -68,18 +68,20 @@ export function SpiderCanvas() {
     // Eye glow pulse
     let eyePulse = 0;
 
-    // Initialize 8 legs (4 on left, 4 on right)
+    // Initialize 8 legs (4 on left, 4 on right) with compact miniature scaling
+    const SPIDER_SCALE = 0.58;
+
     const legConfigs = [
       // Left side: side = -1, group alternates
-      { angleOffset: -0.55, reach: 36, baseOffsetX: 4, baseOffsetY: -6, group: 0, side: -1, l1: 17, l2: 21 },
-      { angleOffset: -1.15, reach: 33, baseOffsetX: 1, baseOffsetY: -7, group: 1, side: -1, l1: 16, l2: 19 },
-      { angleOffset: -1.95, reach: 34, baseOffsetX: -3, baseOffsetY: -7, group: 0, side: -1, l1: 17, l2: 20 },
-      { angleOffset: -2.55, reach: 40, baseOffsetX: -6, baseOffsetY: -6, group: 1, side: -1, l1: 19, l2: 23 },
+      { angleOffset: -0.55, reach: 36 * SPIDER_SCALE, baseOffsetX: 4 * SPIDER_SCALE, baseOffsetY: -6 * SPIDER_SCALE, group: 0, side: -1, l1: 17 * SPIDER_SCALE, l2: 21 * SPIDER_SCALE },
+      { angleOffset: -1.15, reach: 33 * SPIDER_SCALE, baseOffsetX: 1 * SPIDER_SCALE, baseOffsetY: -7 * SPIDER_SCALE, group: 1, side: -1, l1: 16 * SPIDER_SCALE, l2: 19 * SPIDER_SCALE },
+      { angleOffset: -1.95, reach: 34 * SPIDER_SCALE, baseOffsetX: -3 * SPIDER_SCALE, baseOffsetY: -7 * SPIDER_SCALE, group: 0, side: -1, l1: 17 * SPIDER_SCALE, l2: 20 * SPIDER_SCALE },
+      { angleOffset: -2.55, reach: 40 * SPIDER_SCALE, baseOffsetX: -6 * SPIDER_SCALE, baseOffsetY: -6 * SPIDER_SCALE, group: 1, side: -1, l1: 19 * SPIDER_SCALE, l2: 23 * SPIDER_SCALE },
       // Right side: side = 1
-      { angleOffset: 0.55, reach: 36, baseOffsetX: 4, baseOffsetY: 6, group: 1, side: 1, l1: 17, l2: 21 },
-      { angleOffset: 1.15, reach: 33, baseOffsetX: 1, baseOffsetY: 7, group: 0, side: 1, l1: 16, l2: 19 },
-      { angleOffset: 1.95, reach: 34, baseOffsetX: -3, baseOffsetY: 7, group: 1, side: 1, l1: 17, l2: 20 },
-      { angleOffset: 2.55, reach: 40, baseOffsetX: -6, baseOffsetY: 6, group: 0, side: 1, l1: 19, l2: 23 },
+      { angleOffset: 0.55, reach: 36 * SPIDER_SCALE, baseOffsetX: 4 * SPIDER_SCALE, baseOffsetY: 6 * SPIDER_SCALE, group: 1, side: 1, l1: 17 * SPIDER_SCALE, l2: 21 * SPIDER_SCALE },
+      { angleOffset: 1.15, reach: 33 * SPIDER_SCALE, baseOffsetX: 1 * SPIDER_SCALE, baseOffsetY: 7 * SPIDER_SCALE, group: 0, side: 1, l1: 16 * SPIDER_SCALE, l2: 19 * SPIDER_SCALE },
+      { angleOffset: 1.95, reach: 34 * SPIDER_SCALE, baseOffsetX: -3 * SPIDER_SCALE, baseOffsetY: 7 * SPIDER_SCALE, group: 1, side: 1, l1: 17 * SPIDER_SCALE, l2: 20 * SPIDER_SCALE },
+      { angleOffset: 2.55, reach: 40 * SPIDER_SCALE, baseOffsetX: -6 * SPIDER_SCALE, baseOffsetY: 6 * SPIDER_SCALE, group: 0, side: 1, l1: 19 * SPIDER_SCALE, l2: 23 * SPIDER_SCALE },
     ];
 
     const legs: LegState[] = legConfigs.map((cfg) => {
@@ -135,10 +137,10 @@ export function SpiderCanvas() {
       // Determine target position
       let targetX = mouseX;
       let targetY = mouseY;
-      let stopDistance = 35;
+      let stopDistance = 22;
 
       if (!mouseActive) {
-        stopDistance = 45;
+        stopDistance = 28;
         if (wanderPauseTimer > 0) {
           wanderPauseTimer--;
           targetX = x;
@@ -191,8 +193,8 @@ export function SpiderCanvas() {
       // Add silk thread point occasionally
       trailTimer++;
       if (trailTimer % 4 === 0 && speed > 0.5) {
-        const rearX = x - Math.cos(angle) * 12;
-        const rearY = y - Math.sin(angle) * 12;
+        const rearX = x - Math.cos(angle) * (12 * SPIDER_SCALE);
+        const rearY = y - Math.sin(angle) * (12 * SPIDER_SCALE);
         trail.push({ x: rearX, y: rearY, opacity: 0.35 });
         if (trail.length > 40) trail.shift();
       }
@@ -205,8 +207,8 @@ export function SpiderCanvas() {
         for (let i = 1; i < trail.length; i++) {
           ctx.lineTo(trail[i].x, trail[i].y);
         }
-        const rearX = x - Math.cos(angle) * 12;
-        const rearY = y - Math.sin(angle) * 12;
+        const rearX = x - Math.cos(angle) * (12 * SPIDER_SCALE);
+        const rearY = y - Math.sin(angle) * (12 * SPIDER_SCALE);
         ctx.lineTo(rearX, rearY);
 
         ctx.strokeStyle = isDark
@@ -237,7 +239,7 @@ export function SpiderCanvas() {
         const footDist = Math.hypot(idealX - leg.currentX, idealY - leg.currentY);
 
         // Check if leg should step
-        if (!leg.isStepping && footDist > 16 && leg.group === activeGroup) {
+        if (!leg.isStepping && footDist > (16 * SPIDER_SCALE) && leg.group === activeGroup) {
           leg.isStepping = true;
           leg.stepStartX = leg.currentX;
           leg.stepStartY = leg.currentY;
@@ -299,7 +301,7 @@ export function SpiderCanvas() {
         // Leg lift curve during stepping
         let liftY = 0;
         if (leg.isStepping) {
-          liftY = Math.sin(leg.progress * Math.PI) * 4;
+          liftY = Math.sin(leg.progress * Math.PI) * 2.5;
         }
 
         // Upper Leg Segment: Spider-Man Royal Blue
@@ -307,7 +309,7 @@ export function SpiderCanvas() {
         ctx.moveTo(baseX, baseY);
         ctx.lineTo(kneeX, kneeY - liftY);
         ctx.strokeStyle = spideyBlue;
-        ctx.lineWidth = 2.4;
+        ctx.lineWidth = 1.6;
         ctx.lineCap = "round";
         ctx.stroke();
 
@@ -316,19 +318,19 @@ export function SpiderCanvas() {
         ctx.moveTo(kneeX, kneeY - liftY);
         ctx.lineTo(footX, footY);
         ctx.strokeStyle = spideyRed;
-        ctx.lineWidth = 1.6;
+        ctx.lineWidth = 1.1;
         ctx.lineCap = "round";
         ctx.stroke();
 
         // Knee joint accent ring (Black webbing suit joint)
         ctx.beginPath();
-        ctx.arc(kneeX, kneeY - liftY, 1.6, 0, Math.PI * 2);
+        ctx.arc(kneeX, kneeY - liftY, 1.1, 0, Math.PI * 2);
         ctx.fillStyle = "#09090b";
         ctx.fill();
 
         // Foot claw tip (Dark red)
         ctx.beginPath();
-        ctx.arc(footX, footY, 1.1, 0, Math.PI * 2);
+        ctx.arc(footX, footY, 0.8, 0, Math.PI * 2);
         ctx.fillStyle = spideyDarkRed;
         ctx.fill();
       });
@@ -336,6 +338,7 @@ export function SpiderCanvas() {
       // Draw Spider-Man Body (Cephalothorax + Abdomen)
       ctx.translate(x, y);
       ctx.rotate(angle);
+      ctx.scale(SPIDER_SCALE, SPIDER_SCALE);
 
       // Abdomen (rear body) - Classic Royal Blue base
       ctx.beginPath();
