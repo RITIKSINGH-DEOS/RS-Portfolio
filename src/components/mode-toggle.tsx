@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { useTheme } from "next-themes";
+import { useThemeTransition } from "@/hooks/use-theme-transition";
 import React from "react";
 
 export const ModeToggle = React.forwardRef<
   HTMLButtonElement,
   React.ComponentPropsWithoutRef<typeof Button>
 >((props, ref) => {
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeTransition();
 
   return (
     <Button
@@ -18,7 +18,7 @@ export const ModeToggle = React.forwardRef<
       type="button"
       size="icon"
       className="size-10 relative flex items-center justify-center rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-[color,background-color,box-shadow] duration-200"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={toggleTheme}
       aria-label="Toggle theme"
       {...props}
     >

@@ -61,7 +61,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={false}>
+        <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>
           <TooltipProvider delayDuration={0}>
             <SpiderBackground3D />
             <DesktopSpideySides />
