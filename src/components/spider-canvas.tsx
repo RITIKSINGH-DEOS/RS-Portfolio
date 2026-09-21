@@ -31,11 +31,6 @@ export function SpiderCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Only run Spider on desktop screens with a mouse/fine pointer
-    const isDesktop =
-      window.matchMedia("(pointer: fine) and (min-width: 768px)").matches;
-    if (!isDesktop) return;
-
     let animId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
@@ -127,9 +122,9 @@ export function SpiderCanvas() {
       isMouseOnScreen = false;
     };
 
-    window.addEventListener("mousemove", onPointerMove);
-    window.addEventListener("touchstart", onPointerMove);
-    window.addEventListener("touchmove", onPointerMove);
+    window.addEventListener("mousemove", onPointerMove, { passive: true });
+    window.addEventListener("touchstart", onPointerMove, { passive: true });
+    window.addEventListener("touchmove", onPointerMove, { passive: true });
     window.addEventListener("mouseleave", onPointerLeave);
 
     // Main animation loop
@@ -458,7 +453,7 @@ export function SpiderCanvas() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-40 h-full w-full select-none hidden md:block"
+      className="pointer-events-none fixed inset-0 z-40 h-full w-full select-none block"
     />
   );
 }
