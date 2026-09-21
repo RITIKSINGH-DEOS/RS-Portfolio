@@ -69,8 +69,10 @@ export function CommitMatrixCanvas() {
     const initCanvas = () => {
       const isDark = document.documentElement.classList.contains("dark");
       const dpr = window.devicePixelRatio || 1;
-      const width = container.clientWidth;
+      const width = container.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 300);
       const height = container.clientHeight || 155;
+
+      if (width <= 0 || height <= 0) return;
 
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -82,11 +84,16 @@ export function CommitMatrixCanvas() {
       const cols = Math.ceil(width / step);
       const rows = Math.ceil(height / step);
 
+      if (cols <= 0 || rows <= 0) return;
+
       // Create static background grid on offscreen canvas
-      offscreenCanvas = document.createElement("canvas");
-      offscreenCanvas.width = canvas.width;
-      offscreenCanvas.height = canvas.height;
-      const offCtx = offscreenCanvas.getContext("2d");
+      const off = document.createElement("canvas");
+      off.width = canvas.width;
+      off.height = canvas.height;
+
+      if (off.width <= 0 || off.height <= 0) return;
+
+      const offCtx = off.getContext("2d");
 
       if (offCtx) {
         offCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -100,6 +107,8 @@ export function CommitMatrixCanvas() {
           }
         }
       }
+
+      offscreenCanvas = off;
 
       // Generate active blinking commit cells
       activeCells = [];
@@ -152,13 +161,18 @@ export function CommitMatrixCanvas() {
     };
 
     const draw = (currentTime: number) => {
+      if (!canvas || canvas.width <= 0 || canvas.height <= 0) return;
+      if (!offscreenCanvas || offscreenCanvas.width <= 0 || offscreenCanvas.height <= 0) return;
+
       const ctx = canvas.getContext("2d");
-      if (!ctx || !offscreenCanvas) return;
+      if (!ctx) return;
 
       const dpr = window.devicePixelRatio || 1;
-      const width = container.clientWidth;
+      const width = container.clientWidth || (canvas.width / dpr);
       const height = container.clientHeight || 155;
       const isDark = document.documentElement.classList.contains("dark");
+
+      if (width <= 0 || height <= 0) return;
 
       const dt = lastTimestamp ? Math.min((currentTime - lastTimestamp) / 1000, 0.1) : 0.016;
       lastTimestamp = currentTime;
@@ -179,7 +193,9 @@ export function CommitMatrixCanvas() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw offscreen static base grid
-      ctx.drawImage(offscreenCanvas, 0, 0);
+      if (offscreenCanvas.width > 0 && offscreenCanvas.height > 0) {
+        ctx.drawImage(offscreenCanvas, 0, 0);
+      }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const tSec = currentTime / 1000;
