@@ -3,6 +3,7 @@ import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Interactive3DName } from "@/components/interactive-3d-name";
 import { CommitMatrixCanvas } from "@/components/commit-matrix-canvas";
 import { GithubContributions } from "@/components/github-contributions";
+import { ContactCard } from "@/components/contact-card";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectsGrid } from "@/components/projects-grid";
 import { ResumeCard } from "@/components/resume-card";
@@ -198,41 +199,9 @@ export default function Page() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="w-full">
+      <section id="contact" className="w-full pt-2 pb-6">
         <BlurFade delay={0.16} inView>
-          <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
-            <div className="space-y-3">
-              <div className="flex flex-col items-center gap-2">
-                <div className="inline-flex items-center justify-center rounded-lg bg-foreground text-background w-20 py-1 text-sm">
-                  Contact
-                </div>
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.1]">
-                Get in Touch
-              </h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Message on{" "}
-                <Link
-                  href={DATA.contact?.social?.WhatsApp?.url ?? "#"}
-                  className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground transition-colors font-medium"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  WhatsApp
-                </Link>
-                , connect on{" "}
-                <Link
-                  href={DATA.contact?.social?.LinkedIn?.url ?? "#"}
-                  className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground transition-colors font-medium"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </Link>
-               , and I&apos;ll respond as soon as I can.
-              </p>
-            </div>
-          </div>
+          <ContactCard />
         </BlurFade>
       </section>
     </main>
