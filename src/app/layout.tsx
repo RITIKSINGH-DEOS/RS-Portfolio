@@ -81,6 +81,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="overflow-x-clip">
       <body
+        suppressHydrationWarning
         className={cn(
           "min-h-screen bg-background font-sans antialiased pt-20 sm:pt-24 pb-24 sm:pb-32 overflow-x-clip",
           fontSans.variable,
