@@ -17,19 +17,35 @@ export function ClickShockwave() {
   const isRunningRef = useRef(false);
 
   useEffect(() => {
+    // Only run on desktop devices with fine pointer (disabled on mobile)
+    const isDesktop =
+      window.matchMedia("(pointer: fine) and (min-width: 768px)").matches;
+    if (!isDesktop) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animId: number;
+    let lastW = 0;
+    let lastH = 0;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.floor(window.innerWidth * dpr);
-      canvas.height = Math.floor(window.innerHeight * dpr);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      // On mobile scroll, address bar causes minor height changes (<120px). Do not thrash canvas buffer.
+      if (lastW > 0 && Math.abs(w - lastW) < 10 && Math.abs(h - lastH) < 120) {
+        return;
+      }
+      lastW = w;
+      lastH = h;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
@@ -76,9 +92,12 @@ export function ClickShockwave() {
       }
     };
 
-    const handleClick = (e: MouseEvent | TouchEvent) => {
-      const clientX = "clientX" in e ? e.clientX : e.touches?.[0]?.clientX;
-      const clientY = "clientY" in e ? e.clientY : e.touches?.[0]?.clientY;
+    const handleClick = (e: MouseEvent | TouchEvent | PointerEvent) => {
+      if ("pointerType" in e && e.pointerType === "touch") return;
+      if (window.innerWidth < 768) return;
+
+      const clientX = "clientX" in e ? e.clientX : (e as TouchEvent).touches?.[0]?.clientX;
+      const clientY = "clientY" in e ? e.clientY : (e as TouchEvent).touches?.[0]?.clientY;
       if (clientX === undefined || clientY === undefined) return;
 
       shockwavesRef.current.push({
@@ -96,11 +115,11 @@ export function ClickShockwave() {
       }
     };
 
-    window.addEventListener("pointerdown", handleClick, { passive: true });
+    window.addEventListener("pointerdown", handleClick as EventListener, { passive: true });
 
     return () => {
       window.removeEventListener("resize", resize);
-      window.removeEventListener("pointerdown", handleClick);
+      window.removeEventListener("pointerdown", handleClick as EventListener);
       cancelAnimationFrame(animId);
     };
   }, []);
@@ -109,7 +128,7 @@ export function ClickShockwave() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[42] select-none"
+      className="pointer-events-none fixed inset-0 z-[42] select-none hidden md:block"
     />
   );
 }

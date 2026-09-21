@@ -223,7 +223,7 @@ export function GithubContributions() {
     const setupCanvas = (countNumber: number) => {
       currentNumberRendered = countNumber;
       const isDark = document.documentElement.classList.contains("dark");
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
       canvas.width = Math.floor(canvasWidth * dpr);
       canvas.height = Math.floor(canvasHeight * dpr);
@@ -651,10 +651,33 @@ export function GithubContributions() {
       ctx.globalAlpha = 1;
     };
 
+    let isVisible = true;
+
     const loop = (timestamp: number) => {
+      if (!isMounted || !isVisible) return;
       animId = requestAnimationFrame(loop);
       draw(timestamp);
     };
+
+    const container = containerRef.current;
+    let intersectionObserver: IntersectionObserver | null = null;
+    if (container) {
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            isVisible = entry.isIntersecting;
+            if (isVisible && isMounted) {
+              cancelAnimationFrame(animId);
+              animId = requestAnimationFrame(loop);
+            } else {
+              cancelAnimationFrame(animId);
+            }
+          }
+        },
+        { threshold: 0.05 }
+      );
+      intersectionObserver.observe(container);
+    }
 
     // Load initial contributions
     async function loadData() {
@@ -667,13 +690,17 @@ export function GithubContributions() {
           setTotalContributions(count);
           totalCountRef.current = count;
           setupCanvas(count);
-          animId = requestAnimationFrame(loop);
+          if (isVisible) {
+            animId = requestAnimationFrame(loop);
+          }
         }
       } catch (e) {
         console.error("Error loading GitHub contributions:", e);
         if (isMounted) {
           setupCanvas(192);
-          animId = requestAnimationFrame(loop);
+          if (isVisible) {
+            animId = requestAnimationFrame(loop);
+          }
         }
       }
     }
@@ -691,6 +718,7 @@ export function GithubContributions() {
     return () => {
       isMounted = false;
       cancelAnimationFrame(animId);
+      intersectionObserver?.disconnect();
       themeObserver.disconnect();
     };
   }, []);
@@ -744,7 +772,7 @@ export function GithubContributions() {
           onPointerMove={handlePointerMove}
           onPointerLeave={handlePointerLeave}
           onPointerDown={handlePointerDown}
-          className="block"
+          className="block max-w-full h-auto"
         />
       </div>
 

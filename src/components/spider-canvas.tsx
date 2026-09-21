@@ -31,12 +31,18 @@ export function SpiderCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Only run Spider on desktop screens with a mouse/fine pointer
+    const isDesktop =
+      window.matchMedia("(pointer: fine) and (min-width: 768px)").matches;
+    if (!isDesktop) return;
+
     let animId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
     const handleResize = () => {
       if (!canvas) return;
+      if (Math.abs(window.innerWidth - width) < 20 && Math.abs(window.innerHeight - height) < 100) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
@@ -452,7 +458,7 @@ export function SpiderCanvas() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-40 h-full w-full select-none"
+      className="pointer-events-none fixed inset-0 z-40 h-full w-full select-none hidden md:block"
     />
   );
 }

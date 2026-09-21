@@ -68,7 +68,7 @@ export function CommitMatrixCanvas() {
 
     const initCanvas = () => {
       const isDark = document.documentElement.classList.contains("dark");
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const width = container.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 300);
       const height = container.clientHeight || 155;
 
@@ -373,7 +373,10 @@ export function CommitMatrixCanvas() {
       ctx.globalAlpha = 1;
     };
 
+    let isVisible = true;
+
     const loop = (timestamp: number) => {
+      if (!isVisible) return;
       animId = requestAnimationFrame(loop);
       draw(timestamp);
     };
@@ -381,8 +384,30 @@ export function CommitMatrixCanvas() {
     initCanvas();
     animId = requestAnimationFrame(loop);
 
-    const resizeObserver = new ResizeObserver(() => {
-      initCanvas();
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          cancelAnimationFrame(animId);
+          animId = requestAnimationFrame(loop);
+        } else {
+          cancelAnimationFrame(animId);
+        }
+      }
+    }, { threshold: 0.05 });
+    intersectionObserver.observe(container);
+
+    let lastObsW = 0;
+    let lastObsH = 0;
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = Math.floor(entry.contentRect.width);
+        const h = Math.floor(entry.contentRect.height);
+        if (lastObsW > 0 && Math.abs(w - lastObsW) < 4 && Math.abs(h - lastObsH) < 8) return;
+        lastObsW = w;
+        lastObsH = h;
+        initCanvas();
+      }
     });
     resizeObserver.observe(container);
 
@@ -396,6 +421,7 @@ export function CommitMatrixCanvas() {
 
     return () => {
       cancelAnimationFrame(animId);
+      intersectionObserver.disconnect();
       resizeObserver.disconnect();
       themeObserver.disconnect();
     };
