@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useThemeTransition } from "@/hooks/use-theme-transition";
 import { useEffect, useState } from "react";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { MoonIcon, SunIcon, DownloadIcon } from "@radix-ui/react-icons";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 
@@ -94,6 +94,20 @@ export function TopNav() {
               Linkedin
             </a>
           </div>
+
+          {/* Mobile View: Resume Download Button (< sm) */}
+          <a
+            href="/resume.pdf"
+            download="Ritik_Singh_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sm:hidden h-9 px-2.5 rounded-xl border border-red-500/40 dark:border-blue-500/40 bg-background flex items-center gap-1.5 text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 shadow-[0_4px_16px_rgba(220,38,38,0.3),0_0_12px_rgba(37,99,235,0.25)] hover:shadow-[0_6px_22px_rgba(220,38,38,0.5),0_0_16px_rgba(37,99,235,0.4)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-all font-medium text-xs cursor-pointer select-none"
+            title="Download Resume"
+            aria-label="Download Resume"
+          >
+            <DownloadIcon className="size-3.5 text-red-500 dark:text-blue-400" />
+            <span>Resume</span>
+          </a>
 
           {/* Theme Toggle Button (Mobile & Desktop) */}
           <button
