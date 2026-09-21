@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { DATA } from "@/data/resume";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Volume2, Volume1, VolumeX, Plus, Minus } from "lucide-react";
 import { HeadphoneMusicDisc } from "@/components/headphone-music-disc";
 
 function FloatingMusicNote({
@@ -51,13 +51,132 @@ function FloatingMusicNote({
 
 export function ContactCard() {
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const userManuallyPausedRef = useRef(false);
+
   const [copied, setCopied] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.65);
+  const [isMuted, setIsMuted] = useState(false);
   const [mousePos, setMousePos] = useState<{ x: number; y: number; opacity: number }>({
     x: 0,
     y: 0,
     opacity: 0,
   });
+
+  // Autoplay music when scrolled into view, pause when scrolled away
+  useEffect(() => {
+    const audio = audioRef.current;
+    const container = containerRef.current;
+    if (!audio || !container) return;
+
+    audio.volume = volume;
+
+    let hasAttachedGesture = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            if (!userManuallyPausedRef.current) {
+              const playPromise = audio.play();
+              if (playPromise !== undefined) {
+                playPromise
+                  .then(() => {
+                    setIsPlaying(true);
+                  })
+                  .catch(() => {
+                    if (!hasAttachedGesture) {
+                      hasAttachedGesture = true;
+                      const onGesture = () => {
+                        if (!userManuallyPausedRef.current) {
+                          audio.play().then(() => setIsPlaying(true)).catch(() => {});
+                        }
+                        window.removeEventListener("pointerdown", onGesture);
+                        window.removeEventListener("scroll", onGesture);
+                      };
+                      window.addEventListener("pointerdown", onGesture, { once: true });
+                      window.addEventListener("scroll", onGesture, { once: true, passive: true });
+                    }
+                  });
+              }
+            }
+          } else {
+            if (!audio.paused) {
+              audio.pause();
+              setIsPlaying(false);
+            }
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+      audio.pause();
+    };
+  }, []);
+
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+      userManuallyPausedRef.current = true;
+    } else {
+      audio.play().then(() => {
+        setIsPlaying(true);
+        userManuallyPausedRef.current = false;
+      }).catch((e) => console.log("Audio play error:", e));
+    }
+  };
+
+  const increaseVolume = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMuted(false);
+    setVolume((prev) => {
+      const next = Math.min(1, Math.round((prev + 0.15) * 100) / 100);
+      if (audioRef.current) {
+        audioRef.current.volume = next;
+        audioRef.current.muted = false;
+      }
+      return next;
+    });
+  };
+
+  const decreaseVolume = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setVolume((prev) => {
+      const next = Math.max(0, Math.round((prev - 0.15) * 100) / 100);
+      if (audioRef.current) {
+        audioRef.current.volume = next;
+      }
+      return next;
+    });
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isMuted) {
+      setIsMuted(false);
+      if (audioRef.current) {
+        audioRef.current.muted = false;
+        audioRef.current.volume = volume || 0.65;
+      }
+      if (volume === 0) setVolume(0.65);
+    } else {
+      setIsMuted(true);
+      if (audioRef.current) {
+        audioRef.current.muted = true;
+      }
+    }
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = cardRef.current?.getBoundingClientRect();
@@ -84,7 +203,10 @@ export function ContactCard() {
   };
 
   return (
-    <div className="relative left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-w-[340px] sm:max-w-5xl sm:w-[90vw] md:w-[86vw] lg:w-[84vw]">
+    <div
+      ref={containerRef}
+      className="relative left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-w-[340px] sm:max-w-5xl sm:w-[90vw] md:w-[86vw] lg:w-[84vw]"
+    >
       {/* Top Border Line Illustration with Interactive Lofi Music Experience */}
       <div className="relative w-full flex justify-center -mb-[1px] select-none z-10">
         <div className="relative w-[240px] sm:w-[340px] md:w-[420px] aspect-[1024/523]">
@@ -146,13 +268,13 @@ export function ContactCard() {
             className="relative z-10 w-full h-full object-contain object-bottom invert dark:invert-0 opacity-80 dark:opacity-90 transition-opacity duration-300 pointer-events-none"
           />
 
-          {/* Interactive Lofi "Now Playing" Pill Badge on bottom-left above baseline */}
-          <div className="absolute left-1 sm:left-2 bottom-1.5 sm:bottom-2.5 z-20 pointer-events-auto">
+          {/* Interactive Lofi "Now Playing" Pill Badge & Volume Controls on bottom-left above baseline */}
+          <div className="absolute left-1 sm:left-2 bottom-1.5 sm:bottom-2.5 z-20 pointer-events-auto flex items-center gap-1 sm:gap-1.5">
             <button
               type="button"
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={togglePlay}
               className="group/track inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-black/[0.08] dark:border-white/[0.12] bg-background/85 dark:bg-zinc-900/85 backdrop-blur-md shadow-sm hover:shadow-md hover:border-red-500/30 dark:hover:border-blue-500/40 transition-all duration-200 cursor-pointer"
-              title={isPlaying ? "Pause music animation" : "Play music animation"}
+              title={isPlaying ? "Pause music" : "Play music"}
             >
               {/* 4 Animated Frequency Equalizer Bars */}
               <span className="flex items-end gap-[2px] h-2.5 sm:h-3 w-3 sm:w-3.5 pb-0.5">
@@ -170,8 +292,8 @@ export function ContactCard() {
                         : { height: "25%" }
                     }
                     transition={{
-                      duration: bar.duration,
-                      repeat: Infinity,
+                      duration: isPlaying ? bar.duration : 0.35,
+                      repeat: isPlaying ? Infinity : 0,
                       ease: "easeInOut",
                     }}
                     className="w-[2px] rounded-full bg-gradient-to-t from-red-500 to-blue-500"
@@ -179,19 +301,100 @@ export function ContactCard() {
                 ))}
               </span>
 
-              <span className="text-[9px] sm:text-[10px] font-mono tracking-tight text-foreground/85 flex items-center gap-1">
-                <span className="font-semibold text-red-500 dark:text-red-400">
-                  {isPlaying ? "2AM LO-FI" : "PAUSED"}
-                </span>
-                <span className="text-muted-foreground/50 hidden xs:inline">•</span>
-                <span className="text-muted-foreground/80 hidden xs:inline">
-                  {isPlaying ? "Coding Beats" : "Click to Play"}
-                </span>
-              </span>
+              {/* Smooth Animated Label: 2AM LO-FI <-> PAUSED */}
+              <div className="relative overflow-hidden min-h-[14px] flex items-center">
+                <AnimatePresence mode="wait" initial={false}>
+                  {isPlaying ? (
+                    <motion.span
+                      key="playing-label"
+                      initial={{ opacity: 0, y: 5, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -5, filter: "blur(2px)" }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      className="text-[9px] sm:text-[10px] font-mono tracking-tight text-foreground/85 flex items-center gap-1 whitespace-nowrap"
+                    >
+                      <span className="font-semibold text-red-500 dark:text-red-400">
+                        2AM LO-FI
+                      </span>
+                      <span className="text-muted-foreground/50 hidden xs:inline">•</span>
+                      <span className="text-muted-foreground/80 hidden xs:inline">
+                        Coding Beats
+                      </span>
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="paused-label"
+                      initial={{ opacity: 0, y: 5, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -5, filter: "blur(2px)" }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                      className="text-[9px] sm:text-[10px] font-mono tracking-tight text-foreground/85 flex items-center gap-1 whitespace-nowrap"
+                    >
+                      <span className="font-semibold text-muted-foreground">
+                        PAUSED
+                      </span>
+                      <span className="text-muted-foreground/50 hidden xs:inline">•</span>
+                      <span className="text-muted-foreground/80 hidden xs:inline">
+                        Click to Play
+                      </span>
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
             </button>
+
+            {/* Volume Control Micro Pill */}
+            <div className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full border border-black/[0.08] dark:border-white/[0.12] bg-background/85 dark:bg-zinc-900/85 backdrop-blur-md shadow-sm hover:border-red-500/30 dark:hover:border-blue-500/40 transition-all duration-200 text-foreground/80">
+              <button
+                type="button"
+                onClick={toggleMute}
+                className="hover:text-red-500 dark:hover:text-blue-400 transition-colors cursor-pointer p-0.5"
+                title={isMuted || volume === 0 ? "Unmute" : "Mute"}
+              >
+                {isMuted || volume === 0 ? (
+                  <VolumeX className="size-3 sm:size-3.5 text-muted-foreground" />
+                ) : volume < 0.5 ? (
+                  <Volume1 className="size-3 sm:size-3.5 text-blue-500 dark:text-blue-400" />
+                ) : (
+                  <Volume2 className="size-3 sm:size-3.5 text-red-500 dark:text-red-400" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={decreaseVolume}
+                disabled={volume <= 0 || isMuted}
+                className="size-3.5 sm:size-4 flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-30 transition-all cursor-pointer"
+                title="Volume Down"
+              >
+                <Minus className="size-2.5 sm:size-3" />
+              </button>
+
+              <span className="text-[8.5px] sm:text-[9.5px] font-mono font-medium min-w-[20px] text-center select-none text-muted-foreground">
+                {isMuted ? "0%" : `${Math.round(volume * 100)}%`}
+              </span>
+
+              <button
+                type="button"
+                onClick={increaseVolume}
+                disabled={volume >= 1}
+                className="size-3.5 sm:size-4 flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-30 transition-all cursor-pointer"
+                title="Volume Up"
+              >
+                <Plus className="size-2.5 sm:size-3" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Background Lofi Audio Player */}
+      <audio
+        ref={audioRef}
+        src="/audio/lofi-ambient.mp3"
+        loop
+        preload="auto"
+      />
 
       <div
         ref={cardRef}

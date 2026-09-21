@@ -12,6 +12,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Inter as FontSans, Fraunces as FontSerif } from "next/font/google";
 import "./globals.css";
 
@@ -23,6 +24,12 @@ const fontSans = FontSans({
 const fontSerif = FontSerif({
   subsets: ["latin"],
   variable: "--font-serif",
+  display: "swap",
+});
+
+const fontGreatVibes = localFont({
+  src: "../fonts/GreatVibes-Regular.ttf",
+  variable: "--font-great-vibes",
   display: "swap",
 });
 
@@ -77,7 +84,8 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased pt-20 sm:pt-24 pb-24 sm:pb-32 overflow-x-clip",
           fontSans.variable,
-          fontSerif.variable
+          fontSerif.variable,
+          fontGreatVibes.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>

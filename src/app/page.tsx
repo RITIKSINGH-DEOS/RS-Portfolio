@@ -4,6 +4,7 @@ import { Interactive3DName } from "@/components/interactive-3d-name";
 import { CommitMatrixCanvas } from "@/components/commit-matrix-canvas";
 import { GithubContributions } from "@/components/github-contributions";
 import { ContactCard } from "@/components/contact-card";
+import { RagnarQuote } from "@/components/ragnar-quote";
 import { FooterSignature } from "@/components/footer-signature";
 import { SkillsMarquee } from "@/components/skills-marquee";
 import { ProjectCard } from "@/components/project-card";
@@ -199,6 +200,9 @@ export default function Page() {
       <section id="contact" className="w-full pt-0 pb-2">
         <BlurFade delay={0.16} inView>
           <ContactCard />
+        </BlurFade>
+        <BlurFade delay={0.17} inView>
+          <RagnarQuote />
         </BlurFade>
         <BlurFade delay={0.18} inView>
           <FooterSignature />
