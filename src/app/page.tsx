@@ -4,6 +4,7 @@ import { Interactive3DName } from "@/components/interactive-3d-name";
 import { CommitMatrixCanvas } from "@/components/commit-matrix-canvas";
 import { GithubContributions } from "@/components/github-contributions";
 import { ContactCard } from "@/components/contact-card";
+import { SkillsMarquee } from "@/components/skills-marquee";
 import { ProjectCard } from "@/components/project-card";
 import { ProjectsGrid } from "@/components/projects-grid";
 import { ResumeCard } from "@/components/resume-card";
@@ -113,13 +114,9 @@ export default function Page() {
       {/* Skills Section */}
       <section id="skills" className="w-full">
         <BlurFade delay={0.08} inView>
-          <div className="flex flex-col gap-y-3">
+          <div className="flex flex-col gap-y-4">
             <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Skills</h2>
-            <div className="flex flex-wrap gap-1">
-              {DATA.skills?.map((skill) => (
-                <Badge key={skill}>{skill}</Badge>
-              ))}
-            </div>
+            <SkillsMarquee />
           </div>
         </BlurFade>
       </section>
