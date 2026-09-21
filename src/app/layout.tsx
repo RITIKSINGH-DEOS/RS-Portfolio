@@ -6,6 +6,7 @@ import { ShootingStars } from "@/components/shooting-stars";
 import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TopNav } from "@/components/top-nav";
+import { ClickShockwave } from "@/components/click-shockwave";
 import { RoundedCanvasFrame } from "@/components/rounded-canvas-frame";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -83,6 +84,7 @@ export default function RootLayout({
               <Navbar />
               <ScrollToTop />
               <SpiderCanvas />
+              <ClickShockwave />
               <RoundedCanvasFrame />
             </SmoothScrollProvider>
           </TooltipProvider>
