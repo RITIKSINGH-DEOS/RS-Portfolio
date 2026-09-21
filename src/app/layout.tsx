@@ -29,15 +29,23 @@ const fontSerif = FontSerif({
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
   title: {
-    default: DATA.name,
-    template: `%s | ${DATA.name}`,
+    default: "Ritik Singh - Full Stack AI Engineer",
+    template: `%s | Ritik Singh`,
   },
   description: DATA.description,
+  icons: {
+    icon: [
+      { url: "/me.png", sizes: "any" },
+      { url: "/me.png", type: "image/png" },
+    ],
+    shortcut: "/me.png",
+    apple: "/me.png",
+  },
   openGraph: {
-    title: DATA.name,
+    title: "Ritik Singh - Full Stack AI Engineer",
     description: DATA.description,
     url: DATA.url,
-    siteName: DATA.name,
+    siteName: "Ritik Singh",
     locale: "en_US",
     type: "website",
   },
@@ -53,7 +61,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: DATA.name,
+    title: "Ritik Singh - Full Stack AI Engineer",
     card: "summary_large_image",
   },
 };
