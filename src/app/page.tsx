@@ -28,7 +28,6 @@ export default function Page() {
               <Interactive3DName
                 prefix="Hi, I'm"
                 name={DATA.name?.split(" ")[0] ?? "Ritik"}
-                suffix="👋"
               />
             </BlurFade>
             <BlurFadeText
@@ -197,7 +196,7 @@ export default function Page() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="w-full pt-2 pb-2">
+      <section id="contact" className="w-full pt-0 pb-2">
         <BlurFade delay={0.16} inView>
           <ContactCard />
         </BlurFade>

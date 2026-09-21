@@ -1,12 +1,58 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { DATA } from "@/data/resume";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { HeadphoneMusicDisc } from "@/components/headphone-music-disc";
+
+function FloatingMusicNote({
+  char,
+  left,
+  top,
+  delay,
+  duration,
+  color,
+  isPlaying,
+}: {
+  char: string;
+  left: string;
+  top: string;
+  delay: number;
+  duration: number;
+  color: string;
+  isPlaying: boolean;
+}) {
+  if (!isPlaying) return null;
+  return (
+    <motion.span
+      aria-hidden="true"
+      initial={{ y: 0, x: 0, opacity: 0, scale: 0.6 }}
+      animate={{
+        y: [0, -16, -34],
+        x: [0, -5, -10],
+        opacity: [0, 0.85, 0],
+        scale: [0.6, 1.1, 0.8],
+        rotate: [0, -14, 10],
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "easeOut",
+        delay,
+      }}
+      className={`absolute pointer-events-none select-none text-[11px] sm:text-xs font-bold ${color}`}
+      style={{ left, top }}
+    >
+      {char}
+    </motion.span>
+  );
+}
 
 export function ContactCard() {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [mousePos, setMousePos] = useState<{ x: number; y: number; opacity: number }>({
     x: 0,
     y: 0,
@@ -38,12 +84,121 @@ export function ContactCard() {
   };
 
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="group relative left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-w-[340px] sm:max-w-5xl sm:w-[90vw] md:w-[86vw] lg:w-[84vw] rounded-2xl sm:rounded-3xl md:rounded-[32px] p-6 sm:p-11 md:p-14 overflow-hidden border border-black/[0.08] dark:border-white/[0.09] bg-card/60 dark:bg-zinc-950/75 backdrop-blur-xl shadow-2xl transition-all duration-300"
-    >
+    <div className="relative left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-w-[340px] sm:max-w-5xl sm:w-[90vw] md:w-[86vw] lg:w-[84vw]">
+      {/* Top Border Line Illustration with Interactive Lofi Music Experience */}
+      <div className="relative w-full flex justify-center -mb-[1px] select-none z-10">
+        <div className="relative w-[240px] sm:w-[340px] md:w-[420px] aspect-[1024/523]">
+          {/* Moving Rotating Music Object inside headphone ear cup */}
+          <HeadphoneMusicDisc isPlaying={isPlaying} />
+
+          {/* Floating Lofi Music Notes emerging from soundwaves */}
+          <FloatingMusicNote
+            char="♪"
+            left="27%"
+            top="44%"
+            delay={0}
+            duration={3.2}
+            color="text-red-500/80 dark:text-red-400/90"
+            isPlaying={isPlaying}
+          />
+          <FloatingMusicNote
+            char="♫"
+            left="23%"
+            top="37%"
+            delay={1.2}
+            duration={3.6}
+            color="text-blue-500/80 dark:text-blue-400/90"
+            isPlaying={isPlaying}
+          />
+          <FloatingMusicNote
+            char="♩"
+            left="20%"
+            top="30%"
+            delay={2.3}
+            duration={3.0}
+            color="text-rose-500/80 dark:text-rose-400/90"
+            isPlaying={isPlaying}
+          />
+
+          {/* Glowing Inspiration Spark above Thought Bubble ("How idea's comes !") */}
+          <motion.div
+            aria-hidden="true"
+            animate={{
+              scale: [0.85, 1.3, 0.85],
+              opacity: [0.4, 1, 0.4],
+              rotate: [0, 20, -10, 0],
+            }}
+            transition={{
+              duration: 2.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute pointer-events-none select-none text-amber-500 dark:text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.65)]"
+            style={{ left: "84%", top: "2%" }}
+          >
+            <span className="text-xs sm:text-sm font-serif">✦</span>
+          </motion.div>
+
+          {/* The line art illustration */}
+          <img
+            src="/listen-illustration.png"
+            alt="Continuous line art illustration"
+            className="relative z-10 w-full h-full object-contain object-bottom invert dark:invert-0 opacity-80 dark:opacity-90 transition-opacity duration-300 pointer-events-none"
+          />
+
+          {/* Interactive Lofi "Now Playing" Pill Badge on bottom-left above baseline */}
+          <div className="absolute left-1 sm:left-2 bottom-1.5 sm:bottom-2.5 z-20 pointer-events-auto">
+            <button
+              type="button"
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="group/track inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-black/[0.08] dark:border-white/[0.12] bg-background/85 dark:bg-zinc-900/85 backdrop-blur-md shadow-sm hover:shadow-md hover:border-red-500/30 dark:hover:border-blue-500/40 transition-all duration-200 cursor-pointer"
+              title={isPlaying ? "Pause music animation" : "Play music animation"}
+            >
+              {/* 4 Animated Frequency Equalizer Bars */}
+              <span className="flex items-end gap-[2px] h-2.5 sm:h-3 w-3 sm:w-3.5 pb-0.5">
+                {[
+                  { duration: 0.9, h: ["25%", "90%", "45%", "100%", "25%"] },
+                  { duration: 0.7, h: ["50%", "100%", "30%", "85%", "50%"] },
+                  { duration: 1.1, h: ["35%", "75%", "100%", "40%", "35%"] },
+                  { duration: 0.85, h: ["40%", "90%", "30%", "95%", "40%"] },
+                ].map((bar, idx) => (
+                  <motion.span
+                    key={idx}
+                    animate={
+                      isPlaying
+                        ? { height: bar.h }
+                        : { height: "25%" }
+                    }
+                    transition={{
+                      duration: bar.duration,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="w-[2px] rounded-full bg-gradient-to-t from-red-500 to-blue-500"
+                  />
+                ))}
+              </span>
+
+              <span className="text-[9px] sm:text-[10px] font-mono tracking-tight text-foreground/85 flex items-center gap-1">
+                <span className="font-semibold text-red-500 dark:text-red-400">
+                  {isPlaying ? "2AM LO-FI" : "PAUSED"}
+                </span>
+                <span className="text-muted-foreground/50 hidden xs:inline">•</span>
+                <span className="text-muted-foreground/80 hidden xs:inline">
+                  {isPlaying ? "Coding Beats" : "Click to Play"}
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="group relative w-full rounded-2xl sm:rounded-3xl md:rounded-[32px] p-6 sm:p-11 md:p-14 overflow-hidden border border-black/[0.08] dark:border-white/[0.09] bg-card/60 dark:bg-zinc-950/75 backdrop-blur-xl shadow-2xl transition-all duration-300"
+      >
       {/* Spider-Man Base Ambient Lighting */}
       <div
         aria-hidden="true"
@@ -135,5 +290,6 @@ export function ContactCard() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

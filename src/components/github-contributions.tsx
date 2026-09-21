@@ -735,7 +735,7 @@ export function GithubContributions() {
   return (
     <div
       ref={containerRef}
-      className="w-full flex flex-col items-center py-2 my-2 select-none"
+      className="w-full flex flex-col items-center pt-2 pb-0 mt-2 mb-0 select-none"
     >
       {/* Centered Compact Moving Matrix Canvas */}
       <div className="flex justify-center w-full cursor-crosshair">

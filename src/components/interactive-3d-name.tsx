@@ -13,7 +13,7 @@ interface Interactive3DNameProps {
 export function Interactive3DName({
   prefix = "Hi, I'm",
   name = "Ritik",
-  suffix = "👋",
+  suffix = "",
   className = "",
 }: Interactive3DNameProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,12 +58,11 @@ export function Interactive3DName({
   };
 
   const prefixChars = Array.from(prefix);
-  const nameChars = Array.from(name);
 
   // Slow, elegant wave configuration
-  const waveDuration = 2.8; // Slow duration for luxurious premium feel
-  const waveStagger = 0.11; // Staggered phase offset per character
-  const waveLift = isHovered ? -9 : -6.5; // Gentle vertical lift
+  const waveDuration = 2.8;
+  const waveStagger = 0.11;
+  const waveLift = isHovered ? -9 : -6.5;
 
   return (
     <div
@@ -82,43 +81,18 @@ export function Interactive3DName({
         }}
         animate={
           isHovered
-            ? { scale: 1.04, z: 25 }
+            ? { scale: 1.03, z: 20 }
             : { scale: 1, z: 0 }
         }
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="flex items-center flex-wrap gap-x-2.5 gap-y-1 cursor-pointer py-1"
+        className="flex items-center flex-wrap gap-x-2.5 sm:gap-x-3 gap-y-1 cursor-pointer py-1"
       >
         {/* Prefix "Hi, I'm" with Slow Wavy Motion */}
-        <span className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-foreground inline-flex items-center">
-          {prefixChars.map((char, i) => (
-            <motion.span
-              key={`prefix-${i}`}
-              animate={{
-                y: [0, waveLift, 0],
-              }}
-              transition={{
-                duration: waveDuration,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * waveStagger,
-              }}
-              className="inline-block"
-            >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-          ))}
-        </span>
-
-        {/* 3D Person Name with Slow Wavy Motion & Pure Crisp White 3D Depth */}
-        <span
-          style={{ transform: "translateZ(25px)" }}
-          className="relative inline-flex items-center text-3xl font-extrabold tracking-tight sm:text-5xl xl:text-6xl/none text-white dark:text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)] [text-shadow:0_1px_0_#d4d4d8,0_2px_0_#a1a1aa,0_3px_0_#71717a,0_4px_8px_rgba(0,0,0,0.4)] dark:[text-shadow:0_1px_0_#e4e4e7,0_2px_0_#a1a1aa,0_3px_0_#71717a,0_5px_12px_rgba(0,0,0,0.85)]"
-        >
-          {nameChars.map((char, i) => {
-            const charIndex = prefixChars.length + 1 + i;
-            return (
+        {prefix && (
+          <span className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-foreground inline-flex items-center">
+            {prefixChars.map((char, i) => (
               <motion.span
-                key={`name-${i}`}
+                key={`prefix-${i}`}
                 animate={{
                   y: [0, waveLift, 0],
                 }}
@@ -126,41 +100,60 @@ export function Interactive3DName({
                   duration: waveDuration,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: charIndex * waveStagger,
+                  delay: i * waveStagger,
                 }}
                 className="inline-block"
               >
                 {char === " " ? "\u00A0" : char}
               </motion.span>
-            );
-          })}
-        </span>
+            ))}
+          </span>
+        )}
 
-        {/* Waving Hand Emoji (👋) synchronized with wave rhythm */}
+        {/* Person Name styled like first image with Theme Gradient (Spider-Man Red to Blue) */}
         <motion.span
-          style={{ transform: "translateZ(35px)" }}
-          animate={
-            isHovered
-              ? {
-                  rotate: [0, 22, -12, 22, -8, 0],
-                  scale: [1, 1.22, 1.12, 1.22, 1],
-                  y: [0, waveLift - 2, 0],
-                }
-              : {
-                  rotate: [0, 12, -4, 12, 0],
-                  y: [0, waveLift, 0],
-                }
-          }
+          style={{ transform: "translateZ(20px)" }}
+          animate={{
+            y: [0, waveLift, 0],
+          }}
           transition={{
-            duration: isHovered ? 0.9 : waveDuration,
+            duration: waveDuration,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: (prefixChars.length + nameChars.length + 1) * waveStagger,
+            delay: prefixChars.length * waveStagger,
           }}
-          className="inline-block text-3xl sm:text-5xl xl:text-6xl origin-[70%_70%] ml-0.5"
+          className="relative inline-block text-3xl font-extrabold uppercase tracking-tight sm:text-5xl xl:text-6xl/none bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_2px_14px_rgba(239,68,68,0.25)] hover:drop-shadow-[0_4px_22px_rgba(239,68,68,0.45)] transition-all duration-300 select-none"
         >
-          {suffix}
+          {name}
         </motion.span>
+
+        {/* Optional Suffix (only rendered if suffix provided and non-empty) */}
+        {suffix && (
+          <motion.span
+            style={{ transform: "translateZ(35px)" }}
+            animate={
+              isHovered
+                ? {
+                    rotate: [0, 22, -12, 22, -8, 0],
+                    scale: [1, 1.22, 1.12, 1.22, 1],
+                    y: [0, waveLift - 2, 0],
+                  }
+                : {
+                    rotate: [0, 12, -4, 12, 0],
+                    y: [0, waveLift, 0],
+                  }
+            }
+            transition={{
+              duration: isHovered ? 0.9 : waveDuration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: (prefixChars.length + name.length + 1) * waveStagger,
+            }}
+            className="inline-block text-3xl sm:text-5xl xl:text-6xl origin-[70%_70%] ml-0.5"
+          >
+            {suffix}
+          </motion.span>
+        )}
       </motion.div>
     </div>
   );
