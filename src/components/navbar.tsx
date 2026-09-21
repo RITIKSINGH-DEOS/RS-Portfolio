@@ -24,10 +24,10 @@ export default function Navbar() {
                   {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
-                    "size-10 rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-all duration-200"
+                    "size-10 rounded-full text-foreground/80 group-hover/dock-icon:text-red-500 dark:group-hover/dock-icon:text-blue-400 group-hover/dock-icon:bg-gradient-to-tr group-hover/dock-icon:from-red-500/20 group-hover/dock-icon:to-blue-500/20 group-hover/dock-icon:shadow-[0_0_16px_rgba(220,38,38,0.5)] transition-all duration-200"
                   )}
                 >
-                  <item.icon className="size-4" />
+                  <item.icon className="size-4 transition-transform duration-200 group-hover/dock-icon:scale-125" />
                 </Link>
               </TooltipTrigger>
               <TooltipContent className="hidden sm:block border border-red-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(220,38,38,0.25)]">
@@ -36,7 +36,7 @@ export default function Navbar() {
             </Tooltip>
           </DockIcon>
         ))}
-        <Separator orientation="vertical" className="h-2/3 my-auto w-[1.5px] bg-gradient-to-b from-red-500/60 via-blue-500/60 to-red-500/60" />
+        <Separator orientation="vertical" className="h-2/3 my-auto w-[1.5px] bg-gradient-to-b from-red-500/60 via-blue-500/60 to-red-500/60 transition-all duration-300 group-hover/dock:scale-y-110 group-hover/dock:opacity-90" />
         {Object.entries(DATA.contact.social)
           .filter(([_, social]) => social.navbar)
           .map(([name, social]) => (
@@ -50,10 +50,10 @@ export default function Navbar() {
                       : {})}
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-10 rounded-full text-foreground/80 hover:text-red-500 dark:hover:text-blue-400 hover:bg-gradient-to-tr hover:from-red-500/15 hover:to-blue-500/15 hover:shadow-[0_0_14px_rgba(220,38,38,0.4)] transition-all duration-200"
+                      "size-10 rounded-full text-foreground/80 group-hover/dock-icon:text-red-500 dark:group-hover/dock-icon:text-blue-400 group-hover/dock-icon:bg-gradient-to-tr group-hover/dock-icon:from-red-500/20 group-hover/dock-icon:to-blue-500/20 group-hover/dock-icon:shadow-[0_0_16px_rgba(220,38,38,0.5)] transition-all duration-200"
                     )}
                   >
-                    <social.icon className="size-4" />
+                    <social.icon className="size-4 transition-transform duration-200 group-hover/dock-icon:scale-125" />
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent className="hidden sm:block border border-blue-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(37,99,235,0.25)]">
@@ -62,7 +62,7 @@ export default function Navbar() {
               </Tooltip>
             </DockIcon>
           ))}
-        <Separator orientation="vertical" className="h-2/3 my-auto w-[1.5px] bg-gradient-to-b from-red-500/60 via-blue-500/60 to-red-500/60" />
+        <Separator orientation="vertical" className="h-2/3 my-auto w-[1.5px] bg-gradient-to-b from-red-500/60 via-blue-500/60 to-red-500/60 transition-all duration-300 group-hover/dock:scale-y-110 group-hover/dock:opacity-90" />
         <DockIcon>
           <Tooltip>
             <TooltipTrigger asChild>
