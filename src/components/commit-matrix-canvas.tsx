@@ -167,7 +167,7 @@ export function CommitMatrixCanvas() {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const width = container.clientWidth || (canvas.width / dpr);
       const height = container.clientHeight || 155;
       const isDark = document.documentElement.classList.contains("dark");

@@ -211,22 +211,34 @@ export function GithubContributions() {
     };
 
     // Compact micro-box dimensions
-    const cellSize = 6;
-    const step = 8.5;
-    const paddingX = 8;
-    const paddingY = 8;
+    let canvasWidth = 365;
+    let canvasHeight = 76;
+    let currentDpr = 1;
+    let currentCellSize = 6;
     const cols = 41;
     const rows = 7;
-    const canvasWidth = Math.ceil(cols * step + paddingX * 2);
-    const canvasHeight = Math.ceil(rows * step + paddingY * 2);
 
     const setupCanvas = (countNumber: number) => {
       currentNumberRendered = countNumber;
       const isDark = document.documentElement.classList.contains("dark");
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      currentDpr = Math.min(window.devicePixelRatio || 1, 2);
 
-      canvas.width = Math.floor(canvasWidth * dpr);
-      canvas.height = Math.floor(canvasHeight * dpr);
+      // Sizing: Desktop default is 365px.
+      // On narrow mobile devices (<365px available in container), scale proportionally so all 41 columns fit perfectly.
+      const containerW = containerRef.current?.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 365);
+      const targetWidth = Math.min(365, Math.max(containerW, 260));
+      const scale = targetWidth < 365 ? targetWidth / 365 : 1;
+
+      const step = 8.5 * scale;
+      const cellSize = Math.max(4, 6 * scale);
+      const paddingX = 8 * scale;
+      const paddingY = 8 * scale;
+      canvasWidth = Math.ceil(cols * step + paddingX * 2);
+      canvasHeight = Math.ceil(rows * step + paddingY * 2);
+      currentCellSize = cellSize;
+
+      canvas.width = Math.floor(canvasWidth * currentDpr);
+      canvas.height = Math.floor(canvasHeight * currentDpr);
       canvas.style.width = `${canvasWidth}px`;
       canvas.style.height = `${canvasHeight}px`;
 
@@ -327,12 +339,9 @@ export function GithubContributions() {
           const meta = digitBoxMeta.get(key);
           const isDigit = !!meta;
 
-          // Ambient scattered commit dots
-          const isAmbient =
-            !isDigit &&
-            ((Math.sin(c * 12.3 + r * 7.1) > 0.72 &&
-              Math.abs(c - cols / 2) > totalDigitCols / 2 + 1) ||
-              Math.sin(c * 5.9 + r * 13.7) > 0.86);
+          // Natural pseudo-random scattered ambient commit dots (like GitHub activity)
+          const hash = Math.abs(Math.sin(c * 127.1 + r * 311.7) * 43758.5453) % 1;
+          const isAmbient = !isDigit && hash > 0.83;
 
           let chosenColor = colors.empty;
           let glowColor = "rgba(0, 0, 0, 0)";
@@ -398,7 +407,7 @@ export function GithubContributions() {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = currentDpr;
       const isDark = document.documentElement.classList.contains("dark");
       const dt = lastTimestamp
         ? Math.min((currentTime - lastTimestamp) / 1000, 0.1)
@@ -426,6 +435,7 @@ export function GithubContributions() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const tSec = currentTime / 1000;
+      const cellSize = currentCellSize;
       const pointer = pointerRef.current;
       const shockwaves = shockwavesRef.current;
       const mouseActive = pointer.active;
@@ -715,10 +725,26 @@ export function GithubContributions() {
       attributeFilter: ["class"],
     });
 
+    let resizeObserver: ResizeObserver | null = null;
+    let lastObsW = 0;
+    if (container) {
+      resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const w = Math.floor(entry.contentRect.width);
+          if (w > 0 && Math.abs(w - lastObsW) >= 4) {
+            lastObsW = w;
+            setupCanvas(totalCountRef.current);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
     return () => {
       isMounted = false;
       cancelAnimationFrame(animId);
       intersectionObserver?.disconnect();
+      resizeObserver?.disconnect();
       themeObserver.disconnect();
     };
   }, []);
@@ -772,7 +798,7 @@ export function GithubContributions() {
           onPointerMove={handlePointerMove}
           onPointerLeave={handlePointerLeave}
           onPointerDown={handlePointerDown}
-          className="block max-w-full h-auto"
+          className="block"
         />
       </div>
 
