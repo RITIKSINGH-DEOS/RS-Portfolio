@@ -309,14 +309,17 @@ html.lenis body {
 /* ============================================================ */
 @keyframes meteor-drift {
   0% {
-    transform: translate(0, 0) rotate(var(--meteor-angle, 22.6deg));
+    transform: translate3d(0, 0, 0) rotate(var(--meteor-angle, 24deg));
     opacity: 0;
   }
-  8%, 85% {
-    opacity: var(--meteor-opacity, 0.4);
+  10% {
+    opacity: var(--meteor-opacity, 0.5);
+  }
+  85% {
+    opacity: var(--meteor-opacity, 0.5);
   }
   100% {
-    transform: translate(var(--meteor-dx, 1480px), var(--meteor-dy, 615px)) rotate(var(--meteor-angle, 22.6deg));
+    transform: translate3d(var(--meteor-dx, 1560px), var(--meteor-dy, 690px), 0) rotate(var(--meteor-angle, 24deg));
     opacity: 0;
   }
 }
@@ -324,12 +327,46 @@ html.lenis body {
 .meteor {
   will-change: transform, opacity;
   animation-name: meteor-drift;
-  animation-timing-function: linear;
+  animation-timing-function: cubic-bezier(0.22, 0.1, 0.25, 1);
   animation-iteration-count: infinite;
 }
 
+@keyframes celestial-twinkle {
+  0%, 100% {
+    opacity: var(--twinkle-min, 0.12);
+    transform: scale(0.82);
+  }
+  50% {
+    opacity: var(--twinkle-max, 0.75);
+    transform: scale(1.18);
+  }
+}
+
+.celestial-star {
+  will-change: opacity, transform;
+  animation-name: celestial-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse-glint {
+  0%, 100% {
+    transform: scale(0.88) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.22) rotate(45deg);
+  }
+}
+
+.meteor-glint {
+  animation: pulse-glint 3s ease-in-out infinite;
+  transform-origin: center center;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .meteor {
+  .meteor,
+  .celestial-star,
+  .meteor-glint {
     animation: none !important;
     display: none !important;
   }
