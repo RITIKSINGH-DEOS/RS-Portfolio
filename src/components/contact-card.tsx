@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { DATA } from "@/data/resume";
 import { ArrowUpRight, Check, Copy, Volume2, Volume1, VolumeX, Plus, Minus } from "lucide-react";
@@ -58,6 +59,12 @@ export function ContactCard() {
   const [copied, setCopied] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.65);
+  const volumeRef = useRef(volume);
+
+  useEffect(() => {
+    volumeRef.current = volume;
+  }, [volume]);
+
   const [isMuted, setIsMuted] = useState(false);
   const [mousePos, setMousePos] = useState<{ x: number; y: number; opacity: number }>({
     x: 0,
@@ -71,7 +78,7 @@ export function ContactCard() {
     const container = containerRef.current;
     if (!audio || !container) return;
 
-    audio.volume = volume;
+    audio.volume = volumeRef.current;
 
     let hasAttachedGesture = false;
 
@@ -262,10 +269,12 @@ export function ContactCard() {
           </motion.div>
 
           {/* The line art illustration */}
-          <img
+          <Image
             src="/listen-illustration.png"
             alt="Continuous line art illustration"
-            className="relative z-10 w-full h-full object-contain object-bottom invert dark:invert-0 opacity-80 dark:opacity-90 transition-opacity duration-300 pointer-events-none"
+            fill
+            sizes="(max-width: 640px) 240px, (max-width: 768px) 340px, 420px"
+            className="relative z-10 object-contain object-bottom invert dark:invert-0 opacity-80 dark:opacity-90 transition-opacity duration-300 pointer-events-none"
           />
 
           {/* Interactive Lofi "Now Playing" Pill Badge & Volume Controls on bottom-left above baseline */}
@@ -388,12 +397,12 @@ export function ContactCard() {
         </div>
       </div>
 
-      {/* Background Lofi Audio Player */}
+      {/* Background Lofi Audio Player (lazy loaded on demand) */}
       <audio
         ref={audioRef}
         src="/audio/lofi-ambient.mp3"
         loop
-        preload="auto"
+        preload="none"
       />
 
       <div

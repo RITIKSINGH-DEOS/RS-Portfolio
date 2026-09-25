@@ -1,12 +1,11 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/components/navbar";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
 import { DottedCanvas } from "@/components/dotted-canvas";
 import { ShootingStars } from "@/components/shooting-stars";
-import { SpiderCanvas } from "@/components/spider-canvas";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TopNav } from "@/components/top-nav";
-import { ClickShockwave } from "@/components/click-shockwave";
 import { RoundedCanvasFrame } from "@/components/rounded-canvas-frame";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -16,9 +15,20 @@ import localFont from "next/font/local";
 import { Inter as FontSans, Fraunces as FontSerif } from "next/font/google";
 import "./globals.css";
 
+const SpiderCanvas = dynamic(
+  () => import("@/components/spider-canvas").then((mod) => mod.SpiderCanvas),
+  { ssr: false }
+);
+
+const ClickShockwave = dynamic(
+  () => import("@/components/click-shockwave").then((mod) => mod.ClickShockwave),
+  { ssr: false }
+);
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const fontSerif = FontSerif({

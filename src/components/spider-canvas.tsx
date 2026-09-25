@@ -437,10 +437,21 @@ export function SpiderCanvas() {
       animId = requestAnimationFrame(render);
     };
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animId);
+      } else {
+        cancelAnimationFrame(animId);
+        animId = requestAnimationFrame(render);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     animId = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(animId);
+      document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("mousemove", onPointerMove);
       window.removeEventListener("touchstart", onPointerMove);

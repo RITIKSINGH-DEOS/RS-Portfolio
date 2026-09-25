@@ -1,20 +1,58 @@
+import dynamic from "next/dynamic";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Interactive3DName } from "@/components/interactive-3d-name";
-import { CommitMatrixCanvas } from "@/components/commit-matrix-canvas";
-import { GithubContributions } from "@/components/github-contributions";
-import { ContactCard } from "@/components/contact-card";
 import { RagnarQuote } from "@/components/ragnar-quote";
 import { FooterSignature } from "@/components/footer-signature";
-import { SkillsMarquee } from "@/components/skills-marquee";
-import { ProjectCard } from "@/components/project-card";
 import { ProjectsGrid } from "@/components/projects-grid";
 import { ResumeCard } from "@/components/resume-card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { DATA } from "@/data/resume";
-import Link from "next/link";
 import Markdown from "react-markdown";
+
+const CommitMatrixCanvas = dynamic(
+  () =>
+    import("@/components/commit-matrix-canvas").then(
+      (mod) => mod.CommitMatrixCanvas
+    ),
+  {
+    ssr: false,
+    loading: () => <div className="h-[155px] w-full" />,
+  }
+);
+
+const SkillsMarquee = dynamic(
+  () =>
+    import("@/components/skills-marquee").then((mod) => mod.SkillsMarquee),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-16 w-full animate-pulse rounded-xl bg-muted/20" />
+    ),
+  }
+);
+
+const GithubContributions = dynamic(
+  () =>
+    import("@/components/github-contributions").then(
+      (mod) => mod.GithubContributions
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-48 w-full animate-pulse rounded-2xl bg-muted/20" />
+    ),
+  }
+);
+
+const ContactCard = dynamic(
+  () => import("@/components/contact-card").then((mod) => mod.ContactCard),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-64 w-full animate-pulse rounded-2xl bg-muted/20" />
+    ),
+  }
+);
 
 const BLUR_FADE_DELAY = 0.02;
 

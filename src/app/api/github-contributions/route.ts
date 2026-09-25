@@ -20,7 +20,11 @@ export async function GET() {
     }
 
     const data = await res.json();
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+      },
+    });
   } catch (error) {
     console.error("Error fetching GitHub contributions:", error);
     return NextResponse.json(
@@ -29,7 +33,12 @@ export async function GET() {
         contributions: [],
         error: true,
       },
-      { status: 200 }
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+        },
+      }
     );
   }
 }
