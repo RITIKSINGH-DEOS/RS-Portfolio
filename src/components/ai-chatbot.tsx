@@ -63,17 +63,13 @@ export function AIChatbot() {
     window.addEventListener("open-ai-chat", handleOpen);
     window.addEventListener("close-ai-chat", handleClose);
 
-    // Load saved session state from sessionStorage
+    // Clear any previous chat session on fresh mount/page reload
     try {
-      const savedLang = sessionStorage.getItem("rs_chat_lang") as "en" | "hi" | null;
-      const savedCount = parseInt(sessionStorage.getItem("rs_chat_count") || "0", 10);
-      const savedHistory = sessionStorage.getItem("rs_chat_history");
-
-      if (savedLang) setLanguage(savedLang);
-      if (savedCount) setMessageCount(savedCount);
-      if (savedHistory) setMessages(JSON.parse(savedHistory));
+      sessionStorage.removeItem("rs_chat_lang");
+      sessionStorage.removeItem("rs_chat_count");
+      sessionStorage.removeItem("rs_chat_history");
     } catch {
-      // sessionStorage not available or quota error
+      // sessionStorage not available
     }
 
     return () => {
@@ -81,19 +77,6 @@ export function AIChatbot() {
       window.removeEventListener("close-ai-chat", handleClose);
     };
   }, []);
-
-  // Save session state on change
-  useEffect(() => {
-    try {
-      if (language) sessionStorage.setItem("rs_chat_lang", language);
-      sessionStorage.setItem("rs_chat_count", messageCount.toString());
-      if (messages.length > 0) {
-        sessionStorage.setItem("rs_chat_history", JSON.stringify(messages));
-      }
-    } catch {
-      // ignore storage errors
-    }
-  }, [language, messageCount, messages]);
 
   // Smart scroll management: keep top view on initial welcome, auto-scroll to bottom only on active conversation
   useEffect(() => {
