@@ -1,5 +1,5 @@
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { ModeToggle } from "@/components/mode-toggle";
+import { AIChatTrigger } from "@/components/ai-chat-trigger";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -66,10 +66,10 @@ export default function Navbar() {
         <DockIcon>
           <Tooltip>
             <TooltipTrigger asChild>
-              <ModeToggle />
+              <AIChatTrigger />
             </TooltipTrigger>
             <TooltipContent className="hidden sm:block border border-red-500/30 bg-background text-foreground shadow-[0_4px_16px_rgba(220,38,38,0.25)]">
-              <p>Theme</p>
+              <p>Ask Ritik&apos;s AI</p>
             </TooltipContent>
           </Tooltip>
         </DockIcon>

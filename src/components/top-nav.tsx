@@ -105,6 +105,7 @@ export function TopNav() {
                 alt={DATA.name}
                 width={36}
                 height={36}
+                priority
                 className="size-full scale-[1.28] object-cover"
               />
             </div>
@@ -137,6 +138,7 @@ export function TopNav() {
                         alt={DATA.name}
                         width={28}
                         height={28}
+                        priority
                         className="size-full object-cover"
                       />
                     </div>
