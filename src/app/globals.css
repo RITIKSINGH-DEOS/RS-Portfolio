@@ -127,6 +127,15 @@
   pre {
     @apply !px-0 rounded-lg overflow-x-auto py-4
   }
+
+  /* Completely hide scrollbars while preserving full scrollability */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
    
   pre [data-line] {
     @apply px-4

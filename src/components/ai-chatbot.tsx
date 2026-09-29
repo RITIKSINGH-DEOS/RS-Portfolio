@@ -51,6 +51,7 @@ export function AIChatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
 
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -94,10 +95,18 @@ export function AIChatbot() {
     }
   }, [language, messageCount, messages]);
 
-  // Auto-scroll messages to bottom
+  // Smart scroll management: keep top view on initial welcome, auto-scroll to bottom only on active conversation
   useEffect(() => {
     if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      if (messages.length <= 1 && !isLoading) {
+        // Keep at top so welcome message is visible
+        if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop = 0;
+        }
+      } else {
+        // Conversation has active interaction, scroll smoothly to show latest message
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }, [messages, isLoading, isOpen]);
 
@@ -133,6 +142,11 @@ export function AIChatbot() {
 
     if (messages.length === 0) {
       setMessages([initialGreeting]);
+      setTimeout(() => {
+        if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop = 0;
+        }
+      }, 50);
     }
   };
 
@@ -229,12 +243,13 @@ export function AIChatbot() {
 
           {/* Floating Glassmorphic Chat Window */}
           <motion.div
+            data-lenis-prevent="true"
             initial={{ opacity: 0, y: 30, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.94 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className={cn(
-              "relative z-10 w-full max-w-[420px] sm:w-[390px] h-[580px] max-h-[85vh]",
+              "relative z-10 w-full max-w-[420px] sm:w-[400px] h-[600px] max-h-[88vh]",
               "flex flex-col rounded-3xl overflow-hidden pointer-events-auto",
               "bg-background/95 dark:bg-zinc-950/95 backdrop-blur-xl",
               "border border-red-500/30 dark:border-blue-500/35",
@@ -370,7 +385,16 @@ export function AIChatbot() {
               /* SCREEN 2: ACTIVE CHAT CONVERSATION */
               <>
                 {/* Messages Scroll Area */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-3.5 select-text text-xs">
+                <div
+                  ref={messagesContainerRef}
+                  data-lenis-prevent="true"
+                  className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3.5 select-text text-xs no-scrollbar"
+                  style={{
+                    WebkitOverflowScrolling: "touch",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                  }}
+                >
                   {messages.map((msg) => (
                     <div
                       key={msg.id}
@@ -459,9 +483,13 @@ export function AIChatbot() {
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* Quick Suggestion Chips (Shown early in conversation) */}
-                {messages.length <= 2 && !isLoading && messageCount < MAX_SESSION_MESSAGES && (
-                  <div className="px-3 pb-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+                {/* Quick Suggestion Chips (Shown after initial interaction, avoiding duplication with 5 cards) */}
+                {messages.length > 1 && messages.length <= 3 && !isLoading && messageCount < MAX_SESSION_MESSAGES && (
+                  <div
+                    data-lenis-prevent="true"
+                    className="px-3 pb-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0"
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  >
                     {SUGGESTIONS[language].map((chip) => (
                       <button
                         key={chip.label}
