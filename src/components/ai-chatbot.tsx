@@ -28,16 +28,18 @@ const MAX_SESSION_MESSAGES = 5;
 
 const SUGGESTIONS = {
   en: [
-    { label: "Core Tech Stack", text: "What is Ritik's core tech stack and skills?" },
-    { label: "Top AI Projects", text: "Tell me about Ritik's best AI projects." },
-    { label: "Services Offered", text: "What freelance/contract services does Ritik provide?" },
-    { label: "Schedule a Call", text: "How can I schedule an appointment with Ritik?" },
+    { label: "🎓 College Project Help", text: "Do you need help building your college project?" },
+    { label: "🚀 Project from Scratch", text: "Want to build your college project from scratch with Ritik?" },
+    { label: "💼 Business Website", text: "Looking to build a custom website for your business?" },
+    { label: "🔧 Fix Website Issues", text: "Need to fix bugs or issues in your existing website?" },
+    { label: "💡 Personal Guidance", text: "Looking for 1-on-1 personal coding or career guidance?" },
   ],
   hi: [
-    { label: "Core Skills", text: "Ritik ko kaun-kaun si technical skills aati hain?" },
-    { label: "Top Projects", text: "Ritik ke top AI projects ke baare mein batao." },
-    { label: "Services", text: "Ritik kaun-kaun si services provide kar sakta hai?" },
-    { label: "Call Schedule", text: "Ritik ke sath appointment ya call kaise schedule karein?" },
+    { label: "🎓 College Project Help", text: "Kya aap apna college project banwane mein help chahte hain?" },
+    { label: "🚀 Project Scratch Se", text: "Kya aap poora college project scratch se banwana chahte hain?" },
+    { label: "💼 Business Website", text: "Kya aap apne business ke liye website banwana chahte hain?" },
+    { label: "🔧 Website Issue Fix", text: "Kya aapko apni website mein koi issue ya bug fix karwana hai?" },
+    { label: "💡 Personal Guidance", text: "Kya aapko personal guidance ya mentorship chahiye?" },
   ],
 };
 
@@ -124,8 +126,8 @@ export function AIChatbot() {
       role: "assistant",
       content:
         selectedLang === "hi"
-          ? "Namaste! 🙏 Main Ritik Singh ka official AI Assistant hoon. Ritik ke skills, projects, IBM internship ya appointment schedule karne ke baare mein aap mujhse kuch bhi pooch sakte hain!"
-          : "Hi there! 👋 I'm Ritik Singh's official AI Assistant. Feel free to ask me anything about Ritik's skills, full-stack & AI projects, or how to schedule a short call!",
+          ? "Namaste! 🙏 Main Ritik Singh ka official AI Assistant hoon. Niche diye gaye options mein se select karein ya directly apna question type karein:"
+          : "Hi there! 👋 I'm Ritik Singh's official AI Assistant. Feel free to pick any of the common inquiries below or ask your own question:",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
@@ -202,8 +204,8 @@ export function AIChatbot() {
         role: "assistant",
         content:
           language === "hi"
-            ? "Connection issue ki wajah se response nahi mil paya. Aap Ritik se directly email (businessritiksinghdeos@gmail.com) par connect kar sakte hain!"
-            : "Couldn't reach the server right now. You can directly connect with Ritik via email at businessritiksinghdeos@gmail.com!",
+            ? "Connection issue ki wajah se response nahi mil paya. Aap Ritik se directly email (businessritiksinghdeos@gmail.com) ya 👉 [WhatsApp par call schedule kar sakte hain](https://wa.me/919956251140)!"
+            : "Couldn't reach the server right now. You can directly connect with Ritik via email at businessritiksinghdeos@gmail.com or 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)!",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, fallbackReply]);
@@ -413,6 +415,37 @@ export function AIChatbot() {
                       </span>
                     </div>
                   ))}
+
+                  {/* 5 Core Preset Questions / Inquiries */}
+                  {messages.length === 1 && !isLoading && (
+                    <div className="space-y-1.5 pt-1 pb-1">
+                      <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider px-1">
+                        {language === "hi"
+                          ? "Aap inme se choose kar sakte hain:"
+                          : "Select an inquiry to get started:"}
+                      </p>
+                      <div className="grid grid-cols-1 gap-1.5">
+                        {SUGGESTIONS[language].map((item, idx) => (
+                          <button
+                            key={item.label}
+                            type="button"
+                            onClick={() => handleSendMessage(item.text)}
+                            className="group w-full flex items-center justify-between p-2.5 rounded-xl border border-black/[0.07] dark:border-white/[0.08] bg-muted/40 dark:bg-zinc-900/50 hover:bg-muted/90 dark:hover:bg-zinc-800/90 hover:border-red-500/40 dark:hover:border-blue-500/40 text-left transition-all cursor-pointer"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="size-5 rounded-lg bg-red-500/10 dark:bg-blue-500/15 text-red-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-semibold shrink-0">
+                                {idx + 1}
+                              </span>
+                              <span className="text-[11.5px] font-medium text-foreground/90 group-hover:text-foreground">
+                                {item.text}
+                              </span>
+                            </div>
+                            <ArrowRight className="size-3 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all shrink-0 ml-1.5" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Typing Indicator */}
                   {isLoading && (

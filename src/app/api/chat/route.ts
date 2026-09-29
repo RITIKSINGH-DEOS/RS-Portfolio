@@ -3,10 +3,13 @@ import { DATA } from "@/data/resume";
 
 // In-memory rate limiting to protect the Gemini API quota from automated abuse
 const ipRequestCounts = new Map<string, { count: number; resetTime: number }>();
-const MAX_REQUESTS_PER_WINDOW = 12; // Max 12 requests per 10 minutes per IP
+const MAX_REQUESTS_PER_WINDOW = 30; // Max 30 requests per 10 minutes per IP
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 
 function isRateLimited(ip: string): boolean {
+  if (process.env.NODE_ENV === "development") {
+    return false;
+  }
   const now = Date.now();
   const record = ipRequestCounts.get(ip);
 
@@ -103,8 +106,119 @@ RITIK'S VERIFIED KNOWLEDGE BASE:
 
 - Contact & Appointment:
   * Official Email: businessritiksinghdeos@gmail.com
-  * Booking: Clients can click "Book a short call" on the website to schedule an appointment.
+  * Booking Link: Clients can book directly using: [Book a Call on WhatsApp](https://wa.me/919956251140)
+
+============================================================
+PRIMARY SERVICES & 5 CORE FAQ FLOWS (MANDATORY RESPONSES):
+============================================================
+When users ask about or select ANY of these 5 specific topics (whether phrased as a question, an inquiry, or clicking a preset card), ALWAYS confirm Ritik's capability warmly, describe what he offers, and explicitly tell them to Book a call with the direct WhatsApp link [Book a Call on WhatsApp](https://wa.me/919956251140):
+
+1. COLLEGE PROJECT HELP / ASSISTANCE:
+   (Matches: "college project help", "Kya aap apna college project banwane mein help chahte hain?", "Do you need help building your college project?", "Mujhe college project mein help chahiye")
+   - English: "Yes! Ritik actively helps students with college minor/major projects in MERN Stack, Next.js, and AI/ML integrations (like Gemini API, LangChain). You can discuss your project requirements and get started right away! 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+   - Hinglish: "Haan bilkul! Ritik college students ko projects (MERN, Next.js, AI/ML) complete karne mein guide aur help karte hain. Aap apne project ki requirement discuss karne ke liye direct call schedule kar sakte hain: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+
+2. BUILD COLLEGE PROJECT FROM SCRATCH:
+   (Matches: "project scratch se", "kya aap pura apna college project scratch se banwana chahte hain?", "Want your college project built from scratch?", "poora project scratch se banwana hai")
+   - English: "Definitely! Ritik builds complete, production-grade college projects from scratch with full architecture, database, modern UI, and AI features. Let's discuss your project scope: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+   - Hinglish: "Haan zaroor! Ritik poora college project (major/minor) zero se lekar production-ready scratch se bana kar dete hain with modern UI, database, aur AI features. Detail discuss karne ke liye call book karein: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+
+3. BUILD BUSINESS WEBSITE:
+   (Matches: "business website", "Kya aap apne business ke liye website banwana chahte hain?", "Looking to build a website for your business?", "website banwani hai")
+   - English: "Yes! Ritik develops high-converting, ultra-fast, responsive modern websites and SaaS platforms for businesses using Next.js, Tailwind CSS, and AI features. Let's discuss your business vision: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+   - Hinglish: "Haan bilkul! Ritik businesses ke liye high-speed, modern, SEO-friendly aur responsive websites develop karte hain jo lead generate karne mein madad karti hain. Apne business website ke liye call book karein: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+
+4. FIX WEBSITE ISSUES / BUGS:
+   (Matches: "fix website issues", "website bug", "Kya aapko apni website mein koi issue fix karwana hai?", "Need to fix bugs or issues in your website?", "issue fix")
+   - English: "Yes! If you have any frontend, backend, responsive design, or database bugs in your existing web app, Ritik can quickly diagnose and resolve them. Share your issue details: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+   - Hinglish: "Haan! Agar aapki existing website ya web app mein koi UI, responsive issue, API bug, ya performance problem hai, toh Ritik use quickly fix kar sakte hain. Issue discuss karne ke liye: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+
+5. PERSONAL GUIDANCE / MENTORSHIP:
+   (Matches: "personal guidance", "mentorship", "Kya aapko personal guidance chahiye?", "Looking for 1-on-1 personal guidance & mentorship?")
+   - English: "Absolutely! Ritik provides 1-on-1 personal guidance for web development, full-stack roadmap, transitioning into AI engineering, and project building. Schedule a session: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+   - Hinglish: "Bilkul! Ritik web development, MERN roadmap, Full Stack AI transition, aur coding guidance ke liye 1-on-1 personal mentorship provide karte hain. Call schedule karne ke liye: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
 `;
+
+const PRESET_FAQ_RESPONSES = {
+  college_help: {
+    en: "Yes! Ritik actively helps students with college minor/major projects in MERN Stack, Next.js, and AI/ML integrations (like Gemini API, LangChain). You can discuss your project requirements and get started right away!\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Haan bilkul! Ritik college students ko projects (MERN, Next.js, AI/ML) complete karne mein guide aur help karte hain. Aap apne project ki requirement discuss karne ke liye direct call schedule kar sakte hain:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  college_scratch: {
+    en: "Definitely! Ritik builds complete, production-grade college projects from scratch with full architecture, database, modern UI, and AI features. Let's discuss your project scope:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Haan zaroor! Ritik poora college project (major/minor) zero se lekar production-ready scratch se bana kar dete hain with modern UI, database, aur AI features. Detail discuss karne ke liye call book karein:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  business_website: {
+    en: "Yes! Ritik develops high-converting, ultra-fast, responsive modern websites and SaaS platforms for businesses using Next.js, Tailwind CSS, and AI features. Let's discuss your business vision:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Haan bilkul! Ritik businesses ke liye high-speed, modern, SEO-friendly aur responsive websites develop karte hain jo lead generate karne mein madad karti hain. Apne business website ke liye call book karein:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  fix_issues: {
+    en: "Yes! If you have any frontend, backend, responsive design, or database bugs in your existing web app, Ritik can quickly diagnose and resolve them. Share your issue details:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Haan! Agar aapki existing website ya web app mein koi UI, responsive issue, API bug, ya performance problem hai, toh Ritik use quickly fix kar sakte hain. Issue discuss karne ke liye:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  personal_guidance: {
+    en: "Absolutely! Ritik provides 1-on-1 personal guidance for web development, full-stack roadmap, transitioning into AI engineering, and project building. Schedule a session:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Bilkul! Ritik web development, MERN roadmap, Full Stack AI transition, aur coding guidance ke liye 1-on-1 personal mentorship provide karte hain. Call schedule karne ke liye:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+};
+
+function getPresetFaqReply(query: string, language: "en" | "hi"): string | null {
+  const q = query.toLowerCase().trim();
+  const langKey = language === "hi" ? "hi" : "en";
+
+  // 1. College project help
+  if (
+    q.includes("college project banwane mein help") ||
+    q.includes("college project bawaen me help") ||
+    q.includes("need help building your college project") ||
+    q.includes("help building my college project") ||
+    q.includes("college project help")
+  ) {
+    return PRESET_FAQ_RESPONSES.college_help[langKey];
+  }
+
+  // 2. Project from scratch
+  if (
+    q.includes("scratch") ||
+    q.includes("sktracht") ||
+    q.includes("pura apna college project") ||
+    q.includes("poora college project scratch")
+  ) {
+    return PRESET_FAQ_RESPONSES.college_scratch[langKey];
+  }
+
+  // 3. Business website
+  if (
+    q.includes("business ke liye website") ||
+    q.includes("buisness k liye website") ||
+    q.includes("website for your business") ||
+    q.includes("website for my business") ||
+    q.includes("business website")
+  ) {
+    return PRESET_FAQ_RESPONSES.business_website[langKey];
+  }
+
+  // 4. Fix website issues
+  if (
+    q.includes("website mein koi issue") ||
+    q.includes("website me koi issue") ||
+    q.includes("fix bugs or issues") ||
+    q.includes("fix website issues")
+  ) {
+    return PRESET_FAQ_RESPONSES.fix_issues[langKey];
+  }
+
+  // 5. Personal guidance
+  if (
+    q.includes("personal guidance") ||
+    q.includes("personal coding or career guidance") ||
+    q.includes("guidance ya mentorship")
+  ) {
+    return PRESET_FAQ_RESPONSES.personal_guidance[langKey];
+  }
+
+  return null;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -142,6 +256,15 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Fast-path: Check if latest user message matches one of the 5 core preset FAQ inquiries
+    const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
+    if (lastUserMessage) {
+      const presetReply = getPresetFaqReply(lastUserMessage.content, language);
+      if (presetReply) {
+        return NextResponse.json({ reply: presetReply });
+      }
+    }
+
     // Enforce max 6 messages in the conversation history sent to the API
     const recentMessages = messages.slice(-6);
 
@@ -168,7 +291,7 @@ export async function POST(req: NextRequest) {
       generationConfig: {
         temperature: 0.5,
         topP: 0.85,
-        maxOutputTokens: 280, // Crisp, token-efficient responses
+        maxOutputTokens: 600, // Sufficient tokens to prevent truncation
       },
     };
 
@@ -186,6 +309,16 @@ export async function POST(req: NextRequest) {
     if (!response.ok) {
       const errText = await response.text();
       console.error("Gemini API error:", response.status, errText);
+
+      // Gracefully handle Gemini Free Tier 429 quota exhaustion
+      if (response.status === 429) {
+        const busyReply =
+          language === "hi"
+            ? "Abhi bohot saare log connect kar rahe hain! Aap direct Ritik ke sath call schedule kar sakte hain ya WhatsApp par message drop karein: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+            : "Lots of visitors are connecting right now! You can directly schedule a quick chat with Ritik here: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)";
+        return NextResponse.json({ reply: busyReply });
+      }
+
       return NextResponse.json(
         {
           error:
@@ -199,8 +332,8 @@ export async function POST(req: NextRequest) {
     const replyText =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ||
       (language === "hi"
-        ? "Maaf kijiye, main abhi response generate nahi kar paya. Aap Ritik se directly email ya appointment ke through connect kar sakte hain."
-        : "I'm sorry, I couldn't generate a response right now. Feel free to connect with Ritik via email or book an appointment.");
+        ? "Maaf kijiye, main abhi response generate nahi kar paya. Aap Ritik se directly email ya appointment ke through connect kar sakte hain: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)"
+        : "I'm sorry, I couldn't generate a response right now. Feel free to connect with Ritik directly: 👉 [Book a Call on WhatsApp](https://wa.me/919956251140)");
 
     return NextResponse.json({ reply: replyText });
   } catch (error) {
