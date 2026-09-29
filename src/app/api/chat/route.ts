@@ -160,24 +160,29 @@ const PRESET_FAQ_RESPONSES = {
     en: "Absolutely! Ritik provides 1-on-1 personal guidance for web development, full-stack roadmap, transitioning into AI engineering, and project building. Schedule a session:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
     hi: "Bilkul! Ritik web development, MERN roadmap, Full Stack AI transition, aur coding guidance ke liye 1-on-1 personal mentorship provide karte hain. Call schedule karne ke liye:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
   },
+  skills: {
+    en: "Ritik is a **Full Stack MERN Developer transitioning into Full Stack AI Engineer**. His core skills include:\n\n• **Frontend**: React.js, Next.js, Tailwind CSS, TypeScript, JavaScript, shadcn/ui, GSAP, Framer Motion\n• **Backend**: Node.js, Express.js, REST APIs, Java, Python, JWT Authentication\n• **Databases**: PostgreSQL, MongoDB, MySQL, Supabase, Mongoose\n• **AI / ML**: Google Gemini API, LangChain, Ollama, Streamlit, LLM Integration\n• **DevOps & Cloud**: Docker, Git/GitHub, CI/CD, Postman, Vercel\n\nHe has built and deployed **10+ production-ready web apps**. Want to discuss building your project?\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Ritik ek **Full Stack MERN Developer & AI Engineer** hain. Unki core technical skills yeh hain:\n\n• **Frontend**: React.js, Next.js, Tailwind CSS, TypeScript, JavaScript, shadcn/ui, GSAP\n• **Backend**: Node.js, Express.js, REST APIs, Java, Python, JWT Auth\n• **Databases**: PostgreSQL, MongoDB, MySQL, Supabase\n• **AI & ML**: Google Gemini API, LangChain, Ollama, Streamlit, LLM Integration\n• **Tools & Cloud**: Docker, Git, CI/CD, Vercel, Postman\n\nUnhone **10+ real-world production projects** deploy kiye hain. Project banwane se pehle requirement discuss karne ke liye direct call book karein:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  qualification: {
+    en: "Ritik's academic & professional qualifications:\n\n• **Degree**: B.Tech in Computer Science & Engineering (CSE) from Shri Ramswaroop Memorial University (SRMU), Lucknow (2023 - 2027) with CGPA 7.8.\n• **AI Virtual Internship**: IBM SkillsBuild × Edunet Foundation (AICTE certified).\n• **Certifications**: IBM AI (GenAI/Python), Google Cloud & GenAI, Postman Student Expert, Coding Shuttle MERN Stack.\n• **Practical Work**: 10+ live full-stack & AI apps developed from scratch.\n\nWant to discuss your project requirements?\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Ritik ki qualifications aur educational background:\n\n• **Degree**: B.Tech CSE (Computer Science & Engineering) from SRMU Lucknow (2023–2027) with 7.8 CGPA.\n• **AI Internship**: IBM SkillsBuild × Edunet Foundation (AICTE certified AI Virtual Intern).\n• **Certifications**: IBM Artificial Intelligence, Google Cloud & GenAI, Postman API Student Expert, Coding Shuttle MERN.\n• **Experience**: 10+ live full-stack aur AI web applications deploy kiye hain.\n\nApne project ya development ke liye direct call book karein:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  experience: {
+    en: "Ritik has strong industry and development experience:\n\n• **IBM SkillsBuild × Edunet Foundation**: AI Virtual Intern (AICTE approved). Developed GenAI apps using Python, Streamlit & Gemini API.\n• **Freelance Full-Stack Developer**: Successfully delivered 10+ production web applications and college projects.\n\nReady to discuss your project or hire Ritik?\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Ritik ka practical experience aur track record:\n\n• **IBM SkillsBuild × Edunet Foundation**: AI Virtual Intern (AICTE approved). Generative AI applications develop kiye using Python, Streamlit aur Gemini API.\n• **Freelance Full-Stack Developer**: 10+ production SaaS platforms aur college projects deliver kar chuke hain.\n\nCall schedule karke baat karne ke liye:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
+  top_projects: {
+    en: "Ritik has built 10+ production web & AI apps, including:\n\n1. **ResumeAI**: AI Resume & ATS scoring platform (Next.js, Supabase, Gemini API).\n2. **MedConnect**: Telemedicine platform with doctor bookings & AI triage.\n3. **AI Learning Assistant**: MERN app with PDF chat, automated summaries & quizzes.\n4. **Support AI**: Custom AI chatbot and knowledge-base support platform.\n\nWant a similar project built for college or business?\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+    hi: "Ritik ke top featured live projects:\n\n1. **ResumeAI**: AI Resume analyzer & ATS scoring platform (Next.js, Gemini AI, Supabase).\n2. **MedConnect**: Full telemedicine web app with doctor booking & AI triage.\n3. **AI Learning Assistant**: Student learning platform with PDF AI chat & quizzes.\n4. **Support AI**: Custom AI chatbot platform for client customer support.\n\nAap bhi aisa project banwana chahte hain? Call book karein:\n\n👉 [Book a Call on WhatsApp](https://wa.me/919956251140)",
+  },
 };
 
 function getPresetFaqReply(query: string, language: "en" | "hi"): string | null {
   const q = query.toLowerCase().trim();
   const langKey = language === "hi" ? "hi" : "en";
 
-  // 1. College project help
-  if (
-    q.includes("college project banwane mein help") ||
-    q.includes("college project bawaen me help") ||
-    q.includes("need help building your college project") ||
-    q.includes("help building my college project") ||
-    q.includes("college project help")
-  ) {
-    return PRESET_FAQ_RESPONSES.college_help[langKey];
-  }
-
-  // 2. Project from scratch
+  // 1. Project from scratch
   if (
     q.includes("scratch") ||
     q.includes("sktracht") ||
@@ -185,6 +190,18 @@ function getPresetFaqReply(query: string, language: "en" | "hi"): string | null 
     q.includes("poora college project scratch")
   ) {
     return PRESET_FAQ_RESPONSES.college_scratch[langKey];
+  }
+
+  // 2. College project help
+  if (
+    q.includes("college project banwane mein help") ||
+    q.includes("college project bawaen me help") ||
+    q.includes("need help building your college project") ||
+    q.includes("help building my college project") ||
+    q.includes("college project help") ||
+    (q.includes("college project") && (q.includes("help") || q.includes("banwa") || q.includes("build")))
+  ) {
+    return PRESET_FAQ_RESPONSES.college_help[langKey];
   }
 
   // 3. Business website
@@ -215,6 +232,63 @@ function getPresetFaqReply(query: string, language: "en" | "hi"): string | null 
     q.includes("guidance ya mentorship")
   ) {
     return PRESET_FAQ_RESPONSES.personal_guidance[langKey];
+  }
+
+  // 6. Skills & Tech Stack
+  if (
+    q.includes("skill") ||
+    q.includes("tech stack") ||
+    q.includes("techstack") ||
+    q.includes("technology") ||
+    q.includes("technologies") ||
+    q.includes("kya aata hai") ||
+    q.includes("kaun si skill") ||
+    q.includes("programming language") ||
+    q.includes("languages") ||
+    q.includes("stack")
+  ) {
+    return PRESET_FAQ_RESPONSES.skills[langKey];
+  }
+
+  // 7. Qualifications & Education
+  if (
+    q.includes("qualification") ||
+    q.includes("qualifications") ||
+    q.includes("education") ||
+    q.includes("degree") ||
+    q.includes("btech") ||
+    q.includes("b.tech") ||
+    q.includes("srmu") ||
+    q.includes("padhai") ||
+    q.includes("background") ||
+    (q.includes("college") && !q.includes("project"))
+  ) {
+    return PRESET_FAQ_RESPONSES.qualification[langKey];
+  }
+
+  // 8. Experience & Internship
+  if (
+    q.includes("internship") ||
+    q.includes("intern") ||
+    q.includes("ibm") ||
+    q.includes("experience") ||
+    q.includes("kaam kiya") ||
+    q.includes("work experience")
+  ) {
+    return PRESET_FAQ_RESPONSES.experience[langKey];
+  }
+
+  // 9. Top Projects
+  if (
+    q.includes("projects") ||
+    q.includes("top project") ||
+    q.includes("best project") ||
+    q.includes("featured project") ||
+    q.includes("resumeai") ||
+    q.includes("medconnect") ||
+    q.includes("kya banaya")
+  ) {
+    return PRESET_FAQ_RESPONSES.top_projects[langKey];
   }
 
   return null;
