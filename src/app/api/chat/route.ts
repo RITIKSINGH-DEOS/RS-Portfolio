@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DATA } from "@/data/resume";
 
+export const dynamic = "force-dynamic";
+
 // In-memory rate limiting to protect the Gemini API quota from automated abuse
 const ipRequestCounts = new Map<string, { count: number; resetTime: number }>();
 const MAX_REQUESTS_PER_WINDOW = 30; // Max 30 requests per 10 minutes per IP

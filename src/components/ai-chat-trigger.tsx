@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Sparkles } from "lucide-react";
+import { BotMessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
@@ -34,7 +34,7 @@ export const AIChatTrigger = React.forwardRef<
       )}
       {...props}
     >
-      <Sparkles className="size-4 transition-transform duration-200 group-hover/dock-icon:scale-125 text-red-500 dark:text-blue-400" />
+      <BotMessageSquare className="size-[18px] transition-transform duration-200 group-hover/dock-icon:scale-125 text-red-500 dark:text-blue-400" />
       <span className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.9)] animate-pulse" />
     </button>
   );
