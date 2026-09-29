@@ -128,6 +128,92 @@ export function AIChatbot() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  // Prevent background page scrolling on mobile and desktop while chat is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // 1. Pause Lenis smooth scrolling if active
+    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis;
+    if (lenis && typeof lenis.stop === "function") {
+      lenis.stop();
+    }
+
+    // 2. Lock body scroll using position fixed to prevent mobile bounce & desktop scroll
+    const scrollY = window.scrollY;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalBodyPosition = document.body.style.position;
+    const originalBodyTop = document.body.style.top;
+    const originalBodyWidth = document.body.style.width;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyTouchAction = document.body.style.touchAction;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+
+    // 3. Intercept touchmove on mobile devices outside the chat scrollable area
+    const handleTouchMove = (e: TouchEvent) => {
+      const target = e.target as HTMLElement | null;
+      // Allow scrolling ONLY inside elements marked with [data-chat-scroll]
+      if (target && target.closest("[data-chat-scroll]")) {
+        return;
+      }
+      // Completely prevent background drag on touch devices (including the top blur area)
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+    };
+
+    // 4. Intercept wheel events (mouse wheel in Chrome DevTools emulation or desktop)
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.target as HTMLElement | null;
+      const scrollable = target?.closest("[data-chat-scroll]") as HTMLElement | null;
+      if (!scrollable) {
+        // Scrolling on blur area, header, or anywhere outside the chat messages
+        if (e.cancelable) {
+          e.preventDefault();
+        }
+        return;
+      }
+
+      // Inside chat messages: prevent overscroll from propagating to the background
+      const { scrollTop, scrollHeight, clientHeight } = scrollable;
+      const isAtTop = scrollTop <= 0;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+      if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+        if (e.cancelable) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    document.addEventListener("touchmove", handleTouchMove, { passive: false });
+    document.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.position = originalBodyPosition;
+      document.body.style.top = originalBodyTop;
+      document.body.style.width = originalBodyWidth;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.touchAction = originalBodyTouchAction;
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("wheel", handleWheel);
+
+      // Restore scroll position
+      window.scrollTo(0, scrollY);
+
+      // Resume Lenis smooth scroll
+      if (lenis && typeof lenis.start === "function") {
+        lenis.start();
+      }
+    };
+  }, [isOpen]);
+
   const selectLanguage = (selectedLang: "en" | "hi") => {
     setLanguage(selectedLang);
     const initialGreeting: ChatMessage = {
@@ -231,14 +317,14 @@ export function AIChatbot() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-end justify-center sm:justify-end p-2 sm:p-6 pointer-events-none">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-end justify-center sm:justify-end p-2 sm:p-6 pointer-events-none overscroll-none">
           {/* Subtle backdrop click to close on mobile */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/40 sm:bg-transparent pointer-events-auto backdrop-blur-[2px] sm:backdrop-blur-none"
+            className="fixed inset-0 bg-black/40 sm:bg-transparent pointer-events-auto backdrop-blur-[2px] sm:backdrop-blur-none touch-none overscroll-none"
           />
 
           {/* Floating Glassmorphic Chat Window */}
@@ -250,7 +336,7 @@ export function AIChatbot() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className={cn(
               "relative z-10 w-full max-w-[420px] sm:w-[400px] h-[600px] max-h-[88vh]",
-              "flex flex-col rounded-3xl overflow-hidden pointer-events-auto",
+              "flex flex-col rounded-3xl overflow-hidden pointer-events-auto overscroll-contain",
               "bg-background/95 dark:bg-zinc-950/95 backdrop-blur-xl",
               "border border-red-500/30 dark:border-blue-500/35",
               "shadow-[0_12px_45px_-5px_rgba(220,38,38,0.25),0_0_30px_rgba(37,99,235,0.2)]",
@@ -324,7 +410,16 @@ export function AIChatbot() {
 
             {/* SCREEN 1: LANGUAGE SELECTION MODAL */}
             {!language ? (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+              <div
+                data-chat-scroll="true"
+                className="flex-1 min-h-0 overflow-y-auto overscroll-contain flex flex-col items-center justify-center p-6 text-center no-scrollbar"
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  overscrollBehavior: "contain",
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                }}
+              >
                 <div className="size-16 rounded-2xl bg-gradient-to-tr from-red-500/15 via-transparent to-blue-500/15 border border-red-500/30 dark:border-blue-500/35 flex items-center justify-center mb-4 shadow-inner">
                   <Sparkles className="size-8 text-red-500 dark:text-blue-400 animate-pulse" />
                 </div>
@@ -388,9 +483,11 @@ export function AIChatbot() {
                 <div
                   ref={messagesContainerRef}
                   data-lenis-prevent="true"
+                  data-chat-scroll="true"
                   className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 space-y-3.5 select-text text-xs no-scrollbar"
                   style={{
                     WebkitOverflowScrolling: "touch",
+                    overscrollBehavior: "contain",
                     scrollbarWidth: "none",
                     msOverflowStyle: "none",
                   }}
@@ -487,8 +584,14 @@ export function AIChatbot() {
                 {messages.length > 1 && messages.length <= 3 && !isLoading && messageCount < MAX_SESSION_MESSAGES && (
                   <div
                     data-lenis-prevent="true"
+                    data-chat-scroll="true"
                     className="px-3 pb-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0"
-                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                    style={{
+                      WebkitOverflowScrolling: "touch",
+                      overscrollBehavior: "contain",
+                      scrollbarWidth: "none",
+                      msOverflowStyle: "none",
+                    }}
                   >
                     {SUGGESTIONS[language].map((chip) => (
                       <button

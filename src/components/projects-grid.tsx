@@ -103,6 +103,7 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
                 tags={project.technologies}
                 image={project.image}
                 video={project.video}
+                priority={id < 2}
                 links={project.links}
               />
             </motion.div>

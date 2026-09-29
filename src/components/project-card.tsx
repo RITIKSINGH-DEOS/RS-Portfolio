@@ -20,6 +20,7 @@ interface Props {
   link?: string;
   image?: string;
   video?: string;
+  priority?: boolean;
   links?: readonly {
     icon?: React.ReactNode;
     type: string;
@@ -37,6 +38,7 @@ export function ProjectCard({
   link,
   image,
   video,
+  priority,
   links,
   className,
 }: Props) {
@@ -71,7 +73,8 @@ export function ProjectCard({
             alt={title}
             width={500}
             height={300}
-            loading="lazy"
+            priority={priority}
+            loading={priority ? undefined : "lazy"}
             decoding="async"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
             className="h-40 w-full overflow-hidden object-cover object-top"
