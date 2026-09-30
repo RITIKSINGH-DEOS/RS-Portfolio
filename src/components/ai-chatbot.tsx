@@ -43,6 +43,55 @@ const SUGGESTIONS = {
   ],
 };
 
+function IndiaFlag({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 640 480"
+      className={className}
+      aria-label="India Flag"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="640" height="160" fill="#FF9933" />
+      <rect y="160" width="640" height="160" fill="#FFFFFF" />
+      <rect y="320" width="640" height="160" fill="#138808" />
+      <circle cx="320" cy="240" r="52" fill="#000080" />
+      <circle cx="320" cy="240" r="44" fill="#FFFFFF" />
+      <circle cx="320" cy="240" r="12" fill="#000080" />
+      <g stroke="#000080" strokeWidth="2.5">
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(0 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(15 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(30 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(45 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(60 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(75 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(90 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(105 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(120 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(135 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(150 320 240)" />
+        <line x1="320" y1="196" x2="320" y2="284" transform="rotate(165 320 240)" />
+      </g>
+    </svg>
+  );
+}
+
+function UKFlag({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 60 30"
+      className={className}
+      aria-label="United Kingdom Flag"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="60" height="30" fill="#012169" />
+      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#FFFFFF" strokeWidth="6" />
+      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="2" />
+      <path d="M30 0 v30 M0 15 h60" stroke="#FFFFFF" strokeWidth="10" />
+      <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" strokeWidth="6" />
+    </svg>
+  );
+}
+
 export function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState<"en" | "hi" | null>(null);
@@ -421,7 +470,9 @@ export function AIChatbot() {
                     className="group w-full flex items-center justify-between p-3.5 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-muted/30 dark:bg-zinc-900/40 hover:bg-muted/80 dark:hover:bg-zinc-800/80 hover:border-red-500/40 dark:hover:border-blue-500/40 transition-all text-left cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">🇬🇧</span>
+                      <div className="w-8 h-6 rounded-md overflow-hidden border border-black/15 dark:border-white/20 shadow-sm shrink-0 flex items-center justify-center bg-black/5">
+                        <UKFlag className="w-full h-full object-cover" />
+                      </div>
                       <div>
                         <div className="text-xs sm:text-[13px] font-semibold text-foreground group-hover:text-red-500 dark:group-hover:text-blue-400 transition-colors">
                           English
@@ -440,7 +491,9 @@ export function AIChatbot() {
                     className="group w-full flex items-center justify-between p-3.5 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-muted/30 dark:bg-zinc-900/40 hover:bg-muted/80 dark:hover:bg-zinc-800/80 hover:border-red-500/40 dark:hover:border-blue-500/40 transition-all text-left cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">🇮🇳</span>
+                      <div className="w-8 h-6 rounded-md overflow-hidden border border-black/15 dark:border-white/20 shadow-sm shrink-0 flex items-center justify-center bg-black/5">
+                        <IndiaFlag className="w-full h-full object-cover" />
+                      </div>
                       <div>
                         <div className="text-xs sm:text-[13px] font-semibold text-foreground group-hover:text-red-500 dark:group-hover:text-blue-400 transition-colors">
                           Hinglish
