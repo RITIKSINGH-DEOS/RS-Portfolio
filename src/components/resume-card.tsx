@@ -51,14 +51,30 @@ export const ResumeCard = ({
   };
 
   const card = (
-    <Card className="flex items-start p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-card border-[0.5px] border-black/[0.05] dark:border-white/[0.06] shadow-none transition-colors duration-200">
-      <div className="flex-none pt-0.5">
-        <Avatar className="border-[0.5px] border-black/[0.05] dark:border-white/[0.06] size-11 sm:size-12 m-auto bg-muted dark:bg-foreground">
+    <Card className="group relative flex items-start p-3.5 sm:p-4 rounded-xl sm:rounded-2xl overflow-hidden border border-black/[0.08] dark:border-white/[0.09] bg-white/75 dark:bg-zinc-950/75 backdrop-blur-xl shadow-[0_4px_20px_-2px_rgba(220,38,38,0.10),0_4px_20px_-2px_rgba(37,99,235,0.10),0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_-4px_rgba(220,38,38,0.22),0_8px_28px_-4px_rgba(37,99,235,0.20),0_6px_16px_rgba(0,0,0,0.07)] hover:border-red-500/35 dark:hover:border-blue-400/40 hover:-translate-y-0.5 transition-all duration-300">
+      {/* Spider-Man Base Ambient Lighting (Soft Red & Blue Corner Glows) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-10 -left-10 size-32 sm:size-40 rounded-full bg-red-500/15 dark:bg-red-500/20 blur-2xl transition-opacity duration-300"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-10 -right-10 size-32 sm:size-40 rounded-full bg-blue-500/15 dark:bg-blue-500/20 blur-2xl transition-opacity duration-300"
+      />
+
+      {/* Glossy Specular Glass Reflection Sheen */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/[0.04] dark:via-transparent dark:to-transparent"
+      />
+
+      <div className="relative z-10 flex-none pt-0.5">
+        <Avatar className="border border-black/[0.08] dark:border-white/[0.12] size-11 sm:size-12 m-auto bg-white/90 dark:bg-zinc-900/90 shadow-sm p-1 backdrop-blur-sm">
           <AvatarImage src={logoUrl} alt={altText} className="object-contain" />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="min-w-0 flex-grow ml-3 sm:ml-4 flex-col group">
+      <div className="relative z-10 min-w-0 flex-grow ml-3 sm:ml-4 flex-col group">
         <CardHeader className="p-0 space-y-1">
           <div className="flex items-center justify-between gap-x-2 text-base">
             <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">
