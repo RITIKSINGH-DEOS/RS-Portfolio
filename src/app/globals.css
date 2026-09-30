@@ -81,6 +81,7 @@
     html {
       color-scheme: light;
       overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
     }
     html.dark {
       color-scheme: dark;
