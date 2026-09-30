@@ -69,8 +69,8 @@ export const ResumeCard = ({
       />
 
       <div className="relative z-10 flex-none pt-0.5">
-        <Avatar className="border border-black/[0.08] dark:border-white/[0.12] size-11 sm:size-12 m-auto bg-white/90 dark:bg-zinc-900/90 shadow-sm p-1 backdrop-blur-sm">
-          <AvatarImage src={logoUrl} alt={altText} className="object-contain" />
+        <Avatar className="border border-black/[0.08] dark:border-white/[0.12] size-11 sm:size-12 m-auto bg-white/95 dark:bg-zinc-900/95 shadow-sm overflow-hidden rounded-full backdrop-blur-sm">
+          <AvatarImage src={logoUrl} alt={altText} className="object-contain size-full rounded-full" />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>
       </div>
