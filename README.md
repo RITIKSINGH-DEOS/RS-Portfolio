@@ -182,7 +182,7 @@ I'm **Ritik Singh**, a Full Stack Developer transitioning into a **Full Stack AI
 - 🌐 **Portfolio:** [ritiksingh.in](https://ritiksingh.in)
 - 💼 **LinkedIn:** [linkedin.com/in/ritiksinghdeos](https://www.linkedin.com/in/ritiksinghdeos/)
 - 🐙 **GitHub:** [github.com/RITIKSINGH-DEOS](https://github.com/RITIKSINGH-DEOS)
-- 💬 **WhatsApp:** [wa.me/919956251140](https://wa.me/919956251140)
+- 📞 **Book a Call:** [ritiksingh.in/book-a-call](https://ritiksingh.in/book-a-call)
 - ✉️ **Email:** [businessritiksinghdeos@gmail.com](mailto:businessritiksinghdeos@gmail.com)
 
 ---
