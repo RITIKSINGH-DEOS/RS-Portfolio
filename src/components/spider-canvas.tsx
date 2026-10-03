@@ -31,6 +31,11 @@ export function SpiderCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Do not run intensive procedural inverse-kinematics continuous loop on mobile/touch devices
+    if (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
     let animId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);

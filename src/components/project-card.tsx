@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -42,6 +45,32 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const mediaRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!video) return;
+
+    // Use IntersectionObserver to lazy-load heavy video streams only when scrolled into proximity
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVideoVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: "300px" } // Starts loading 300px before user reaches the card
+    );
+
+    if (mediaRef.current) {
+      observer.observe(mediaRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [video]);
+
   return (
     <Card
       className={cn(
@@ -57,15 +86,33 @@ export function ProjectCard({
       {/* Main card clickable area */}
       <Link href={href || "#"} className={cn("block cursor-pointer", className)}>
         {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top"
-          />
+          <div
+            ref={mediaRef}
+            className="relative h-40 w-full overflow-hidden bg-zinc-950/40 border-b border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center"
+          >
+            {isVideoVisible ? (
+              <video
+                src={video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="none"
+                className="pointer-events-none mx-auto h-40 w-full object-cover object-top transition-opacity duration-500"
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center gap-2 select-none">
+                <div className="size-9 rounded-full border border-red-500/30 bg-red-500/10 flex items-center justify-center text-red-500 shadow-sm animate-pulse">
+                  <svg className="size-3.5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <span className="text-[10px] font-mono tracking-wider uppercase text-muted-foreground/60">
+                  {title} Demo
+                </span>
+              </div>
+            )}
+          </div>
         )}
         {image && (
           <Image

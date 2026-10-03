@@ -13,10 +13,15 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter as FontSans, Fraunces as FontSerif } from "next/font/google";
 import "./globals.css";
+import dynamic from "next/dynamic";
 
 import { SpiderCanvas } from "@/components/spider-canvas";
 import { ClickShockwave } from "@/components/click-shockwave";
-import { AIChatbot } from "@/components/ai-chatbot";
+
+const AIChatbot = dynamic(
+  () => import("@/components/ai-chatbot").then((mod) => mod.AIChatbot),
+  { ssr: false }
+);
 
 const fontSans = FontSans({
   subsets: ["latin"],

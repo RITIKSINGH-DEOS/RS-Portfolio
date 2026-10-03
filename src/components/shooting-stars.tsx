@@ -87,12 +87,17 @@ const TWINKLE_STARS: TwinkleStar[] = [
 
 export function ShootingStars() {
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsMobile(window.innerWidth < 640);
   }, []);
 
   if (!mounted) return null;
+
+  const stars = isMobile ? TWINKLE_STARS.slice(0, 5) : TWINKLE_STARS;
+  const meteors = isMobile ? METEOR_CONFIGS.slice(0, 3) : METEOR_CONFIGS;
 
   return (
     <div
@@ -102,7 +107,7 @@ export function ShootingStars() {
       {/* ============================================================ */}
       {/* 1. AMBIENT CONSTELLATION TWINKLE STARS                       */}
       {/* ============================================================ */}
-      {TWINKLE_STARS.map((star) => (
+      {stars.map((star) => (
         <span
           key={`star-${star.id}`}
           className="celestial-star absolute pointer-events-none flex items-center justify-center"
@@ -133,7 +138,7 @@ export function ShootingStars() {
       {/* ============================================================ */}
       {/* 2. CINEMATIC SHOOTING STARS / METEORS                        */}
       {/* ============================================================ */}
-      {METEOR_CONFIGS.map((meteor) => (
+      {meteors.map((meteor) => (
         <span
           key={`meteor-${meteor.id}`}
           className="meteor absolute pointer-events-none"
