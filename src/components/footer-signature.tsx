@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import Link from "next/link";
 import { DATA } from "@/data/resume";
 
 export function FooterSignature() {
@@ -24,12 +25,11 @@ export function FooterSignature() {
   const fullName = "Ritik Singh";
 
   return (
-    <div
+    <footer
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      aria-hidden="true"
-      className="relative left-1/2 -translate-x-1/2 w-screen max-w-[100vw] overflow-hidden select-none cursor-default mt-6 sm:mt-10 pt-4 pb-4 sm:pb-8 text-center"
+      className="relative left-1/2 -translate-x-1/2 w-screen max-w-[100vw] overflow-hidden select-none cursor-default mt-6 sm:mt-10 pt-4 pb-6 sm:pb-10 text-center"
     >
       {/* Spider-Man Interactive Cursor Spotlight behind the name */}
       <div
@@ -50,10 +50,29 @@ export function FooterSignature() {
         </h1>
       </div>
 
+      {/* Footer Navigation Links for Google Sitelinks & Quick Access */}
+      <nav aria-label="Quick Links" className="relative z-10 mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-mono text-muted-foreground/80">
+        <Link href="/github" className="hover:text-red-500 transition-colors">
+          GitHub
+        </Link>
+        <span className="text-muted-foreground/40">·</span>
+        <Link href="/linkedin" className="hover:text-blue-500 transition-colors">
+          LinkedIn
+        </Link>
+        <span className="text-muted-foreground/40">·</span>
+        <Link href="/book-a-call" className="hover:text-red-500 transition-colors">
+          Book a Call
+        </Link>
+        <span className="text-muted-foreground/40">·</span>
+        <Link href="/blog" className="hover:text-blue-500 transition-colors">
+          Blog
+        </Link>
+      </nav>
+
       {/* Subtle minimal copyright tagline */}
-      <p className="mt-3 sm:mt-4 font-mono text-[9px] sm:text-[10px] tracking-[0.25em] text-muted-foreground/35 uppercase">
+      <p className="mt-2.5 sm:mt-3 font-mono text-[9px] sm:text-[10px] tracking-[0.25em] text-muted-foreground/40 uppercase">
         © {new Date().getFullYear()} {fullName} · CRAFTED WITH PASSION
       </p>
-    </div>
+    </footer>
   );
 }

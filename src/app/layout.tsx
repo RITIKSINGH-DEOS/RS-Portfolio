@@ -76,6 +76,69 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${DATA.url}/#website`,
+      "url": DATA.url,
+      "name": "Ritik Singh",
+      "description": DATA.description,
+      "publisher": {
+        "@id": `${DATA.url}/#person`,
+      },
+    },
+    {
+      "@type": "Person",
+      "@id": `${DATA.url}/#person`,
+      "name": DATA.name,
+      "url": DATA.url,
+      "jobTitle": "Full Stack AI Engineer",
+      "sameAs": [
+        DATA.contact.social.GitHub.url,
+        DATA.contact.social.LinkedIn.url,
+        DATA.contact.social.WhatsApp.url,
+      ],
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${DATA.url}/#sitelinks`,
+      "name": "Site Navigation",
+      "itemListElement": [
+        {
+          "@type": "SiteNavigationElement",
+          "position": 1,
+          "name": "GitHub",
+          "description": "Explore Ritik Singh's open-source projects, repositories, and technical contributions.",
+          "url": `${DATA.url}/github`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 2,
+          "name": "LinkedIn",
+          "description": "Connect with Ritik Singh on LinkedIn. View work experience, skills, and career recommendations.",
+          "url": `${DATA.url}/linkedin`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 3,
+          "name": "Book a Call",
+          "description": "Schedule a 1-on-1 call or chat with Ritik Singh for projects, hiring, and technical consultations.",
+          "url": `${DATA.url}/book-a-call`,
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Blog",
+          "description": "Read technical articles, AI insights, and development thoughts by Ritik Singh.",
+          "url": `${DATA.url}/blog`,
+        },
+      ],
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -83,6 +146,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className="overflow-x-clip">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         suppressHydrationWarning
         className={cn(

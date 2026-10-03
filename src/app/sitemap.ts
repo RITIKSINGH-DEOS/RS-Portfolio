@@ -25,6 +25,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
+      url: `${DATA.url}/github`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
+      url: `${DATA.url}/linkedin`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
+      url: `${DATA.url}/book-a-call`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
       url: `${DATA.url}/blog`,
       lastModified: new Date().toISOString(),
       changeFrequency: "daily" as const,
