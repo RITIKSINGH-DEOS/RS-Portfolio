@@ -27,5 +27,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.85,
     },
+    {
+      url: `${DATA.url}/talk-with-ai`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.80,
+    },
   ];
 }

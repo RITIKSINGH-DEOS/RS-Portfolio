@@ -132,6 +132,13 @@ const jsonLd = {
           "description": "Schedule a 1-on-1 call or chat with Ritik Singh for projects, hiring, and technical consultations.",
           "url": `${DATA.url}/book-a-call`,
         },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Talk with AI Assistant",
+          "description": "Chat live with Ritik Singh's personal AI Assistant powered by Google Gemini to explore projects, skills, and background.",
+          "url": `${DATA.url}/talk-with-ai`,
+        },
       ],
     },
   ],

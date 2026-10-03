@@ -63,6 +63,10 @@ export function FooterSignature() {
         <Link href="/book-a-call" className="hover:text-red-500 transition-colors">
           Book a Call
         </Link>
+        <span className="text-muted-foreground/40">·</span>
+        <Link href="/talk-with-ai" className="hover:text-blue-500 transition-colors">
+          Talk with AI Assistant
+        </Link>
       </nav>
 
       {/* Subtle minimal copyright tagline */}

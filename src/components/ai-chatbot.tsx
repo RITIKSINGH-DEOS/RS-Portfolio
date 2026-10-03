@@ -112,6 +112,16 @@ export function AIChatbot() {
     window.addEventListener("open-ai-chat", handleOpen);
     window.addEventListener("close-ai-chat", handleClose);
 
+    // Auto open if URL has ?chat=true or #chat
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get("chat") === "true" || window.location.hash === "#chat") {
+        setIsOpen(true);
+      }
+    } catch {
+      // url search params error
+    }
+
     // Clear any previous chat session on fresh mount/page reload
     try {
       sessionStorage.removeItem("rs_chat_lang");
