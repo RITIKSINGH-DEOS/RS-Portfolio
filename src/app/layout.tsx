@@ -127,13 +127,6 @@ const jsonLd = {
           "description": "Schedule a 1-on-1 call or chat with Ritik Singh for projects, hiring, and technical consultations.",
           "url": `${DATA.url}/book-a-call`,
         },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 4,
-          "name": "Blog",
-          "description": "Read technical articles, AI insights, and development thoughts by Ritik Singh.",
-          "url": `${DATA.url}/blog`,
-        },
       ],
     },
   ],
