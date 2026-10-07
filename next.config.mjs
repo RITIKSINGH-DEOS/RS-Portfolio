@@ -29,6 +29,16 @@ const nextConfig = {
       process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/blog/:path*",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {

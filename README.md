@@ -91,14 +91,13 @@ RS-Portfolio/
 │   ├── me.png                  # Profile avatar
 │   ├── portfoliohomepage.png   # Full portfolio preview banner
 │   └── resume.pdf              # Downloadable resume
-├── content/                    # MDX blog posts and articles
 ├── src/
 │   ├── app/                    # Next.js 14 App Router
 │   │   ├── api/                # API routes (chat, github-contributions)
-│   │   ├── blog/               # MDX Blog listing and [slug] pages
 │   │   ├── book-a-call/        # Dedicated 1-on-1 contact portal
 │   │   ├── github/             # Dedicated GitHub redirect portal
 │   │   ├── linkedin/           # Dedicated LinkedIn redirect portal
+│   │   ├── talk-with-ai/       # Dedicated AI Assistant portal
 │   │   ├── robots.ts           # Dynamic robots.txt generator
 │   │   ├── sitemap.ts          # Dynamic sitemap.xml generator
 │   │   ├── layout.tsx          # Root layout with JSON-LD & canvas layers
@@ -112,7 +111,7 @@ RS-Portfolio/
 │   │   ├── resume-card.tsx     # Glossy expandable experience cards
 │   │   └── top-nav.tsx         # Responsive header with live commit count
 │   ├── data/
-│   │   ├── blog.ts             # MDX blog reader and parser
+│   │   ├── quotes.ts           # Personal curated quotes in circular loop
 │   │   └── resume.tsx          # Single source of truth for resume data
 │   └── lib/                    # Utility functions and helpers
 ├── next.config.mjs             # Next.js optimization configuration
