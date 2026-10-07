@@ -2,7 +2,7 @@ import { Icons } from "@/components/icons";
 import { HomeIcon } from "lucide-react";
 
 export const DATA = {
-  name: "Ritik",
+  name: "Ritik Singh",
   initials: "RS",
   url: "https://ritiksingh.in",
   location: "Lucknow, Uttar Pradesh, India",

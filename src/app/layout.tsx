@@ -48,6 +48,16 @@ export const metadata: Metadata = {
     template: `%s | Ritik Singh`,
   },
   description: DATA.description,
+  keywords: [
+    "Ritik Singh",
+    "Ritik Singh Portfolio",
+    "Ritik Singh AI Engineer",
+    "Ritik Singh Full Stack",
+    "Ritik Singh Developer",
+    "Ritik Singh Lucknow",
+    "Full Stack AI Engineer",
+    "AI Engineer Portfolio",
+  ],
   icons: {
     icon: [
       { url: "/me.png", sizes: "any" },
@@ -77,6 +87,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: "Ritik Singh - Full Stack AI Engineer",
+    description: DATA.description,
     card: "summary_large_image",
   },
 };
@@ -89,6 +100,7 @@ const jsonLd = {
       "@id": `${DATA.url}/#website`,
       "url": DATA.url,
       "name": "Ritik Singh",
+      "alternateName": ["Ritik Singh Portfolio", "Ritik Singh AI Engineer"],
       "description": DATA.description,
       "publisher": {
         "@id": `${DATA.url}/#person`,
@@ -97,7 +109,9 @@ const jsonLd = {
     {
       "@type": "Person",
       "@id": `${DATA.url}/#person`,
-      "name": DATA.name,
+      "name": "Ritik Singh",
+      "givenName": "Ritik",
+      "familyName": "Singh",
       "url": DATA.url,
       "jobTitle": "Full Stack AI Engineer",
       "sameAs": [
