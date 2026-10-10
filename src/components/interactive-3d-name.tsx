@@ -87,72 +87,45 @@ export function Interactive3DName({
         transition={{ duration: 0.25, ease: "easeOut" }}
         className="flex items-center flex-wrap gap-x-2.5 sm:gap-x-3 gap-y-1 cursor-pointer py-1"
       >
-        {/* Prefix "Hi, I'm" with Slow Wavy Motion */}
+        {/* Prefix "Hi, I'm" with Slow Wavy Motion (Composited CSS Keyframe for 60fps & 0ms Main Thread) */}
         {prefix && (
           <span className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-foreground inline-flex items-center">
             {prefixChars.map((char, i) => (
-              <motion.span
+              <span
                 key={`prefix-${i}`}
-                animate={{
-                  y: [0, waveLift, 0],
+                style={{
+                  animationDelay: `${i * waveStagger}s`,
                 }}
-                transition={{
-                  duration: waveDuration,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: i * waveStagger,
-                }}
-                className="inline-block"
+                className="inline-block animate-name-wave"
               >
                 {char === " " ? "\u00A0" : char}
-              </motion.span>
+              </span>
             ))}
           </span>
         )}
 
         {/* Person Name styled like first image with Theme Gradient (Spider-Man Red to Blue) */}
-        <motion.span
-          style={{ transform: "translateZ(20px)" }}
-          animate={{
-            y: [0, waveLift, 0],
+        <span
+          style={{
+            transform: "translateZ(20px)",
+            animationDelay: `${prefixChars.length * waveStagger}s`,
           }}
-          transition={{
-            duration: waveDuration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: prefixChars.length * waveStagger,
-          }}
-          className="relative inline-block text-3xl font-extrabold uppercase tracking-tight sm:text-5xl xl:text-6xl/none bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_2px_14px_rgba(239,68,68,0.25)] hover:drop-shadow-[0_4px_22px_rgba(239,68,68,0.45)] transition-all duration-300 select-none"
+          className="relative inline-block animate-name-wave text-3xl font-extrabold uppercase tracking-tight sm:text-5xl xl:text-6xl/none bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_2px_14px_rgba(239,68,68,0.25)] hover:drop-shadow-[0_4px_22px_rgba(239,68,68,0.45)] transition-all duration-300 select-none"
         >
           {name}
-        </motion.span>
+        </span>
 
         {/* Optional Suffix (only rendered if suffix provided and non-empty) */}
         {suffix && (
-          <motion.span
-            style={{ transform: "translateZ(35px)" }}
-            animate={
-              isHovered
-                ? {
-                    rotate: [0, 22, -12, 22, -8, 0],
-                    scale: [1, 1.22, 1.12, 1.22, 1],
-                    y: [0, waveLift - 2, 0],
-                  }
-                : {
-                    rotate: [0, 12, -4, 12, 0],
-                    y: [0, waveLift, 0],
-                  }
-            }
-            transition={{
-              duration: isHovered ? 0.9 : waveDuration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: (prefixChars.length + name.length + 1) * waveStagger,
+          <span
+            style={{
+              transform: "translateZ(35px)",
+              animationDelay: `${(prefixChars.length + name.length + 1) * waveStagger}s`,
             }}
-            className="inline-block text-3xl sm:text-5xl xl:text-6xl origin-[70%_70%] ml-0.5"
+            className="inline-block animate-name-wave text-3xl sm:text-5xl xl:text-6xl origin-[70%_70%] ml-0.5"
           >
             {suffix}
-          </motion.span>
+          </span>
         )}
       </motion.div>
     </div>

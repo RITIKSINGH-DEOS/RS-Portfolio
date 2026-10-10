@@ -21,6 +21,7 @@ export default function Navbar() {
               <TooltipTrigger asChild>
                 <Link
                   href={item.href}
+                  aria-label={item.label}
                   {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
@@ -45,6 +46,7 @@ export default function Navbar() {
                 <TooltipTrigger asChild>
                   <Link
                     href={social.url}
+                    aria-label={name}
                     {...(social.url.startsWith("http")
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}

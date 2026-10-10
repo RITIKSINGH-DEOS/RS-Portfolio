@@ -373,12 +373,26 @@ html.lenis body {
   transform-origin: center center;
 }
 
+@keyframes name-wave {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6.5px, 0);
+  }
+}
+
+.animate-name-wave {
+  will-change: transform;
+  animation: name-wave 2.8s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .meteor,
   .celestial-star,
-  .meteor-glint {
+  .meteor-glint,
+  .animate-name-wave {
     animation: none !important;
-    display: none !important;
   }
 }
 

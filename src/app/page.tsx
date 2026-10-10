@@ -72,11 +72,9 @@ export default function Page() {
                 name={DATA.name?.split(" ")[0] ?? "Ritik"}
               />
             </BlurFade>
-            <BlurFadeText
-              delay={0}
-              className="w-full max-w-full font-serif font-light text-xl sm:text-2xl md:text-[27px] text-foreground/90 leading-[1.32] tracking-[-0.02em]"
-              text={DATA.description ?? ""}
-            />
+            <p className="w-full max-w-full font-serif font-light text-xl sm:text-2xl md:text-[27px] text-foreground/90 leading-[1.32] tracking-[-0.02em]">
+              {DATA.description}
+            </p>
             <BlurFade delay={0.01}>
               <div className="pt-2 sm:pt-3 flex justify-center w-full">
                 <a
