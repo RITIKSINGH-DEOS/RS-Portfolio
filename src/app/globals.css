@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Great Vibes";
-  src: url("/fonts/GreatVibes-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 @layer base {
     :root {
@@ -87,10 +80,19 @@
       color-scheme: dark;
     }
     body {
-      @apply bg-background text-foreground;
+      @apply bg-background text-foreground font-sans antialiased;
       overflow-x: hidden;
       transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
                   color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Core Design System Typography (Harmonized 3-tier theme) */
+    h1, h2, h3, h4, h5, h6 {
+      @apply font-serif font-light text-foreground tracking-[-0.03em];
+    }
+
+    p {
+      @apply font-sans leading-relaxed;
     }
     .bg-background,
     .bg-card,
