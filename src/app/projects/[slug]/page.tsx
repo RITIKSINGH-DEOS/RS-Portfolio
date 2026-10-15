@@ -5,11 +5,9 @@ import { DATA } from "@/data/resume";
 import { CaseStudyHero } from "@/components/case-study/case-study-hero";
 import { CaseStudySidebar } from "@/components/case-study/case-study-sidebar";
 import { CaseStudyProblem } from "@/components/case-study/case-study-problem";
-import { CaseStudyPipeline } from "@/components/case-study/case-study-pipeline";
-import { CaseStudyTradeoffs } from "@/components/case-study/case-study-tradeoffs";
+import { CaseStudyHowItWorks } from "@/components/case-study/case-study-how-it-works";
 import { CaseStudyFeatures } from "@/components/case-study/case-study-features";
-import { CaseStudyBenchmarks } from "@/components/case-study/case-study-benchmarks";
-import { CaseStudyLearnings } from "@/components/case-study/case-study-learnings";
+import { CaseStudyTakeaways } from "@/components/case-study/case-study-takeaways";
 import { CaseStudyFooterNav } from "@/components/case-study/case-study-footer-nav";
 
 interface PageProps {
@@ -33,7 +31,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
     };
   }
 
-  const title = `${study.title} — Engineering Case Study | Ritik Singh`;
+  const title = `${study.title} — Case Study | Ritik Singh`;
   const description = `${study.tagline}. ${study.summary.slice(0, 150)}...`;
 
   return {
@@ -83,17 +81,12 @@ export default function ProjectCaseStudyPage({ params }: PageProps) {
         {/* Sticky Sidebar Navigation */}
         <CaseStudySidebar navItems={study.navItems} />
 
-        {/* Main Content Sections */}
+        {/* Main Content Sections: 4 clean, scannable chapters */}
         <div className="min-w-0 space-y-12">
           <CaseStudyProblem problem={study.problem} />
-          <CaseStudyPipeline architecture={study.architecture} />
-          <CaseStudyTradeoffs tradeoffs={study.tradeoffs} />
+          <CaseStudyHowItWorks howItWorks={study.howItWorks} />
           <CaseStudyFeatures features={study.features} />
-          <CaseStudyBenchmarks benchmarks={study.benchmarks} />
-          <CaseStudyLearnings
-            learnings={study.learnings}
-            nextSteps={study.nextSteps}
-          />
+          <CaseStudyTakeaways takeaways={study.takeaways} />
         </div>
       </div>
 

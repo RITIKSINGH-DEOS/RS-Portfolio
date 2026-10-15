@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ExternalLink, Github, Play, Pause, Sparkles, Layers, Cpu, Database, Cloud } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Play, Pause } from "lucide-react";
 import { ProjectCaseStudy } from "@/data/project-case-studies";
 import { Badge } from "@/components/ui/badge";
 
@@ -27,7 +27,7 @@ export function CaseStudyHero({ study }: Props) {
   };
 
   return (
-    <header className="relative w-full space-y-8 pt-4 pb-6">
+    <header className="relative w-full space-y-6 pt-4 pb-4">
       {/* Top Navigation Row: Back Button & Category Tags */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
@@ -45,25 +45,25 @@ export function CaseStudyHero({ study }: Props) {
           >
             {study.categoryBadge}
           </Badge>
-          <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[11px] text-emerald-400">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[11px] text-emerald-400">
             <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
             {study.statusBadge}
           </span>
         </div>
       </div>
 
-      {/* Main Headline & Punchy Proposition */}
-      <div className="space-y-4">
-        <div className="space-y-2">
+      {/* Main Headline & Simple Summary */}
+      <div className="space-y-3">
+        <div className="space-y-1">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground/80">
-            Technical Case Study // {study.title}
+            Project Overview // {study.title}
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.08]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.03em] text-foreground leading-[1.12]">
             {study.heroHeadline}
           </h1>
         </div>
 
-        <p className="max-w-3xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+        <p className="max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
           {study.summary}
         </p>
 
@@ -76,7 +76,7 @@ export function CaseStudyHero({ study }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-red-500/20 transition-all duration-200 hover:scale-[1.02] hover:shadow-red-500/40 active:scale-[0.98]"
             >
-              <span>Launch Live System</span>
+              <span>Try Live Demo</span>
               <ExternalLink className="size-4" />
             </a>
           )}
@@ -89,63 +89,44 @@ export function CaseStudyHero({ study }: Props) {
               className="inline-flex items-center gap-2 rounded-xl border border-black/10 dark:border-white/15 bg-card/70 dark:bg-zinc-900/70 px-4 py-2.5 text-sm font-medium text-foreground backdrop-blur-md transition-all duration-200 hover:border-blue-500/50 hover:bg-zinc-800/80 hover:shadow-[0_0_20px_rgba(37,99,235,0.2)]"
             >
               <Github className="size-4" />
-              <span>Inspect Source</span>
+              <span>GitHub Code</span>
             </a>
           )}
         </div>
       </div>
 
-      {/* Quick Specs Matrix (Obsidian HUD Grid) */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 rounded-2xl border border-black/10 dark:border-white/10 bg-card/40 dark:bg-zinc-950/40 p-4 backdrop-blur-md shadow-sm">
-        <div className="space-y-1">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">Role</p>
-          <p className="text-xs sm:text-sm font-medium text-foreground truncate">{study.specs.role}</p>
+      {/* Clean Quick Specs Bar */}
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-y border-black/10 dark:border-white/10 py-3 text-xs text-muted-foreground font-mono">
+        <div>
+          <span className="text-foreground font-medium">Role:</span> {study.specs.role}
         </div>
-        <div className="space-y-1">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">Timeline</p>
-          <p className="text-xs sm:text-sm font-medium text-foreground truncate">{study.specs.timeline}</p>
+        <div>
+          <span className="text-foreground font-medium">Built With:</span> {study.specs.stack.slice(0, 4).join(" · ")}
         </div>
-        <div className="space-y-1">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">AI Engine</p>
-          <p className="text-xs sm:text-sm font-medium text-foreground truncate">{study.specs.llmEngine}</p>
-        </div>
-        <div className="space-y-1">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">Database</p>
-          <p className="text-xs sm:text-sm font-medium text-foreground truncate">{study.specs.database}</p>
-        </div>
-        <div className="space-y-1">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">Deployment</p>
-          <p className="text-xs sm:text-sm font-medium text-foreground truncate">{study.specs.hosting}</p>
-        </div>
-        <div className="space-y-1">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground/70">Architecture</p>
-          <p className="text-xs sm:text-sm font-medium text-foreground truncate">{study.specs.architecture}</p>
+        <div>
+          <span className="text-foreground font-medium">Date:</span> {study.specs.timeline}
         </div>
       </div>
 
-      {/* High-Impact Metrics HUD */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {/* 3 High-Impact Metrics */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {study.metrics.map((metric, i) => (
           <div
             key={i}
-            className="group relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-card/60 dark:bg-zinc-900/60 p-4 transition-all duration-300 hover:border-red-500/40 hover:shadow-[0_0_25px_rgba(220,38,38,0.18)]"
+            className="rounded-2xl border border-black/10 dark:border-white/10 bg-card/60 dark:bg-zinc-900/60 p-4 transition-all duration-300 hover:border-red-500/30"
           >
-            <div className="space-y-1">
-              <span className="font-mono text-2xl sm:text-3xl font-semibold tracking-tight text-foreground group-hover:text-red-500 dark:group-hover:text-blue-400 transition-colors">
-                {metric.value}
-              </span>
-              <p className="text-xs font-medium text-foreground">{metric.label}</p>
-              <p className="text-[11px] leading-tight text-muted-foreground line-clamp-2">{metric.desc}</p>
-            </div>
-            {/* Subtle glow accent */}
-            <div className="pointer-events-none absolute -bottom-6 -right-6 size-16 rounded-full bg-red-500/10 blur-xl group-hover:bg-blue-500/20 transition-all" />
+            <span className="font-mono text-2xl font-semibold text-foreground">
+              {metric.value}
+            </span>
+            <p className="text-xs font-medium text-foreground mt-0.5">{metric.label}</p>
+            <p className="text-[11px] text-muted-foreground mt-0.5">{metric.desc}</p>
           </div>
         ))}
       </div>
 
-      {/* Hero Media Container (Video or Image) */}
+      {/* Hero Media (Video or Image) */}
       {(study.specs.video || study.specs.image) && (
-        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-red-500/20 dark:border-blue-500/20 bg-zinc-950 shadow-[0_0_35px_rgba(220,38,38,0.15),0_0_20px_rgba(37,99,235,0.12)]">
+        <div className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-zinc-950 shadow-xl">
           {study.specs.video ? (
             <div className="relative aspect-video w-full">
               <video
@@ -160,32 +141,23 @@ export function CaseStudyHero({ study }: Props) {
               <button
                 type="button"
                 onClick={toggleVideo}
-                className="absolute bottom-4 right-4 flex size-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition-all hover:scale-110 active:scale-95"
-                aria-label={isPlaying ? "Pause video walkthrough" : "Play video walkthrough"}
+                className="absolute bottom-3 right-3 flex size-9 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md hover:scale-110 active:scale-95"
+                aria-label={isPlaying ? "Pause video" : "Play video"}
               >
-                {isPlaying ? <Pause className="size-4" /> : <Play className="size-4 ml-0.5" />}
+                {isPlaying ? <Pause className="size-3.5" /> : <Play className="size-3.5 ml-0.5" />}
               </button>
             </div>
           ) : study.specs.image ? (
             <div className="relative aspect-video w-full">
               <Image
                 src={study.specs.image}
-                alt={`${study.title} Interface Preview`}
+                alt={`${study.title} Preview`}
                 fill
                 priority
                 className="object-cover object-top"
               />
             </div>
           ) : null}
-
-          {/* Media Header Banner */}
-          <div className="flex items-center justify-between border-t border-white/10 bg-zinc-950/90 px-4 py-2.5 font-mono text-[11px] text-zinc-400">
-            <span className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-red-500 animate-ping" />
-              LIVE TELEMETRY // {study.title} PRODUCTION DEMO
-            </span>
-            <span className="text-zinc-500 uppercase">1080p · Client Capture</span>
-          </div>
         </div>
       )}
     </header>
