@@ -152,7 +152,7 @@ export function ProjectCard({
               {link.replace("https://", "").replace("www.", "").replace("/", "")}
             </div>
           )}
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert leading-relaxed">
             {description}
           </Markdown>
         </div>

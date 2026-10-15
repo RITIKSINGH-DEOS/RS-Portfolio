@@ -90,14 +90,14 @@ export function RagnarQuote() {
             transition={{ duration: 0.45, ease: "easeInOut" }}
             className="w-full"
           >
-            <blockquote className="relative z-10 font-cursive text-xl sm:text-2xl md:text-[28px] leading-relaxed tracking-wide text-foreground/90 dark:text-zinc-100 drop-shadow-sm">
+            <blockquote className="relative z-10 font-serif italic font-light text-lg sm:text-xl md:text-2xl leading-relaxed tracking-[-0.01em] text-foreground/90 dark:text-zinc-100 drop-shadow-sm">
               “{currentQuote.quote}”
             </blockquote>
 
             {/* Author Attribution */}
             {currentQuote.author && (
               <div className="relative z-10 mt-2 sm:mt-3 flex items-center justify-center gap-2">
-                <cite className="font-cursive text-base sm:text-lg md:text-xl not-italic font-normal text-red-500/90 dark:text-blue-400/90">
+                <cite className="font-mono text-xs uppercase tracking-widest not-italic font-medium text-red-500/90 dark:text-blue-400/90">
                   — {currentQuote.author}
                 </cite>
               </div>

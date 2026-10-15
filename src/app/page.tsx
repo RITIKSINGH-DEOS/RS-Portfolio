@@ -72,7 +72,7 @@ export default function Page() {
                 name={DATA.name?.split(" ")[0] ?? "Ritik"}
               />
             </BlurFade>
-            <p className="w-full max-w-full font-serif font-light text-xl sm:text-2xl md:text-[27px] text-foreground/90 leading-[1.32] tracking-[-0.02em]">
+            <p className="w-full max-w-full font-sans text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
               {DATA.description}
             </p>
             <BlurFade delay={0.01}>
@@ -193,7 +193,7 @@ export default function Page() {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.1]">
                   Check out my latest work
                 </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto">
                   I&apos;ve worked on a variety of projects, from simple websites to complex web applications.
                 </p>
               </div>
