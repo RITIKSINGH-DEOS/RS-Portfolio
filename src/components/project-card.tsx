@@ -85,12 +85,12 @@ export function ProjectCard({
   return (
     <Card
       className={cn(
-        "flex flex-col overflow-hidden border transition-all duration-300 ease-out h-full bg-card",
+        "flex flex-col overflow-hidden border transition-all duration-500 ease-out h-full bg-card",
         // Spider-Man Themed Drop Shadow (Desktop, Mobile, Tablet)
         "shadow-[0_0_20px_rgba(220,38,38,0.22),0_0_12px_rgba(37,99,235,0.2),0_4px_16px_rgba(0,0,0,0.08)]",
         "border-red-500/25 dark:border-blue-500/30",
-        "hover:shadow-[0_0_45px_rgba(220,38,38,0.5),0_0_28px_rgba(37,99,235,0.45),0_15px_45px_rgba(220,38,38,0.35)]",
-        "hover:border-red-500/70 dark:hover:border-blue-400/70",
+        "hover:shadow-[0_0_40px_rgba(220,38,38,0.45),0_0_24px_rgba(37,99,235,0.4),0_12px_36px_rgba(220,38,38,0.25)]",
+        "hover:border-red-500/60 dark:hover:border-blue-400/60",
         className
       )}
     >
