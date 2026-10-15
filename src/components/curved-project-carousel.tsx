@@ -77,6 +77,13 @@ export function CurvedProjectCarousel({ projects }: Props) {
     if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isOverCard = target?.closest('[data-project-card="true"]');
+      if (!isOverCard) {
+        // Cursor is outside cards: allow natural page scroll
+        return;
+      }
+
       const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
       const delta = isHorizontal ? e.deltaX : e.deltaY;
 
@@ -87,18 +94,21 @@ export function CurvedProjectCarousel({ projects }: Props) {
       const isScrollingUp = delta < 0;
 
       // Boundary check:
-      // When at the last card and scrolling down, pass through to allow natural page scroll down
+      // When at the last card and scrolling down, allow natural page scroll down
       if (isScrollingDown && currentIdx >= total - 1) {
         return;
       }
 
-      // When at the first card and scrolling up, pass through to allow natural page scroll up
+      // When at the first card and scrolling up, allow natural page scroll up
       if (isScrollingUp && currentIdx <= 0) {
         return;
       }
 
-      // Inside carousel range: intercept wheel to cycle cards smoothly
+      // Inside carousel range: intercept wheel to cycle cards smoothly and STOP page/Lenis scroll
       e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation?.();
+      (e as any).lenisStopPropagation = true;
 
       if (wheelLock.current) return;
 
@@ -114,8 +124,8 @@ export function CurvedProjectCarousel({ projects }: Props) {
       }, 280); // 280ms cooldown for responsive, natural browsing rhythm
     };
 
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    el.addEventListener("wheel", onWheel, { passive: false, capture: true });
+    return () => el.removeEventListener("wheel", onWheel, { capture: true });
   }, [total]);
 
   // Pointer / Mouse Drag & Swipe Handlers with live tracking
@@ -189,6 +199,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
           return (
             <div
               key={project.title}
+              data-project-card="true"
               onClick={() => {
                 if (!isActive && Math.abs(dragOffset) < 10) {
                   setActiveIndex(index);
