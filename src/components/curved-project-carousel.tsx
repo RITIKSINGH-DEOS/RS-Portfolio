@@ -34,6 +34,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
+  const stageRef = useRef<HTMLDivElement>(null);
   const dragStartX = useRef<number | null>(null);
   const wheelLock = useRef(false);
   const total = projects.length;
@@ -55,6 +56,11 @@ export function CurvedProjectCarousel({ projects }: Props) {
     setActiveIndex((prev) => (prev < total - 1 ? prev + 1 : 0));
   }, [total]);
 
+  const activeIndexRef = useRef(activeIndex);
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -65,23 +71,52 @@ export function CurvedProjectCarousel({ projects }: Props) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handlePrev, handleNext]);
 
-  // Mouse Wheel / Trackpad smooth scroll handler
-  const handleWheel = (e: React.WheelEvent) => {
-    // Detect horizontal scroll or vertical scroll intent
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) < 18 || wheelLock.current) return;
+  // Boundary-aware wheel listener: cycles cards and smoothly passes through at boundaries
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
 
-    if (delta > 0) {
-      handleNext();
-    } else {
-      handlePrev();
-    }
+    const onWheel = (e: WheelEvent) => {
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      const delta = isHorizontal ? e.deltaX : e.deltaY;
 
-    wheelLock.current = true;
-    setTimeout(() => {
-      wheelLock.current = false;
-    }, 420); // 420ms cooldown for smooth, controlled paging rhythm
-  };
+      if (Math.abs(delta) < 15) return;
+
+      const currentIdx = activeIndexRef.current;
+      const isScrollingDown = delta > 0;
+      const isScrollingUp = delta < 0;
+
+      // Boundary check:
+      // When at the last card and scrolling down, pass through to allow natural page scroll down
+      if (isScrollingDown && currentIdx >= total - 1) {
+        return;
+      }
+
+      // When at the first card and scrolling up, pass through to allow natural page scroll up
+      if (isScrollingUp && currentIdx <= 0) {
+        return;
+      }
+
+      // Inside carousel range: intercept wheel to cycle cards smoothly
+      e.preventDefault();
+
+      if (wheelLock.current) return;
+
+      if (isScrollingDown) {
+        setActiveIndex((prev) => Math.min(prev + 1, total - 1));
+      } else {
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+      }
+
+      wheelLock.current = true;
+      setTimeout(() => {
+        wheelLock.current = false;
+      }, 280); // 280ms cooldown for responsive, natural browsing rhythm
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [total]);
 
   // Pointer / Mouse Drag & Swipe Handlers with live tracking
   const onPointerDown = (e: React.PointerEvent) => {
@@ -110,8 +145,8 @@ export function CurvedProjectCarousel({ projects }: Props) {
 
   return (
     <div
-      onWheel={handleWheel}
-      className="relative w-full overflow-hidden py-4 select-none"
+      ref={stageRef}
+      className="relative w-full overflow-hidden py-4 select-none touch-pan-y"
     >
       {/* 3D Perspective Stage - Spans full width */}
       <div
