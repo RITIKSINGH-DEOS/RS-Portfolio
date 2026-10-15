@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -87,7 +87,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
       const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
       const delta = isHorizontal ? e.deltaX : e.deltaY;
 
-      if (Math.abs(delta) < 15) return;
+      if (Math.abs(delta) < 12) return;
 
       const currentIdx = activeIndexRef.current;
       const isScrollingDown = delta > 0;
@@ -121,7 +121,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
       wheelLock.current = true;
       setTimeout(() => {
         wheelLock.current = false;
-      }, 350); // 350ms cooldown synchronized with snappy transition duration
+      }, 420); // 420ms cooldown synchronized with smooth 0.46s transition duration
     };
 
     el.addEventListener("wheel", onWheel, { passive: false, capture: true });
@@ -164,7 +164,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        style={{ perspective: isMobile ? "900px" : "1300px" }}
+        style={{ perspective: isMobile ? "950px" : "1400px" }}
         className="relative w-full h-[360px] sm:h-[440px] md:h-[490px] flex items-center justify-center cursor-grab active:cursor-grabbing"
       >
         {/* Subtle floor ambient shadow for 3D depth */}
@@ -205,9 +205,12 @@ export function CurvedProjectCarousel({ projects }: Props) {
               style={{
                 transform: `translate3d(calc(-50% + ${xPx}px), -50%, ${zPx}px) rotateY(${rotateY}deg) scale(${scale})`,
                 zIndex,
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
                 transition: isDragging
-                  ? "transform 0.08s linear"
-                  : "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+                  ? "transform 0.06s linear"
+                  : "transform 0.46s cubic-bezier(0.2, 0.85, 0.25, 1)",
                 transformStyle: "preserve-3d",
               }}
               className={cn(
@@ -297,47 +300,49 @@ export function CurvedProjectCarousel({ projects }: Props) {
         })}
       </div>
 
-      {/* Controls Bar: Prev Button, Dots, Next Button */}
-      <div className="mt-4 flex items-center justify-center gap-3">
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous Project"
-          className="size-9 rounded-full border border-black/10 dark:border-white/15 bg-card/60 dark:bg-zinc-900/60 flex items-center justify-center text-foreground hover:bg-black/5 dark:hover:bg-white/10 hover:border-red-500/40 active:scale-95 transition-all shadow-sm"
-        >
-          <ChevronLeft className="size-4" />
-        </button>
+      {/* Dynamic Segmented Dotted Progress Bar (Replaces old arrow buttons & dots) */}
+      <div className="mt-5 flex flex-col items-center justify-center gap-2">
+        <div className="inline-flex items-center gap-2.5 sm:gap-3.5 px-4 py-2 rounded-full border border-black/10 dark:border-white/10 bg-card/60 dark:bg-zinc-950/70 backdrop-blur-xl shadow-lg">
+          {/* Active project number */}
+          <span className="font-mono text-xs font-semibold text-foreground/90 tabular-nums">
+            0{activeIndex + 1}
+          </span>
 
-        <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-black/10 dark:border-white/10 bg-card/40 dark:bg-zinc-900/40 backdrop-blur-md">
-          {projects.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setActiveIndex(i)}
-              aria-label={`Go to project ${i + 1}`}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                i === activeIndex
-                  ? "w-6 bg-red-500 dark:bg-blue-400"
-                  : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
-              )}
-            />
-          ))}
+          {/* Dotted / Segmented Bars */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {projects.map((project, i) => {
+              const isPassed = i < activeIndex;
+              const isCurrent = i === activeIndex;
+
+              return (
+                <button
+                  key={project.title}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  aria-label={`Go to project ${i + 1}: ${project.title}`}
+                  title={`${i + 1}. ${project.title}`}
+                  className="group relative h-1.5 sm:h-2 w-7 sm:w-11 rounded-full bg-black/10 dark:bg-white/15 overflow-hidden transition-all duration-300 hover:h-2.5 focus:outline-none"
+                >
+                  {/* Fill Progress Bar */}
+                  <span
+                    className={cn(
+                      "absolute inset-y-0 left-0 rounded-full transition-all duration-500 ease-out",
+                      isPassed && "w-full bg-foreground/70 dark:bg-white/80",
+                      isCurrent && "w-full bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 shadow-[0_0_12px_rgba(239,68,68,0.7)]",
+                      !isPassed && !isCurrent && "w-0 bg-transparent"
+                    )}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Total project count */}
+          <span className="font-mono text-xs text-muted-foreground/50 tabular-nums">
+            0{total}
+          </span>
         </div>
-
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next Project"
-          className="size-9 rounded-full border border-black/10 dark:border-white/15 bg-card/60 dark:bg-zinc-900/60 flex items-center justify-center text-foreground hover:bg-black/5 dark:hover:bg-white/10 hover:border-blue-500/40 active:scale-95 transition-all shadow-sm"
-        >
-          <ChevronRight className="size-4" />
-        </button>
       </div>
-
-      <p className="mt-2 text-center font-mono text-[10px] text-muted-foreground/60 uppercase tracking-widest">
-        Scroll with Mouse Wheel or Drag · Click ↗ to Open
-      </p>
     </div>
   );
 }
