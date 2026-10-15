@@ -121,7 +121,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
       wheelLock.current = true;
       setTimeout(() => {
         wheelLock.current = false;
-      }, 280); // 280ms cooldown for responsive, natural browsing rhythm
+      }, 350); // 350ms cooldown synchronized with snappy transition duration
     };
 
     el.addEventListener("wheel", onWheel, { passive: false, capture: true });
@@ -180,21 +180,18 @@ export function CurvedProjectCarousel({ projects }: Props) {
           const targetUrl = caseStudySlug ? `/projects/${caseStudySlug}` : (project.href || "#");
 
           // Dynamic spacing based on screen width
-          const stepX = isMobile ? 240 : 460;
-          const stepZ = isMobile ? 85 : 140;
-          const stepRotate = isMobile ? 22 : 30;
+          const stepX = isMobile ? 260 : 560;
+          const stepZ = isMobile ? 85 : 150;
+          const stepRotate = isMobile ? 20 : 25;
 
           // Compute 3D Cylindrical transform values
           let xPx = offset * stepX + (isDragging ? dragOffset : 0);
           let rotateY = -offset * stepRotate;
           let zPx = -Math.abs(offset) * stepZ;
           let scale = 1 - Math.abs(offset) * 0.12;
-          let opacity = 1 - Math.abs(offset) * 0.35;
-          let zIndex = 30 - Math.abs(offset) * 10;
+          let zIndex = isActive ? 50 : Math.max(1, 30 - Math.abs(offset) * 10);
 
           if (scale < 0.65) scale = 0.65;
-          if (opacity < 0.15) opacity = 0.15;
-          if (zIndex < 1) zIndex = 1;
 
           return (
             <div
@@ -207,11 +204,10 @@ export function CurvedProjectCarousel({ projects }: Props) {
               }}
               style={{
                 transform: `translate3d(calc(-50% + ${xPx}px), -50%, ${zPx}px) rotateY(${rotateY}deg) scale(${scale})`,
-                opacity,
                 zIndex,
                 transition: isDragging
                   ? "transform 0.08s linear"
-                  : "transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease, z-index 0.75s step-end",
+                  : "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
                 transformStyle: "preserve-3d",
               }}
               className={cn(
@@ -222,7 +218,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
                 "bg-zinc-950 shadow-2xl",
                 isActive
                   ? "border-red-500/50 dark:border-blue-400/50 shadow-[0_0_45px_rgba(220,38,38,0.4),0_0_25px_rgba(37,99,235,0.3)]"
-                  : "hover:opacity-80"
+                  : "cursor-pointer hover:border-white/30"
               )}
             >
               {/* Media Layer (Video or High-Res Image) */}
@@ -251,8 +247,16 @@ export function CurvedProjectCarousel({ projects }: Props) {
                   </div>
                 )}
 
+                {/* Dimming overlay on non-active cards so active card stands out */}
+                <div
+                  className={cn(
+                    "absolute inset-0 bg-black pointer-events-none transition-opacity duration-300 z-[5]",
+                    isActive ? "opacity-0" : "opacity-55"
+                  )}
+                />
+
                 {/* Dark Vignette Overlay for Text Legibility (Jesper Landberg style) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent pointer-events-none z-[6]" />
 
                 {/* Top Badge: Counter */}
                 <div className="absolute top-3.5 left-4 z-10">
