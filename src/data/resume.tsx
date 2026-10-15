@@ -112,7 +112,7 @@ export const DATA = {
       dates: " July 2026",
       active: true,
       description:
-        "**Resume / ATS** scoring & career tools. **Next.js**, **Clerk**, **Supabase**. Server-only AI: **Gemini** (paid) / **Hugging Face** (free); API keys stay on server.",
+        "Smart resume scanner that spots missing keywords and beats automated hiring filters.",
       technologies: [
         "Next.js",
         "React",
@@ -137,7 +137,7 @@ export const DATA = {
       dates: "June 2026",
       active: true,
       description:
-        "**Telemedicine**: doctors, bookings, video consults. **REST** + RBAC, **PostgreSQL** + **Prisma**. **Gemini** symptom guidance (safety-limited).",
+        "Telemedicine web app for booking verified doctors and instant video consultations.",
       technologies: [
         "Next.js",
         "Node.js",
@@ -158,7 +158,7 @@ export const DATA = {
       dates: "May 2026",
       active: true,
       description:
-        "AI-powered **MERN** application that enables students to upload study documents, generate **AI summaries**, **chat with PDFs**, create **flashcards**, and take **AI-generated quizzes** using **Google Gemini API**.",
+        "Study companion that turns lecture notes and PDFs into summaries, flashcards, and quizzes.",
       technologies: [
         "React 19",
         "Node.js",
@@ -182,7 +182,7 @@ export const DATA = {
       dates: "Jan 2026",
       active: true,
       description:
-        "AI-powered customer support platform that enables businesses to create custom **AI chatbots**, manage knowledge bases, and embed intelligent support widgets using **Google Gemini AI**.",
+        "Customer support platform that automates customer questions with custom AI chatbots.",
       technologies: [
         "Next.js",
         "React",

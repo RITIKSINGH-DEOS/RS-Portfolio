@@ -1,19 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import Markdown from "react-markdown";
-import { BookOpen } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const PROJECT_SLUGS: Record<string, string> = {
   "ResumeAI": "resume-ai",
@@ -26,8 +18,8 @@ interface Props {
   title: string;
   href?: string;
   description: string;
-  dates: string;
-  tags: readonly string[];
+  dates?: string;
+  tags?: readonly string[];
   link?: string;
   image?: string;
   video?: string;
@@ -44,25 +36,21 @@ export function ProjectCard({
   title,
   href,
   description,
-  dates,
-  tags,
-  link,
   image,
   video,
   priority,
-  links,
   className,
 }: Props) {
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const mediaRef = useRef<HTMLDivElement | null>(null);
 
   const caseStudySlug = PROJECT_SLUGS[title];
-  const mainTargetUrl = caseStudySlug ? `/projects/${caseStudySlug}` : (href || "#");
+  const targetUrl = caseStudySlug ? `/projects/${caseStudySlug}` : (href || "#");
 
   useEffect(() => {
     if (!video) return;
 
-    // Use IntersectionObserver to lazy-load heavy video streams only when scrolled into proximity
+    // Use IntersectionObserver to lazy-load video streams only when scrolled into proximity
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -72,7 +60,7 @@ export function ProjectCard({
           }
         });
       },
-      { rootMargin: "300px" } // Starts loading 300px before user reaches the card
+      { rootMargin: "300px" }
     );
 
     if (mediaRef.current) {
@@ -83,23 +71,23 @@ export function ProjectCard({
   }, [video]);
 
   return (
-    <Card
-      className={cn(
-        "flex flex-col overflow-hidden border transition-all duration-500 ease-out h-full bg-card",
-        // Spider-Man Themed Drop Shadow (Desktop, Mobile, Tablet)
-        "shadow-[0_0_20px_rgba(220,38,38,0.22),0_0_12px_rgba(37,99,235,0.2),0_4px_16px_rgba(0,0,0,0.08)]",
-        "border-red-500/25 dark:border-blue-500/30",
-        "hover:shadow-[0_0_40px_rgba(220,38,38,0.45),0_0_24px_rgba(37,99,235,0.4),0_12px_36px_rgba(220,38,38,0.25)]",
-        "hover:border-red-500/60 dark:hover:border-blue-400/60",
-        className
-      )}
-    >
-      {/* Main card clickable area */}
-      <Link href={mainTargetUrl} className={cn("block cursor-pointer", className)}>
+    <Link href={targetUrl} className="group block h-full select-none cursor-pointer">
+      <Card
+        className={cn(
+          "flex flex-col overflow-hidden border transition-all duration-500 ease-out h-full bg-card rounded-2xl",
+          // Spider-Man Themed Drop Shadow
+          "shadow-[0_0_20px_rgba(220,38,38,0.22),0_0_12px_rgba(37,99,235,0.2),0_4px_16px_rgba(0,0,0,0.08)]",
+          "border-red-500/25 dark:border-blue-500/30",
+          "group-hover:shadow-[0_0_40px_rgba(220,38,38,0.45),0_0_24px_rgba(37,99,235,0.4),0_12px_36px_rgba(220,38,38,0.25)]",
+          "group-hover:border-red-500/60 dark:group-hover:border-blue-400/60",
+          className
+        )}
+      >
+        {/* Media Preview (Video / Image) */}
         {video && (
           <div
             ref={mediaRef}
-            className="relative h-40 w-full overflow-hidden bg-zinc-950/40 border-b border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center"
+            className="relative h-44 sm:h-48 w-full overflow-hidden bg-zinc-950/40 border-b border-black/[0.05] dark:border-white/[0.05] flex items-center justify-center"
           >
             {isVideoVisible ? (
               <video
@@ -109,7 +97,7 @@ export function ProjectCard({
                 muted
                 playsInline
                 preload="none"
-                className="pointer-events-none mx-auto h-40 w-full object-cover object-top transition-opacity duration-500"
+                className="pointer-events-none mx-auto h-44 sm:h-48 w-full object-cover object-top transition-opacity duration-500"
               />
             ) : (
               <div className="flex flex-col items-center justify-center gap-2 select-none">
@@ -125,76 +113,39 @@ export function ProjectCard({
             )}
           </div>
         )}
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            priority={priority}
-            loading={priority ? undefined : "lazy"}
-            decoding="async"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
-            className="h-40 w-full overflow-hidden object-cover object-top"
-          />
-        )}
-      </Link>
 
-      {/* Card content */}
-      <CardHeader className="px-2">
-        <div className="space-y-1">
-          <Link href={mainTargetUrl} className="hover:underline">
-            <CardTitle className="mt-1 text-base">{title}</CardTitle>
-          </Link>
-          <time className="font-sans text-xs">{dates}</time>
-          {link && (
-            <div className="hidden font-sans text-xs underline print:visible">
-              {link.replace("https://", "").replace("www.", "").replace("/", "")}
-            </div>
-          )}
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert leading-relaxed">
-            {description}
-          </Markdown>
-        </div>
-      </CardHeader>
-
-      {/* Tags */}
-      <CardContent className="mt-auto flex flex-col px-2">
-        {tags && tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {tags.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
+        {image && !video && (
+          <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-zinc-950/40 border-b border-black/[0.05] dark:border-white/[0.05]">
+            <Image
+              src={image}
+              alt={title}
+              width={500}
+              height={300}
+              priority={priority}
+              loading={priority ? undefined : "lazy"}
+              decoding="async"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 350px"
+              className="h-44 sm:h-48 w-full overflow-hidden object-cover object-top"
+            />
           </div>
         )}
-      </CardContent>
 
-      {/* Footer links */}
-      <CardFooter className="flex flex-wrap gap-2 px-2 pb-2">
-        {caseStudySlug && (
-          <Link href={`/projects/${caseStudySlug}`}>
-            <Badge className="flex items-center gap-1.5 px-2 py-1 text-[10px] border border-red-500/30 bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500/20 hover:border-red-500/60 transition-all font-mono">
-              <BookOpen className="size-3" />
-              Case Study
-            </Badge>
-          </Link>
-        )}
-        {links &&
-          links.filter((l) => l?.href).map((link, idx) => (
-            <Link href={link.href!} key={idx} target="_blank" rel="noopener noreferrer">
-              <Badge className="flex gap-2 px-2 py-1 text-[10px]">
-                {link.icon}
-                {link.type}
-              </Badge>
-            </Link>
-          ))}
-      </CardFooter>
-    </Card>
+        {/* Clean Minimal Content: Project Name on top, short summary below */}
+        <div className="p-4 sm:p-5 flex flex-col justify-between flex-grow">
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="font-serif text-lg sm:text-xl font-medium tracking-tight text-foreground group-hover:text-red-500 dark:group-hover:text-blue-400 transition-colors">
+                {title}
+              </h3>
+              <ArrowUpRight className="size-4 text-muted-foreground/50 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground shrink-0" />
+            </div>
+
+            <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">
+              {description}
+            </p>
+          </div>
+        </div>
+      </Card>
+    </Link>
   );
 }
