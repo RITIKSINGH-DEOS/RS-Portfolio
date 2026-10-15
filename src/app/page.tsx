@@ -4,7 +4,7 @@ import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Interactive3DName } from "@/components/interactive-3d-name";
 import { RagnarQuote } from "@/components/ragnar-quote";
 import { FooterSignature } from "@/components/footer-signature";
-import { ProjectsGrid } from "@/components/projects-grid";
+import { ProjectsShowcase } from "@/components/projects-showcase";
 import { ResumeCard } from "@/components/resume-card";
 import { DATA } from "@/data/resume";
 import Markdown from "react-markdown";
@@ -199,9 +199,8 @@ export default function Page() {
               </div>
             </div>
 
-            <ProjectsGrid
+            <ProjectsShowcase
               projects={DATA.projects}
-              baseDelay={0.05}
             />
           </div>
         </BlurFade>
