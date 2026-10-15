@@ -65,17 +65,17 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
                 isDesktop
                   ? isThisHovered
                     ? {
-                        scale: 1.12,
+                        scale: 1.04,
                         zIndex: 40,
                         opacity: 1,
                         filter: "none",
                       }
                     : isOtherHovered
                     ? {
-                        scale: 0.92,
+                        scale: 0.98,
                         zIndex: 1,
-                        opacity: 0.12,
-                        filter: "blur(3px)",
+                        opacity: 0.45,
+                        filter: "blur(1px)",
                       }
                     : {
                         scale: 1,
@@ -91,8 +91,8 @@ export function ProjectsGrid({ projects, blurFadeDelay = 0.04, baseDelay }: Proj
                     }
               }
               transition={{
-                duration: 0.28,
-                ease: [0.25, 1, 0.5, 1],
+                duration: 0.55,
+                ease: [0.16, 1, 0.3, 1],
               }}
             >
               <ProjectCard
