@@ -1,7 +1,7 @@
 import React from "react";
-import { AlertCircle, ShieldAlert, ZapOff } from "lucide-react";
+import { AlertCircle, Ban, SearchX } from "lucide-react";
 
-interface PainPoint {
+interface BulletPoint {
   title: string;
   desc: string;
 }
@@ -9,23 +9,23 @@ interface PainPoint {
 interface Props {
   problem: {
     headline: string;
-    description: string;
-    painPoints: PainPoint[];
+    story: string;
+    bulletPoints: BulletPoint[];
   };
 }
 
 export function CaseStudyProblem({ problem }: Props) {
   const icons = [
-    <AlertCircle key="0" className="size-5 text-red-500" />,
-    <ShieldAlert key="1" className="size-5 text-amber-500" />,
-    <ZapOff key="2" className="size-5 text-blue-500" />,
+    <SearchX key="0" className="size-4 text-red-500 shrink-0" />,
+    <Ban key="1" className="size-4 text-amber-500 shrink-0" />,
+    <AlertCircle key="2" className="size-4 text-blue-500 shrink-0" />,
   ];
 
   return (
     <section id="problem" className="scroll-mt-28 space-y-6 pt-8 border-t border-black/10 dark:border-white/10">
       <div className="space-y-2">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-red-500 dark:text-red-400">
-          01 // The Core Problem
+          01 // The Problem
         </p>
         <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">
           {problem.headline}
@@ -33,23 +33,25 @@ export function CaseStudyProblem({ problem }: Props) {
       </div>
 
       <p className="text-base text-muted-foreground leading-relaxed">
-        {problem.description}
+        {problem.story}
       </p>
 
-      {/* Pain Points Callouts */}
+      {/* 3 Human Pain Point Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 pt-2">
-        {problem.painPoints.map((point, idx) => (
+        {problem.bulletPoints.map((point, idx) => (
           <div
             key={idx}
-            className="rounded-2xl border border-black/10 dark:border-white/10 bg-card/50 dark:bg-zinc-900/50 p-4 space-y-2 backdrop-blur-sm transition-all duration-300 hover:border-red-500/30 hover:shadow-lg"
+            className="rounded-2xl border border-black/10 dark:border-white/10 bg-card/60 dark:bg-zinc-900/60 p-5 space-y-2.5 backdrop-blur-sm transition-all duration-300 hover:border-red-500/30 hover:shadow-md"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               {icons[idx % icons.length]}
               <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-foreground">
                 {point.title}
               </h3>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">{point.desc}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              {point.desc}
+            </p>
           </div>
         ))}
       </div>
