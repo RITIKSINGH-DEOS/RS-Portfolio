@@ -186,7 +186,7 @@ export default function RootLayout({
               <DottedCanvas />
               <ShootingStars />
               <TopNav />
-              <div className="relative z-10 w-full max-w-2xl mx-auto px-6">
+              <div className="relative z-10 w-full">
                 {children}
               </div>
               <Navbar />

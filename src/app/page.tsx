@@ -58,7 +58,7 @@ const BLUR_FADE_DELAY = 0.02;
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10 w-full max-w-2xl mx-auto">
+    <main className="flex flex-col min-h-[100dvh] space-y-10 w-full max-w-2xl mx-auto px-6">
       {/* Primary Semantic H1 for Google Search & SEO */}
       <h1 className="sr-only">Ritik Singh — Full Stack AI Engineer Portfolio</h1>
 

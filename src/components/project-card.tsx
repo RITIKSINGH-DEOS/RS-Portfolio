@@ -13,6 +13,14 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import { BookOpen } from "lucide-react";
+
+const PROJECT_SLUGS: Record<string, string> = {
+  "ResumeAI": "resume-ai",
+  "MedConnect": "medconnect",
+  "AI Learning Assistant": "ai-learning-assistant",
+  "Support AI": "support-ai",
+};
 
 interface Props {
   title: string;
@@ -47,6 +55,9 @@ export function ProjectCard({
 }: Props) {
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const mediaRef = useRef<HTMLDivElement | null>(null);
+
+  const caseStudySlug = PROJECT_SLUGS[title];
+  const mainTargetUrl = caseStudySlug ? `/projects/${caseStudySlug}` : (href || "#");
 
   useEffect(() => {
     if (!video) return;
@@ -84,7 +95,7 @@ export function ProjectCard({
       )}
     >
       {/* Main card clickable area */}
-      <Link href={href || "#"} className={cn("block cursor-pointer", className)}>
+      <Link href={mainTargetUrl} className={cn("block cursor-pointer", className)}>
         {video && (
           <div
             ref={mediaRef}
@@ -132,7 +143,9 @@ export function ProjectCard({
       {/* Card content */}
       <CardHeader className="px-2">
         <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
+          <Link href={mainTargetUrl} className="hover:underline">
+            <CardTitle className="mt-1 text-base">{title}</CardTitle>
+          </Link>
           <time className="font-sans text-xs">{dates}</time>
           {link && (
             <div className="hidden font-sans text-xs underline print:visible">
@@ -164,6 +177,14 @@ export function ProjectCard({
 
       {/* Footer links */}
       <CardFooter className="flex flex-wrap gap-2 px-2 pb-2">
+        {caseStudySlug && (
+          <Link href={`/projects/${caseStudySlug}`}>
+            <Badge className="flex items-center gap-1.5 px-2 py-1 text-[10px] border border-red-500/30 bg-red-500/10 text-red-500 dark:text-red-400 hover:bg-red-500/20 hover:border-red-500/60 transition-all font-mono">
+              <BookOpen className="size-3" />
+              Case Study
+            </Badge>
+          </Link>
+        )}
         {links &&
           links.filter((l) => l?.href).map((link, idx) => (
             <Link href={link.href!} key={idx} target="_blank" rel="noopener noreferrer">

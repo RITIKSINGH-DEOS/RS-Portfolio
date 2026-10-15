@@ -1,7 +1,15 @@
 import { DATA } from "@/data/resume";
+import { PROJECT_CASE_STUDIES } from "@/data/project-case-studies";
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const projectEntries: MetadataRoute.Sitemap = Object.keys(PROJECT_CASE_STUDIES).map((slug) => ({
+    url: `${DATA.url}/projects/${slug}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
   return [
     {
       url: DATA.url,
@@ -9,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 1.0,
     },
+    ...projectEntries,
     {
       url: `${DATA.url}/github`,
       lastModified: new Date().toISOString(),
