@@ -5,6 +5,7 @@ import { Interactive3DName } from "@/components/interactive-3d-name";
 import { RagnarQuote } from "@/components/ragnar-quote";
 import { FooterSignature } from "@/components/footer-signature";
 import { ProjectsShowcase } from "@/components/projects-showcase";
+import { AchievementsBook } from "@/components/achievements-book";
 import { ResumeCard } from "@/components/resume-card";
 import { DATA } from "@/data/resume";
 import Markdown from "react-markdown";
@@ -161,29 +162,9 @@ export default function Page() {
         </BlurFade>
       </section>
 
-      {/* Achievements (hackathons, publications, etc.) */}
-      <section id="achievements" className="w-full">
-        <BlurFade delay={0.10} inView>
-          <div className="flex flex-col gap-y-3">
-            <h2 className="text-2xl sm:text-3xl font-serif font-light tracking-[-0.03em] text-foreground">Achievements</h2>
-            {DATA.achievements?.map((item) => (
-              <ResumeCard
-                key={item.title}
-                href={item.href}
-                logoUrl={item.logoUrl}
-                altText={item.title}
-                title={item.title}
-                subtitle={item.description}
-                period={item.date}
-              />
-            ))}
-          </div>
-        </BlurFade>
-      </section>
-
       {/* Projects Section */}
       <section id="projects" className="w-full">
-        <BlurFade delay={0.12} inView>
+        <BlurFade delay={0.10} inView>
           <div className="space-y-12 w-full py-12">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -202,6 +183,29 @@ export default function Page() {
             <ProjectsShowcase
               projects={DATA.projects}
             />
+          </div>
+        </BlurFade>
+      </section>
+
+      {/* Achievements Section: The Milestone Ledger Book */}
+      <section id="achievements" className="w-full">
+        <BlurFade delay={0.12} inView>
+          <div className="space-y-8 w-full py-12">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+                  Milestones & Proof
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.1]">
+                  Verified Achievements
+                </h2>
+                <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                  A digital dossier of verified honors, certifications, and virtual internships with direct visual proof.
+                </p>
+              </div>
+            </div>
+
+            <AchievementsBook achievements={DATA.achievements} />
           </div>
         </BlurFade>
       </section>
