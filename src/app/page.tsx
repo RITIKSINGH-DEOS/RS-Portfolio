@@ -190,16 +190,16 @@ export default function Page() {
       {/* Achievements Section: The Milestone Ledger Book */}
       <section id="achievements" className="w-full">
         <BlurFade delay={0.12} inView>
-          <div className="space-y-8 w-full py-12">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+          <div className="space-y-5 w-full py-6 sm:py-8">
+            <div className="flex flex-col items-center justify-center space-y-2 text-center">
+              <div className="space-y-1.5">
+                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-0.5 text-xs">
                   Milestones & Proof
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light tracking-[-0.04em] text-foreground leading-[1.1]">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-light tracking-[-0.03em] text-foreground leading-[1.1]">
                   Verified Achievements
                 </h2>
-                <p className="font-sans text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md mx-auto">
                   A digital dossier of verified honors, certifications, and virtual internships with direct visual proof.
                 </p>
               </div>
