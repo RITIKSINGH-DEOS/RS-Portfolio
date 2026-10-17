@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { PERSONAL_QUOTES } from "@/data/quotes";
 
 export interface Achievement {
   readonly id: string;
@@ -133,7 +134,7 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
         </svg>
       </div>
 
-      {/* Cover Footer & Open Prompt */}
+      {/* Cover Footer */}
       <div className="relative z-10 pl-2">
         <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-300 font-medium">
@@ -144,16 +145,6 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
             {totalAchievements} HONORS
           </span>
         </div>
-
-        {!isTurning && (
-          <div className="mt-3 flex items-center justify-center">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-white font-mono text-[11px] group-hover:bg-gradient-to-r group-hover:from-red-600 group-hover:to-blue-600 group-hover:border-transparent transition-all shadow-[0_0_15px_rgba(220,38,38,0.2)]">
-              <BookOpen className="size-3 text-red-400 group-hover:text-white" />
-              <span>Click to Open Book</span>
-              <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
-            </span>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -317,7 +308,7 @@ function MilestonePage({
             backgroundSize: "16px 16px",
           }}
           className={cn(
-            "group relative w-full h-[250px] sm:h-[265px] md:h-[270px] rounded-xl sm:rounded-2xl border bg-[#141518] shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 p-2 sm:p-2.5",
+            "group relative w-fit mx-auto h-[250px] sm:h-[265px] md:h-[270px] rounded-xl sm:rounded-2xl border bg-[#141518] shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 p-2.5 sm:p-3",
             SPIDER_THEME.boxBorder,
             SPIDER_THEME.boxHover
           )}
@@ -349,7 +340,7 @@ function MilestonePage({
         <div className="flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-red-500/80" />
           <span className="font-mono text-[11px] sm:text-xs text-zinc-400 uppercase tracking-widest">
-            {achievement.date}  ·  VERIFIED
+            VERIFIED
           </span>
         </div>
 
@@ -396,97 +387,75 @@ function MilestonePage({
 }
 
 // =========================================================================
-// 📄 4. EPILOGUE PAGE (SPREAD 3 LEFT PAGE: ROADMAP & FUTURE PURSUITS)
+// 📄 4. EPILOGUE PAGE (SPREAD 3 LEFT PAGE: INSPIRATIONAL QUOTE SERIES)
 // =========================================================================
 interface AfterwordPageProps {
   readonly totalAchievements: number;
+  readonly quoteIndex: number;
+  readonly onNextQuote: () => void;
   readonly onReturnToContents: () => void;
 }
 
-function AfterwordPage({ totalAchievements, onReturnToContents }: AfterwordPageProps) {
+function AfterwordPage({ 
+  totalAchievements, 
+  quoteIndex, 
+  onNextQuote, 
+  onReturnToContents 
+}: AfterwordPageProps) {
+  const currentQuote = PERSONAL_QUOTES[quoteIndex % PERSONAL_QUOTES.length];
+
   return (
     <div className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-8 md:pb-7 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none">
-      <div className="flex flex-col relative z-10">
-        {/* Top Label */}
-        <div className="flex items-center justify-between pb-2">
-          <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-red-400 font-semibold flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-red-500 animate-pulse" />
-            <span>EPILOGUE · NEXT OBJECTIVES</span>
+      {/* Top Header */}
+      <div className="flex items-center justify-between pb-2 relative z-10">
+        <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-red-400 font-semibold flex items-center gap-1.5">
+          <span className="size-1.5 rounded-full bg-red-500 animate-pulse" />
+          <span>EPILOGUE</span>
+        </span>
+
+        <span className="font-mono text-[10px] sm:text-xs text-zinc-500 tracking-[0.25em] uppercase">
+          WORDS TO LIVE BY
+        </span>
+      </div>
+
+      {/* Centerpiece: Clean, Elegant Literary Quote */}
+      <div 
+        onClick={(e) => {
+          e.stopPropagation();
+          onNextQuote();
+        }}
+        className="flex-1 flex flex-col justify-center my-auto px-1 sm:px-2 py-4 cursor-pointer group/quote relative z-10 transition-transform duration-200 hover:scale-[1.01]"
+        title="Click to read another quote"
+      >
+        {/* Large Decorative Serif Quotation Mark */}
+        <span 
+          aria-hidden="true" 
+          className="font-serif text-5xl sm:text-6xl text-red-500/25 leading-none select-none -mb-3 sm:-mb-4 block"
+        >
+          “
+        </span>
+
+        {/* The Quote Text */}
+        <blockquote className="font-serif italic font-normal text-[17px] sm:text-[19px] md:text-[21px] leading-relaxed text-zinc-100 group-hover/quote:text-white transition-colors tracking-tight">
+          {currentQuote.quote}
+        </blockquote>
+
+        {/* Author Attribution */}
+        {currentQuote.author && (
+          <div className="mt-4 sm:mt-5 flex items-center gap-2.5">
+            <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-red-500/80 to-blue-500/80" />
+            <cite className="font-mono text-xs sm:text-[13px] text-red-400 not-italic uppercase tracking-widest font-semibold">
+              {currentQuote.author}
+            </cite>
+          </div>
+        )}
+
+        {/* Subtle Next Quote Hint */}
+        <div className="mt-4 flex items-center gap-1.5 opacity-0 group-hover/quote:opacity-100 transition-opacity duration-200">
+          <Sparkles className="size-3 text-red-400 animate-pulse" />
+          <span className="font-mono text-[10px] text-zinc-500">
+            Click to shuffle quote ({quoteIndex + 1}/{PERSONAL_QUOTES.length})
           </span>
-
-          <span className="font-mono text-xs text-zinc-500 tracking-[0.25em]">
-            2026 // ROADMAP
-          </span>
-        </div>
-
-        {/* Headline */}
-        <div className="mt-2.5 space-y-1.5">
-          <h3 className="font-serif text-xl sm:text-2xl md:text-[23px] font-normal text-white tracking-tight leading-snug">
-            The Journey Doesn’t End On Paper.
-          </h3>
-          <p className="font-sans text-xs sm:text-[13px] text-zinc-400 leading-relaxed font-light">
-            Certificates verify the foundation. Real growth happens in the lab while shipping code and solving hard engineering problems.
-          </p>
-        </div>
-
-        {/* 3 Active Engineering Quests */}
-        <div className="mt-3.5 space-y-2">
-          <div className="p-2 sm:p-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-between hover:border-red-500/30 transition-colors group/item">
-            <div className="flex items-center gap-2.5 min-w-0 pr-2">
-              <span className="size-6 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center shrink-0 font-mono text-[11px] font-bold">
-                01
-              </span>
-              <div className="truncate">
-                <p className="font-mono text-xs text-zinc-200 group-hover/item:text-white transition-colors truncate">
-                  Autonomous AI Agents & RAG Swarms
-                </p>
-                <p className="font-mono text-[10px] text-zinc-500 truncate">
-                  Multi-modal reasoning & LLM workflows
-                </p>
-              </div>
-            </div>
-            <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/25 shrink-0">
-              Active
-            </span>
-          </div>
-
-          <div className="p-2 sm:p-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-between hover:border-blue-500/30 transition-colors group/item">
-            <div className="flex items-center gap-2.5 min-w-0 pr-2">
-              <span className="size-6 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 font-mono text-[11px] font-bold">
-                02
-              </span>
-              <div className="truncate">
-                <p className="font-mono text-xs text-zinc-200 group-hover/item:text-white transition-colors truncate">
-                  Distributed Cloud Architecture
-                </p>
-                <p className="font-mono text-[10px] text-zinc-500 truncate">
-                  Event-driven microservices & scalability
-                </p>
-              </div>
-            </div>
-            <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/25 shrink-0">
-              Building
-            </span>
-          </div>
-
-          <div className="p-2 sm:p-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-between hover:border-red-500/30 transition-colors group/item">
-            <div className="flex items-center gap-2.5 min-w-0 pr-2">
-              <span className="size-6 rounded-md bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center shrink-0 font-mono text-[11px] font-bold">
-                03
-              </span>
-              <div className="truncate">
-                <p className="font-mono text-xs text-zinc-200 group-hover/item:text-white transition-colors truncate">
-                  Production Full-Stack AI Ecosystems
-                </p>
-                <p className="font-mono text-[10px] text-zinc-500 truncate">
-                  Next.js, FastAPI, Vector DBs, & WebSockets
-                </p>
-              </div>
-            </div>
-            <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 shrink-0">
-              Deployed
-            </span>
-          </div>
         </div>
       </div>
 
@@ -526,28 +495,17 @@ function FinPage({ onClose }: FinPageProps) {
         e.stopPropagation();
         onClose();
       }}
-      className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-8 md:pb-7 flex flex-col justify-between bg-gradient-to-l from-[#191a1d] to-[#161719] relative select-none cursor-pointer group"
+      className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:py-9 flex flex-col items-center justify-center bg-gradient-to-l from-[#191a1d] to-[#161719] relative select-none cursor-pointer group"
     >
-      {/* Top Header */}
-      <div className="flex items-center justify-between pb-2">
-        <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-zinc-500 font-medium">
-          DOSSIER // ARCHIVED
-        </span>
-
-        <span className="font-mono text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest">
-          VOL. 01 SEAL
-        </span>
-      </div>
-
-      {/* Centerpiece: Glowing Spider Crest + To Be Continued */}
-      <div className="flex-1 flex flex-col items-center justify-center my-auto space-y-3 py-1">
+      {/* Centerpiece: Glowing Spider Crest + To Be Continued + CLICK TO CLOSE */}
+      <div className="flex flex-col items-center justify-center space-y-4 py-2">
         {/* Animated Spider Crest Seal */}
         <div className="relative size-16 sm:size-18 flex items-center justify-center">
           {/* Rotating outer web ring */}
           <div className="absolute inset-0 rounded-full border border-red-500/25 animate-[spin_20s_linear_infinite]" />
           <div className="absolute inset-1.5 rounded-full border border-blue-500/20 border-dashed animate-[spin_15s_linear_infinite_reverse]" />
           {/* Spider-Sense Glow */}
-          <div className="absolute inset-3 rounded-full bg-gradient-to-br from-red-600/25 via-transparent to-blue-600/25 blur-md" />
+          <div className="absolute inset-3 rounded-full bg-gradient-to-br from-red-600/20 via-transparent to-blue-600/20 blur-md" />
 
           {/* Spider Icon */}
           <svg className="size-9 sm:size-10 drop-shadow-[0_0_14px_rgba(220,38,38,0.95)] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 40 40" fill="none">
@@ -566,44 +524,15 @@ function FinPage({ onClose }: FinPageProps) {
           </svg>
         </div>
 
-        {/* Narrative Headline */}
-        <div className="text-center space-y-1">
-          <h4 className="font-serif italic text-2xl sm:text-[26px] bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight leading-tight">
+        {/* Narrative Headline & Click to Close (Monochrome, Zero Color, Simple Clean Typography) */}
+        <div className="text-center space-y-2 pt-1">
+          <h4 className="font-serif italic text-2xl sm:text-[28px] font-normal text-white tracking-tight leading-tight">
             To Be Continued...
           </h4>
-          <p className="font-mono text-[10px] sm:text-[11px] text-zinc-400">
-            More milestones unlocking as new projects launch.
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-400 group-hover:text-white transition-colors">
+            CLICK TO CLOSE
           </p>
         </div>
-
-        {/* Ritik's Spider Motto */}
-        <div className="max-w-[280px] text-center border-y border-white/[0.06] py-1.5 px-3">
-          <p className="font-serif italic text-xs text-zinc-400 leading-snug">
-            &ldquo;With great power comes great responsibility to write clean code.&rdquo;
-          </p>
-          <span className="font-mono text-[10px] text-red-400 font-semibold uppercase tracking-wider block mt-0.5">
-            — Ritik Singh
-          </span>
-        </div>
-
-        {/* Prominent Tactile Close Button Pill */}
-        <div className="pt-0.5">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-white font-mono text-[11px] font-medium shadow-[0_0_18px_rgba(220,38,38,0.25)] group-hover:bg-gradient-to-r group-hover:from-red-600 group-hover:to-blue-600 group-hover:border-transparent group-hover:shadow-[0_0_25px_rgba(220,38,38,0.5)] transition-all">
-            <BookOpen className="size-3 text-red-400 group-hover:text-white" />
-            <span>Click to Close Book</span>
-          </span>
-        </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between mt-auto">
-        <span className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
-          REF: RS-2026-V1
-        </span>
-
-        <span className="font-mono text-xs text-zinc-600 tabular-nums">
-          7
-        </span>
       </div>
     </div>
   );
@@ -704,6 +633,15 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
   // Fullscreen Zoom Lightbox
   const [zoomedAchievement, setZoomedAchievement] = useState<Achievement | null>(null);
 
+  // Inspirational Quote series for Epilogue (cycles on each visit or user click)
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentSpread === 3) {
+      setQuoteIndex((prev) => (prev + 1) % PERSONAL_QUOTES.length);
+    }
+  }, [currentSpread]);
+
   const total = achievements.length;
   const maxSpread = 3; // Spread 1, Spread 2, Spread 3 (Afterword/Fin)
 
@@ -781,16 +719,18 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
         />
       );
     }
-    // Spread 3: Epilogue / Roadmap
+    // Spread 3: Epilogue / Quote
     return (
       <AfterwordPage 
         totalAchievements={total} 
+        quoteIndex={quoteIndex}
+        onNextQuote={() => setQuoteIndex((prev) => (prev + 1) % PERSONAL_QUOTES.length)}
         onReturnToContents={() => {
           turnToSpread(1);
         }} 
       />
     );
-  }, [achievements, currentSpread, isTurning, isClosing, isOpening, total, turnToSpread, handlePrev]);
+  }, [achievements, currentSpread, isTurning, isClosing, isOpening, total, turnToSpread, handlePrev, quoteIndex]);
 
   const renderRightPage = useCallback((spread: number) => {
     if (spread === 1) {

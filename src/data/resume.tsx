@@ -244,7 +244,7 @@ export const DATA = {
       title: "IBM SkillsBuild × Edunet — AI Virtual Internship",
       issuer: "Edunet Foundation & AICTE (IBM SkillsBuild)",
       category: "Artificial Intelligence",
-      date: "May – Jun 2026",
+      date: "Jun 2026",
       logoUrl: "/ibm.png",
       certificateImage: "/certificates/ibm-ai.png",
       credentialId: "STU69db1b08287331775966984",
