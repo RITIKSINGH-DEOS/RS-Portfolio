@@ -107,30 +107,83 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
         </p>
       </div>
 
-      {/* Center Spider Web Silk Threads & Nodes Network */}
-      <div className="relative z-10 my-auto py-4 flex items-center justify-center">
-        <svg className="w-56 h-14 overflow-visible opacity-85 group-hover:opacity-100 transition-opacity" viewBox="0 0 200 40">
-          {/* Spider Silk Connecting Filaments */}
-          <path 
-            d="M 20 25 L 60 12 L 100 28 L 140 10 L 180 22" 
-            fill="none" 
-            stroke="rgba(220,38,38,0.45)" 
-            strokeWidth="1.5"
-            strokeDasharray="4 3"
-          />
-          <path 
-            d="M 20 25 L 100 28 L 180 22" 
-            fill="none" 
-            stroke="rgba(37,99,235,0.35)" 
-            strokeWidth="1"
-            strokeDasharray="2 4"
-          />
-          {/* Glowing Spider-Man Nodes (Red & Royal Blue) */}
-          <circle cx="20" cy="25" r="4.5" fill="#dc2626" className="drop-shadow-[0_0_10px_rgba(220,38,38,0.95)]" />
-          <circle cx="60" cy="12" r="4.5" fill="#2563eb" className="drop-shadow-[0_0_10px_rgba(37,99,235,0.95)]" />
-          <circle cx="100" cy="28" r="5" fill="#ef4444" className="drop-shadow-[0_0_12px_rgba(239,68,68,1)]" />
-          <circle cx="140" cy="10" r="4.5" fill="#3b82f6" className="drop-shadow-[0_0_10px_rgba(59,130,246,0.95)]" />
-          <circle cx="180" cy="22" r="4.5" fill="#dc2626" className="drop-shadow-[0_0_10px_rgba(220,38,38,0.95)]" />
+      {/* Center Spider Web Graphic in Spider-Man Theme (Red & Royal Blue) */}
+      <div className="relative z-10 my-auto py-3 flex items-center justify-center">
+        <svg 
+          className="w-44 h-28 sm:w-48 sm:h-32 overflow-visible opacity-90 group-hover:opacity-100 transition-all duration-300 drop-shadow-[0_0_12px_rgba(220,38,38,0.45)] group-hover:drop-shadow-[0_0_20px_rgba(37,99,235,0.55)]" 
+          viewBox="0 0 180 120"
+          fill="none"
+        >
+          <defs>
+            {/* Spider-Man Suit Dual Gradient (Red to Royal Blue) */}
+            <linearGradient id="spiderWebGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ef4444" stopOpacity="0.9" />
+              <stop offset="50%" stopColor="#dc2626" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.9" />
+            </linearGradient>
+
+            {/* Ambient Radial Spider Glow */}
+            <radialGradient id="spiderWebAmbient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#dc2626" stopOpacity="0.16" />
+              <stop offset="60%" stopColor="#2563eb" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+
+          {/* Background Spider Sense Aura */}
+          <circle cx="90" cy="60" r="52" fill="url(#spiderWebAmbient)" />
+
+          {/* Radial Spokes (8 structural web silk threads in Spider-Man Theme) */}
+          <g stroke="url(#spiderWebGradient)" strokeWidth="1.2" strokeLinecap="round">
+            <line x1="90" y1="60" x2="142" y2="60" />
+            <line x1="90" y1="60" x2="126.8" y2="96.8" />
+            <line x1="90" y1="60" x2="90" y2="112" />
+            <line x1="90" y1="60" x2="53.2" y2="96.8" />
+            <line x1="90" y1="60" x2="38" y2="60" />
+            <line x1="90" y1="60" x2="53.2" y2="23.2" />
+            <line x1="90" y1="60" x2="90" y2="8" />
+            <line x1="90" y1="60" x2="126.8" y2="23.2" />
+            {/* Outer Anchor Filaments */}
+            <line x1="38" y1="60" x2="16" y2="60" stroke="#ef4444" strokeDasharray="3 3" opacity="0.45" />
+            <line x1="142" y1="60" x2="164" y2="60" stroke="#2563eb" strokeDasharray="3 3" opacity="0.45" />
+            <line x1="90" y1="8" x2="90" y2="0" stroke="#ef4444" strokeDasharray="3 3" opacity="0.45" />
+            <line x1="90" y1="112" x2="90" y2="120" stroke="#2563eb" strokeDasharray="3 3" opacity="0.45" />
+          </g>
+
+          {/* Concentric Sagging Silk Web Rings in Spider-Man Red & Blue */}
+          <g strokeWidth="1.2" fill="none">
+            {/* Ring 0 (Inner Core - Crimson Red) */}
+            <path 
+              stroke="#ef4444" 
+              strokeOpacity="0.85"
+              d="M 104.0 60.0 Q 101.4 64.7 99.9 69.9 Q 94.7 71.4 90.0 74.0 Q 85.3 71.4 80.1 69.9 Q 78.6 64.7 76.0 60.0 Q 78.6 55.3 80.1 50.1 Q 85.3 48.6 90.0 46.0 Q 94.7 48.6 99.9 50.1 Q 101.4 55.3 104.0 60.0 Z" 
+            />
+            {/* Ring 1 (Spider-Man Dual Red/Blue Gradient) */}
+            <path 
+              stroke="url(#spiderWebGradient)" 
+              strokeOpacity="0.8"
+              d="M 115.0 60.0 Q 110.3 68.4 107.7 77.7 Q 98.4 80.3 90.0 85.0 Q 81.6 80.3 72.3 77.7 Q 69.7 68.4 65.0 60.0 Q 69.7 51.6 72.3 42.3 Q 81.6 39.7 90.0 35.0 Q 98.4 39.7 107.7 42.3 Q 110.3 51.6 115.0 60.0 Z" 
+            />
+            {/* Ring 2 (Electric Spider Blue) */}
+            <path 
+              stroke="#2563eb" 
+              strokeOpacity="0.85"
+              d="M 126.0 60.0 Q 119.3 72.1 115.5 85.5 Q 102.1 89.3 90.0 96.0 Q 77.9 89.3 64.5 85.5 Q 60.7 72.1 54.0 60.0 Q 60.7 47.9 64.5 34.5 Q 77.9 30.7 90.0 24.0 Q 102.1 30.7 115.5 34.5 Q 119.3 47.9 126.0 60.0 Z" 
+            />
+            {/* Ring 3 (Outer Perimeter - Spider-Man Gradient) */}
+            <path 
+              stroke="url(#spiderWebGradient)" 
+              strokeOpacity="0.9"
+              d="M 137.0 60.0 Q 128.2 75.8 123.2 93.2 Q 105.8 98.2 90.0 107.0 Q 74.2 98.2 56.8 93.2 Q 51.8 75.8 43.0 60.0 Q 51.8 44.2 56.8 26.8 Q 74.2 21.8 90.0 13.0 Q 105.8 21.8 123.2 26.8 Q 128.2 44.2 137.0 60.0 Z" 
+            />
+          </g>
+
+          {/* Central Silk Core & Glowing Spider Nodes */}
+          <circle cx="90" cy="60" r="3" fill="#dc2626" className="drop-shadow-[0_0_8px_rgba(220,38,38,0.95)]" />
+          <circle cx="104" cy="60" r="1.5" fill="#ef4444" className="drop-shadow-[0_0_6px_rgba(239,68,68,0.9)]" />
+          <circle cx="76" cy="60" r="1.5" fill="#3b82f6" className="drop-shadow-[0_0_6px_rgba(59,130,246,0.9)]" />
+          <circle cx="90" cy="74" r="1.5" fill="#2563eb" className="drop-shadow-[0_0_6px_rgba(37,99,235,0.9)]" />
+          <circle cx="90" cy="46" r="1.5" fill="#ef4444" className="drop-shadow-[0_0_6px_rgba(239,68,68,0.9)]" />
         </svg>
       </div>
 
@@ -524,12 +577,12 @@ function FinPage({ onClose }: FinPageProps) {
           </svg>
         </div>
 
-        {/* Narrative Headline & Click to Close (Monochrome, Zero Color, Simple Clean Typography) */}
+        {/* Narrative Headline & Click to Close (Monochrome Grey, Zero Colors) */}
         <div className="text-center space-y-2 pt-1">
           <h4 className="font-serif italic text-2xl sm:text-[28px] font-normal text-white tracking-tight leading-tight">
             To Be Continued...
           </h4>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-400 group-hover:text-white transition-colors">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-400 group-hover:text-zinc-300 transition-colors antialiased select-none">
             CLICK TO CLOSE
           </p>
         </div>
