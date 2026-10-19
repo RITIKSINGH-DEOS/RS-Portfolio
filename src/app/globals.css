@@ -201,19 +201,18 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 }
 
 /* ========================================================
-   SPIDER-MAN THEMED CUSTOM SCROLLBAR
+   SPIDER-MAN THEMED SCROLLBAR (RIGHT SIDE, OUTSIDE CANVAS)
    ======================================================== */
-/* Modern Firefox & Chromium standard: Hide native window scrollbar for seamless framed canvas */
-* {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+html {
+  scrollbar-width: thin !important;
+  scrollbar-color: #ef4444 #000000 !important;
 }
 
-/* Chrome, Edge, Safari, Opera (Webkit) - Seamless bezel */
+/* Chrome, Edge, Safari, Opera (Webkit) - Visible outer bezel scrollbar */
 ::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
+  display: block !important;
+  width: 8px !important;
+  height: 8px !important;
 }
 
 /* Hide and remove horizontal scrollbar completely */
@@ -224,39 +223,42 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #000000 !important;
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #000000 !important;
 }
 
 /* Remove default Windows arrows */
 ::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Spider-Man Red & Blue Gradient Thumb - Ultra Thin Micro-Filament */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #dc2626 0%, #2563eb 50%, #dc2626 100%);
-  border-radius: 9999px;
-  box-shadow: 0 0 6px rgba(220, 38, 38, 0.4);
+  background: linear-gradient(180deg, #dc2626 0%, #2563eb 50%, #dc2626 100%) !important;
+  border-radius: 9999px !important;
+  border: 1px solid #000000 !important;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.4) !important;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ef4444 0%, #3b82f6 50%, #ef4444 100%);
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  background: linear-gradient(180deg, #ef4444 0%, #3b82f6 50%, #ef4444 100%) !important;
+  border-radius: 9999px !important;
+  border: 1px solid #000000 !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5) !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #f87171 0%, #60a5fa 50%, #f87171 100%);
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
+  background: linear-gradient(180deg, #f87171 0%, #60a5fa 50%, #f87171 100%) !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.8) !important;
 }
 
 ::-webkit-scrollbar-corner {
-  background: transparent;
+  background: transparent !important;
 }
 
 /* ============================================================ */

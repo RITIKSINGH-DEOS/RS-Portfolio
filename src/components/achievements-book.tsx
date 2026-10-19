@@ -626,13 +626,13 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
           position: "relative",
         }}
       >
-        {/* Dynamic Paper Spine Shadow Drop */}
+        {/* Dynamic Paper Turning Curvature Shadow Drop */}
         <motion.div
           aria-hidden="true"
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.8, 0] }}
+          animate={{ opacity: [0, 0.35, 0] }}
           transition={{ duration: 0.65 }}
-          className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/80 via-black/20 to-transparent"
+          className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-r from-black/40 via-black/15 to-transparent"
         />
 
         {/* FRONT FACE (Visible 0deg to -90deg) */}
@@ -887,24 +887,6 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
             )}
           >
-            {/* Soft Realistic Inward Spine Fold Shadow */}
-            <div 
-              aria-hidden="true"
-              className={cn(
-                "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-20 z-30 bg-gradient-to-r from-transparent via-black/45 to-transparent transition-opacity duration-300",
-                isClosing && "opacity-0"
-              )}
-            />
-
-            {/* 1px Center Crease Line */}
-            <div 
-              aria-hidden="true" 
-              className={cn(
-                "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-30 bg-white/[0.04] transition-opacity duration-300",
-                isClosing && "opacity-0"
-              )}
-            />
-
             {/* Top Right Close Bookmark Button (Lets users re-close the book anytime) */}
             <button
               type="button"
@@ -928,7 +910,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                   if (!isClosing && !isOpening && currentSpread > 1) handlePrev();
                 }}
                 className={cn(
-                  "border-b md:border-b-0 md:border-r border-white/[0.06] relative md:h-full transition-opacity duration-200",
+                  "border-b md:border-b-0 relative md:h-full transition-opacity duration-200",
                   !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
                   isClosing && "opacity-0 pointer-events-none"
                 )}
@@ -979,6 +961,24 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                   }}
                 />
               )}
+
+              {/* Soft Realistic Inward Spine Fold Shadow (Continuous across static and turning leaves) */}
+              <div 
+                aria-hidden="true"
+                className={cn(
+                  "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/40 to-transparent transition-opacity duration-300",
+                  isClosing && "opacity-0"
+                )}
+              />
+
+              {/* 1px Center Crease Line (Symmetric physical spine seam, visible throughout turns) */}
+              <div 
+                aria-hidden="true" 
+                className={cn(
+                  "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-white/[0.05] transition-opacity duration-300",
+                  isClosing && "opacity-0"
+                )}
+              />
 
               {/* 3D BOOK CLOSING LEAF (TURNS FROM LEFT TO RIGHT LIKE A REAL HARDCOVER TURNING CLOSED) */}
               {isClosing && (
