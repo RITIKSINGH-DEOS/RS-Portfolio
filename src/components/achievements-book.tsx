@@ -887,23 +887,8 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
         )}
       >
-        {/* Top Right Close Bookmark Button (Lets users re-close the book anytime) */}
-        <button
-          type="button"
-          onClick={handleClose}
-          disabled={isClosing || isOpening || !isOpen}
-          className={cn(
-            "absolute top-3.5 right-4 z-30 size-7 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/70 border border-white/10 text-zinc-400 hover:text-white backdrop-blur-md transition-all disabled:opacity-40",
-            (!isOpen || isClosing || isOpening) && "opacity-0 pointer-events-none"
-          )}
-          title="Close Book"
-          aria-label="Close Book"
-        >
-          <X className="size-3.5" />
-        </button>
-
         {/* 2-Page Spread Grid (Fixed Height 490px) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[490px] relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 h-[460px] sm:h-[490px] md:h-[490px] relative">
           {/* LEFT PAGE (Underneath Base) */}
           <div 
             onClick={() => {
@@ -912,7 +897,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             className={cn(
               "border-b md:border-b-0 relative md:h-full transition-opacity duration-200",
               isOpen && !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
-              (!isOpen || isClosing) && "opacity-0 pointer-events-none"
+              (!isOpen || isClosing) && "hidden md:block opacity-0 pointer-events-none"
             )}
           >
             {renderLeftPage(
@@ -939,7 +924,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             )}
           >
             {!isOpen && !isClosing ? (
-              <div className="w-full h-full overflow-hidden rounded-r-2xl rounded-l-md">
+              <div className="w-full h-full min-h-[460px] sm:min-h-[490px] md:min-h-0 overflow-hidden rounded-r-2xl rounded-l-md">
                 <CoverContent totalAchievements={total} />
               </div>
             ) : (
