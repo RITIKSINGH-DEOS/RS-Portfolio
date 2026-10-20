@@ -698,16 +698,28 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
   const total = achievements.length;
   const maxSpread = 3; // Spread 1, Spread 2, Spread 3 (Afterword/Fin)
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleClose = useCallback(() => {
-    if (isTurning || isClosing || isOpening) return;
+    if (isTurning || isClosing || isOpening || !isOpen) return;
     if (typeof window !== "undefined" && window.innerWidth < 768) {
       setIsOpen(false);
       return;
     }
     setIsClosing(true);
-  }, [isTurning, isClosing, isOpening]);
+  }, [isTurning, isClosing, isOpening, isOpen]);
 
   const handleOpen = useCallback(() => {
+    if (isTurning || isClosing || isOpening || isOpen) return;
     if (typeof window !== "undefined" && window.innerWidth < 768) {
       setIsOpen(true);
       setCurrentSpread(1);
@@ -716,7 +728,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
     setIsOpen(true);
     setCurrentSpread(1);
     setIsOpening(true);
-  }, []);
+  }, [isTurning, isClosing, isOpening, isOpen]);
 
   const turnToSpread = useCallback((newSpread: number) => {
     if (isTurning || isClosing || isOpening || newSpread === currentSpread || newSpread < 1 || newSpread > maxSpread) return;
@@ -847,98 +859,97 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
         className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-20 bg-gradient-to-r from-red-600/15 via-blue-600/15 to-red-600/15 blur-2xl rounded-full opacity-60" 
       />
 
-      <AnimatePresence>
-        {!isOpen ? (
-          /* ========================================================================= */
-          /* 📕 3D CLOSED BOOK COVER VIEW                                              */
-          /* ========================================================================= */
-          <motion.div
-            key="closed-book-cover"
-            initial={false}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0 } }}
-          >
-            <ClosedBookCover 
-              totalAchievements={total} 
-              onOpen={handleOpen} 
-            />
-          </motion.div>
-        ) : (
-          /* ========================================================================= */
-          /* 📖 2-PAGE SPREAD BOOK VIEW                                                */
-          /* ========================================================================= */
-          <motion.div
-            key="open-book-spread"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              x: isClosing ? ["0%", "-25%"] : isOpening ? ["-25%", "0%"] : "0%"
+      {/* Persistent 3D Book Container: Stays in exact position when closed, zero glitch/shift */}
+      <motion.div
+        key="open-book-spread"
+        initial={false}
+        animate={{ 
+          opacity: 1, 
+          scale: 1,
+          x: isMobile 
+            ? "0%" 
+            : isClosing 
+              ? ["0%", "-25%"] 
+              : isOpening 
+                ? ["-25%", "0%"] 
+                : !isOpen 
+                  ? "-25%" 
+                  : "0%"
+        }}
+        transition={{ 
+          x: { duration: 0.75, ease: [0.33, 1, 0.68, 1] },
+          duration: 0.25 
+        }}
+        className={cn(
+          "relative rounded-2xl overflow-hidden transition-colors duration-300",
+          (!isOpen || isClosing) 
+            ? "bg-transparent border-transparent shadow-none" 
+            : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
+        )}
+      >
+        {/* Top Right Close Bookmark Button (Lets users re-close the book anytime) */}
+        <button
+          type="button"
+          onClick={handleClose}
+          disabled={isClosing || isOpening || !isOpen}
+          className={cn(
+            "absolute top-3.5 right-4 z-30 size-7 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/70 border border-white/10 text-zinc-400 hover:text-white backdrop-blur-md transition-all disabled:opacity-40",
+            (!isOpen || isClosing || isOpening) && "opacity-0 pointer-events-none"
+          )}
+          title="Close Book"
+          aria-label="Close Book"
+        >
+          <X className="size-3.5" />
+        </button>
+
+        {/* 2-Page Spread Grid (Fixed Height 490px) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 md:h-[490px] relative">
+          {/* LEFT PAGE (Underneath Base) */}
+          <div 
+            onClick={() => {
+              if (isOpen && !isClosing && !isOpening && currentSpread > 1) handlePrev();
             }}
-            transition={{ 
-              x: { duration: 0.75, ease: [0.33, 1, 0.68, 1] },
-              duration: 0.25 
-            }}
-            exit={{ opacity: 0, transition: { duration: 0 } }}
             className={cn(
-              "relative rounded-2xl overflow-hidden transition-colors duration-300",
-              isClosing 
-                ? "bg-transparent border-transparent shadow-none" 
-                : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
+              "border-b md:border-b-0 relative md:h-full transition-opacity duration-200",
+              isOpen && !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
+              (!isOpen || isClosing) && "opacity-0 pointer-events-none"
             )}
           >
-            {/* Top Right Close Bookmark Button (Lets users re-close the book anytime) */}
-            <button
-              type="button"
-              onClick={handleClose}
-              disabled={isClosing || isOpening}
-              className={cn(
-                "absolute top-3.5 right-4 z-30 size-7 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/70 border border-white/10 text-zinc-400 hover:text-white backdrop-blur-md transition-all disabled:opacity-40",
-                (isClosing || isOpening) && "opacity-0 pointer-events-none"
-              )}
-              title="Close Book"
-              aria-label="Close Book"
-            >
-              <X className="size-3.5" />
-            </button>
+            {renderLeftPage(
+              isTurning && targetSpread !== null && turnDirection === -1 
+                ? targetSpread 
+                : currentSpread
+            )}
+          </div>
 
-            {/* 2-Page Spread Grid (Fixed Height 490px) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 md:h-[490px] relative">
-              {/* LEFT PAGE (Underneath Base) */}
-              <div 
-                onClick={() => {
-                  if (!isClosing && !isOpening && currentSpread > 1) handlePrev();
-                }}
-                className={cn(
-                  "border-b md:border-b-0 relative md:h-full transition-opacity duration-200",
-                  !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
-                  isClosing && "opacity-0 pointer-events-none"
-                )}
-              >
-                {renderLeftPage(
-                  isTurning && targetSpread !== null && turnDirection === -1 
-                    ? targetSpread 
-                    : currentSpread
-                )}
+          {/* RIGHT PAGE (Underneath Base) */}
+          <div 
+            onClick={() => {
+              if (!isOpen && !isClosing && !isOpening) {
+                handleOpen();
+              } else if (isOpen && !isClosing && !isOpening && currentSpread < maxSpread) {
+                handleNext();
+              }
+            }}
+            className={cn(
+              "relative md:h-full transition-all duration-300",
+              !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
+              isOpen && !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
+              isClosing && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+            )}
+          >
+            {!isOpen && !isClosing ? (
+              <div className="w-full h-full overflow-hidden rounded-r-2xl rounded-l-md">
+                <CoverContent totalAchievements={total} />
               </div>
-
-              {/* RIGHT PAGE (Underneath Base) */}
-              <div 
-                onClick={() => {
-                  if (!isClosing && !isOpening && currentSpread < maxSpread) handleNext();
-                }}
-                className={cn(
-                  "relative md:h-full transition-all duration-300",
-                  !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
-                  isClosing && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
-                )}
-              >
-                {renderRightPage(
-                  isTurning && targetSpread !== null && turnDirection === 1 
-                    ? targetSpread 
-                    : currentSpread
-                )}
-              </div>
+            ) : (
+              renderRightPage(
+                isTurning && targetSpread !== null && turnDirection === 1 
+                  ? targetSpread 
+                  : currentSpread
+              )
+            )}
+          </div>
 
               {/* 3D SPINE TURNING LEAF (ACTIVE ONLY DURING NORMAL TURN) */}
               {isTurning && targetSpread !== null && (
@@ -967,7 +978,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 aria-hidden="true"
                 className={cn(
                   "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/40 to-transparent transition-opacity duration-300",
-                  isClosing && "opacity-0"
+                  (!isOpen || isClosing) && "opacity-0"
                 )}
               />
 
@@ -976,7 +987,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 aria-hidden="true" 
                 className={cn(
                   "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-white/[0.05] transition-opacity duration-300",
-                  isClosing && "opacity-0"
+                  (!isOpen || isClosing) && "opacity-0"
                 )}
               />
 
@@ -1119,12 +1130,10 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
               aria-hidden="true" 
               className={cn(
                 "h-1 w-full bg-[#121315] border-t border-white/[0.04] transition-opacity duration-300",
-                isClosing && "opacity-0"
+                (!isOpen || isClosing) && "opacity-0"
               )}
             />
           </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* ========================================================================= */}
       {/* 🔍 IN-APP FULLSCREEN LIGHTBOX MODAL                                       */}
