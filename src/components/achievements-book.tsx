@@ -893,13 +893,13 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
               onClick={handleClose}
               disabled={isClosing || isOpening}
               className={cn(
-                "absolute top-3.5 right-4 z-30 font-mono text-[10px] text-zinc-500 hover:text-white uppercase tracking-wider flex items-center gap-1 bg-black/40 hover:bg-black/70 px-2.5 py-1 rounded-full border border-white/10 backdrop-blur-md transition-all disabled:opacity-40",
+                "absolute top-3.5 right-4 z-30 size-7 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/70 border border-white/10 text-zinc-400 hover:text-white backdrop-blur-md transition-all disabled:opacity-40",
                 (isClosing || isOpening) && "opacity-0 pointer-events-none"
               )}
               title="Close Book"
+              aria-label="Close Book"
             >
-              <span>Close Cover</span>
-              <X className="size-3" />
+              <X className="size-3.5" />
             </button>
 
             {/* 2-Page Spread Grid (Fixed Height 490px) */}
