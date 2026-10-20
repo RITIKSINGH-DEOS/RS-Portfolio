@@ -671,7 +671,7 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
 // =========================================================================
 export function AchievementsBook({ achievements }: AchievementsBookProps) {
   // isOpen: true = open 2-page spread; false = closed 3D cover
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Smooth 3D physical cover transitions
   const [isClosing, setIsClosing] = useState(false);
