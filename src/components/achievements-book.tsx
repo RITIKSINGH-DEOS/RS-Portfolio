@@ -882,7 +882,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
         }}
         className={cn(
           "relative rounded-2xl overflow-hidden transition-colors duration-300",
-          (!isOpen || isClosing) 
+          (!isOpen || isClosing || isOpening) 
             ? "bg-transparent border-transparent shadow-none" 
             : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
         )}
@@ -897,7 +897,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             className={cn(
               "border-b md:border-b-0 relative md:h-full transition-opacity duration-200",
               isOpen && !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
-              (!isOpen || isClosing) && "hidden md:block opacity-0 pointer-events-none"
+              (!isOpen || isClosing || isOpening) && "hidden md:block opacity-0 pointer-events-none"
             )}
           >
             {renderLeftPage(
@@ -920,7 +920,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
               "relative md:h-full transition-all duration-300",
               !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
               isOpen && !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
-              isClosing && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+              (isClosing || isOpening) && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
             )}
           >
             {!isOpen && !isClosing ? (
@@ -963,7 +963,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 aria-hidden="true"
                 className={cn(
                   "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/40 to-transparent transition-opacity duration-300",
-                  (!isOpen || isClosing) && "opacity-0"
+                  (!isOpen || isClosing || isOpening) && "opacity-0"
                 )}
               />
 
@@ -972,7 +972,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 aria-hidden="true" 
                 className={cn(
                   "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-white/[0.05] transition-opacity duration-300",
-                  (!isOpen || isClosing) && "opacity-0"
+                  (!isOpen || isClosing || isOpening) && "opacity-0"
                 )}
               />
 
@@ -1115,7 +1115,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
               aria-hidden="true" 
               className={cn(
                 "h-1 w-full bg-[#121315] border-t border-white/[0.04] transition-opacity duration-300",
-                (!isOpen || isClosing) && "opacity-0"
+                (!isOpen || isClosing || isOpening) && "opacity-0"
               )}
             />
           </motion.div>
