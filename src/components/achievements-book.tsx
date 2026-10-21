@@ -489,7 +489,7 @@ function AfterwordPage({
         </span>
 
         {/* The Quote Text */}
-        <blockquote className="font-serif italic font-normal text-[17px] sm:text-[19px] md:text-[21px] leading-relaxed text-zinc-100 group-hover/quote:text-white transition-colors tracking-tight">
+        <blockquote className="font-great-vibes text-2xl sm:text-[26px] md:text-[29px] leading-relaxed text-zinc-100 group-hover/quote:text-white transition-colors tracking-wide">
           {currentQuote.quote}
         </blockquote>
 

@@ -35,6 +35,12 @@ const fontSerif = FontSerif({
   display: "swap",
 });
 
+const fontGreatVibes = localFont({
+  src: "../fonts/GreatVibes-Regular.ttf",
+  variable: "--font-great-vibes",
+  display: "swap",
+});
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
@@ -171,7 +177,8 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased pt-20 sm:pt-24 pb-24 sm:pb-32 overflow-x-clip",
           fontSans.variable,
-          fontSerif.variable
+          fontSerif.variable,
+          fontGreatVibes.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>
