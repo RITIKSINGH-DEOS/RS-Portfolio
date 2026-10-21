@@ -90,7 +90,7 @@ export function RagnarQuote() {
             transition={{ duration: 0.45, ease: "easeInOut" }}
             className="w-full"
           >
-            <blockquote className="relative z-10 font-great-vibes text-2xl sm:text-3xl md:text-[34px] leading-relaxed tracking-wide text-foreground/90 dark:text-zinc-100 drop-shadow-sm">
+            <blockquote className="relative z-10 font-great-vibes text-2xl sm:text-3xl md:text-[32px] leading-relaxed tracking-wide text-zinc-400 group-hover:text-zinc-200 transition-colors drop-shadow-sm">
               “{currentQuote.quote}”
             </blockquote>
 

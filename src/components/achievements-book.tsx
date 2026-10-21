@@ -458,9 +458,9 @@ function AfterwordPage({
   const currentQuote = PERSONAL_QUOTES[quoteIndex % PERSONAL_QUOTES.length];
 
   return (
-    <div className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-8 md:pb-7 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none">
+    <div className="w-full h-full px-8 py-6 sm:px-10 sm:py-7 md:px-12 md:py-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
       {/* Top Header */}
-      <div className="flex items-center justify-between pb-2 relative z-10">
+      <div className="shrink-0 flex items-center justify-between pb-1 relative z-10">
         <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-red-400 font-semibold flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-red-500 animate-pulse" />
           <span>EPILOGUE</span>
@@ -471,40 +471,54 @@ function AfterwordPage({
         </span>
       </div>
 
-      {/* Centerpiece: Clean, Elegant Literary Quote */}
+      {/* Centerpiece: Clean, Fixed-Height Elegant Literary Quote Slot */}
       <div 
         onClick={(e) => {
           e.stopPropagation();
           onNextQuote();
         }}
-        className="flex-1 flex flex-col justify-center my-auto px-1 sm:px-2 py-4 cursor-pointer group/quote relative z-10 transition-transform duration-200 hover:scale-[1.01]"
+        className="flex-1 my-auto flex flex-col items-center justify-center cursor-pointer group/quote relative z-10 select-none px-2 py-1"
         title="Click to read another quote"
       >
         {/* Large Decorative Serif Quotation Mark */}
         <span 
           aria-hidden="true" 
-          className="font-serif text-5xl sm:text-6xl text-red-500/25 leading-none select-none -mb-3 sm:-mb-4 block"
+          className="font-serif text-4xl sm:text-5xl text-red-500/25 leading-none select-none block text-center mb-1"
         >
           “
         </span>
 
-        {/* The Quote Text */}
-        <blockquote className="font-great-vibes text-2xl sm:text-[26px] md:text-[29px] leading-relaxed text-zinc-100 group-hover/quote:text-white transition-colors tracking-wide">
-          {currentQuote.quote}
-        </blockquote>
+        {/* Fixed Height Slot for Quote and Author so Layout and Bottom Bar NEVER Shift */}
+        <div className="w-full min-h-[175px] sm:min-h-[185px] max-h-[195px] flex items-center justify-center overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentQuote.id}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.28, ease: "easeInOut" }}
+              className="w-full text-center flex flex-col items-center justify-center"
+            >
+              {/* The Quote Text in Grey Great Vibes Script */}
+              <blockquote className="font-great-vibes text-[20px] sm:text-[22px] md:text-[23px] leading-[1.38] sm:leading-[1.42] text-zinc-400 group-hover/quote:text-zinc-200 transition-colors tracking-wide text-center">
+                {currentQuote.quote}
+              </blockquote>
 
-        {/* Author Attribution */}
-        {currentQuote.author && (
-          <div className="mt-4 sm:mt-5 flex items-center gap-2.5">
-            <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-red-500/80 to-blue-500/80" />
-            <cite className="font-mono text-xs sm:text-[13px] text-red-400 not-italic uppercase tracking-widest font-semibold">
-              {currentQuote.author}
-            </cite>
-          </div>
-        )}
+              {/* Author Attribution */}
+              {currentQuote.author && (
+                <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2.5">
+                  <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-red-500/80 to-blue-500/80" />
+                  <cite className="font-mono text-xs sm:text-[13px] text-red-400 not-italic uppercase tracking-widest font-semibold">
+                    {currentQuote.author}
+                  </cite>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
         {/* Subtle Next Quote Hint */}
-        <div className="mt-4 flex items-center gap-1.5 opacity-0 group-hover/quote:opacity-100 transition-opacity duration-200">
+        <div className="h-5 mt-2 flex items-center justify-center gap-1.5 opacity-0 group-hover/quote:opacity-100 transition-opacity duration-200">
           <Sparkles className="size-3 text-red-400 animate-pulse" />
           <span className="font-mono text-[10px] text-zinc-500">
             Click to shuffle quote ({quoteIndex + 1}/{PERSONAL_QUOTES.length})
@@ -512,8 +526,8 @@ function AfterwordPage({
         </div>
       </div>
 
-      {/* Bottom Bar: Jump Back to Contents */}
-      <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
+      {/* Bottom Bar: Jump Back to Contents (Permanently Anchored) */}
+      <div className="shrink-0 pt-3 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
         <button
           type="button"
           onClick={(e) => {
