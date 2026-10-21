@@ -235,7 +235,7 @@ interface ContentsPageProps {
 
 function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
   return (
-    <div className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none">
+    <div className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
       <div className="flex flex-col">
         {/* Top Label */}
         <div className="pb-3">
@@ -881,7 +881,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
           duration: 0.25 
         }}
         className={cn(
-          "relative rounded-2xl overflow-hidden transition-colors duration-300",
+          "relative rounded-2xl overflow-hidden",
           (!isOpen || isClosing || isOpening) 
             ? "bg-transparent border-transparent shadow-none" 
             : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
@@ -895,7 +895,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
               if (isOpen && !isClosing && !isOpening && currentSpread > 1) handlePrev();
             }}
             className={cn(
-              "border-b md:border-b-0 relative md:h-full transition-opacity duration-200",
+              "border-b md:border-b-0 relative md:h-full",
               isOpen && !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
               (!isOpen || isClosing || isOpening) && "hidden md:block opacity-0 pointer-events-none"
             )}
@@ -917,7 +917,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
               }
             }}
             className={cn(
-              "relative md:h-full transition-all duration-300",
+              "relative md:h-full",
               !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
               isOpen && !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
               (isClosing || isOpening) && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
@@ -1101,7 +1101,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                         inset: 0,
                         overflow: "hidden",
                       }}
-                      className="border-l border-white/[0.06] bg-[#191a1d] shadow-2xl rounded-l-md"
+                      className="w-full h-full"
                     >
                       {renderLeftPage(1)}
                     </div>
