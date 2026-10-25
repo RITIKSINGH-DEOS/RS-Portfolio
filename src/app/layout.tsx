@@ -11,6 +11,7 @@ import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Inter as FontSans, Fraunces as FontSerif } from "next/font/google";
 import "./globals.css";
 import dynamic from "next/dynamic";
@@ -40,6 +41,8 @@ const fontGreatVibes = localFont({
   variable: "--font-great-vibes",
   display: "swap",
 });
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-VR87QHF107";
 
 
 export const metadata: Metadata = {
@@ -181,6 +184,25 @@ export default function RootLayout({
           fontGreatVibes.variable
         )}
       >
+        {/* Google Analytics (GA4) */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
         <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange={true}>
           <TooltipProvider delayDuration={0}>
             <SmoothScrollProvider>
