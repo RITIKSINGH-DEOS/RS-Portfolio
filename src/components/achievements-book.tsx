@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { 
   X, 
@@ -8,7 +8,6 @@ import {
   ArrowRight,
   ArrowLeft,
   Maximize2,
-  BookOpen,
   Sparkles
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,19 +65,19 @@ interface CoverContentProps {
 
 function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
   return (
-    <div className="relative w-full h-full rounded-r-2xl rounded-l-md bg-gradient-to-br from-[#1b1c1f] via-[#16171a] to-[#121315] border border-white/[0.09] flex flex-col justify-between p-7 sm:p-9 select-none overflow-hidden">
+    <div className="relative w-full h-full rounded-r-2xl rounded-l-md bg-gradient-to-br from-[#1b1c1f] via-[#16171a] to-[#121315] border border-white/[0.09] flex flex-col justify-between p-5 sm:p-7 md:p-9 select-none overflow-hidden">
       {/* Left Spine Texture & Embossed Ridges */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute inset-y-0 left-0 w-5 bg-gradient-to-r from-[#0a0b0c] via-[#141518] to-transparent border-r border-white/[0.04]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-4 sm:w-5 bg-gradient-to-r from-[#0a0b0c] via-[#141518] to-transparent border-r border-white/[0.04]"
       />
-      <div aria-hidden="true" className="pointer-events-none absolute top-12 left-0 w-4 h-[1.5px] bg-white/[0.08]" />
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-12 left-0 w-4 h-[1.5px] bg-white/[0.08]" />
+      <div aria-hidden="true" className="pointer-events-none absolute top-10 sm:top-12 left-0 w-3.5 sm:w-4 h-[1.5px] bg-white/[0.08]" />
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-10 sm:bottom-12 left-0 w-3.5 sm:w-4 h-[1.5px] bg-white/[0.08]" />
 
       {/* Right Paper Stack Edge (Simulating Realistic Physical Book Pages Block) */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute inset-y-2 right-0 w-2.5 rounded-r-sm bg-gradient-to-l from-white/[0.12] via-zinc-600/20 to-transparent shadow-inner"
+        className="pointer-events-none absolute inset-y-2 right-0 w-2 sm:w-2.5 rounded-r-sm bg-gradient-to-l from-white/[0.12] via-zinc-600/20 to-transparent shadow-inner"
       />
 
       {/* Soft Leatherette Sheen Overlay */}
@@ -89,28 +88,28 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
 
       {/* Cover Header */}
       <div className="relative z-10 pl-2">
-        <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-zinc-500 font-medium">
+        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-zinc-500 font-medium">
           VOL. 01 · FIELD NOTES
         </span>
 
-        <div className="mt-5 space-y-1">
-          <h3 className="font-serif text-2xl sm:text-[27px] font-normal text-white tracking-tight leading-[1.18]">
+        <div className="mt-3 sm:mt-4 md:mt-5 space-y-0.5 sm:space-y-1">
+          <h3 className="font-serif text-[21px] sm:text-2xl md:text-[27px] font-normal text-white tracking-tight leading-[1.18]">
             Verified Milestones &
           </h3>
-          <p className="font-serif italic text-2xl sm:text-[27px] font-normal bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight">
+          <p className="font-serif italic text-[21px] sm:text-2xl md:text-[27px] font-normal bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight">
             achievements
           </p>
         </div>
 
-        <p className="font-sans text-xs text-zinc-400 mt-4 leading-relaxed font-light line-clamp-3">
+        <p className="font-sans text-[11px] sm:text-xs text-zinc-400 mt-2.5 sm:mt-3 md:mt-4 leading-relaxed font-light line-clamp-2 sm:line-clamp-3">
           A permanent dossier of verified honors, certifications, and virtual engineering milestones.
         </p>
       </div>
 
       {/* Center Spider Web Graphic in Spider-Man Theme (Red & Royal Blue) */}
-      <div className="relative z-10 my-auto py-3 flex items-center justify-center">
+      <div className="relative z-10 my-auto py-1 sm:py-2 md:py-3 flex items-center justify-center">
         <svg 
-          className="w-44 h-28 sm:w-48 sm:h-32 overflow-visible opacity-90 group-hover:opacity-100 transition-all duration-300 drop-shadow-[0_0_12px_rgba(220,38,38,0.45)] group-hover:drop-shadow-[0_0_20px_rgba(37,99,235,0.55)]" 
+          className="w-36 h-22 sm:w-44 sm:h-28 md:w-48 md:h-32 overflow-visible opacity-90 group-hover:opacity-100 transition-all duration-300 drop-shadow-[0_0_12px_rgba(220,38,38,0.45)] group-hover:drop-shadow-[0_0_20px_rgba(37,99,235,0.55)]" 
           viewBox="0 0 180 120"
           fill="none"
         >
@@ -189,12 +188,12 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
 
       {/* Cover Footer */}
       <div className="relative z-10 pl-2">
-        <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-300 font-medium">
+        <div className="pt-2.5 sm:pt-3 md:pt-4 border-t border-white/[0.08] flex items-center justify-between">
+          <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-zinc-300 font-medium">
             RITIK SINGH
           </span>
 
-          <span className="font-mono text-xs text-zinc-500 tabular-nums">
+          <span className="font-mono text-[11px] sm:text-xs text-zinc-500 tabular-nums">
             {totalAchievements} HONORS
           </span>
         </div>
@@ -205,7 +204,7 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
 
 function ClosedBookCover({ totalAchievements, onOpen }: ClosedCoverProps) {
   return (
-    <div className="w-full flex items-center justify-center py-6 select-none [perspective:1600px]">
+    <div className="w-full flex items-center justify-center py-4 sm:py-6 select-none [perspective:1600px]">
       <motion.div
         onClick={onOpen}
         initial={false}
@@ -217,7 +216,7 @@ function ClosedBookCover({ totalAchievements, onOpen }: ClosedCoverProps) {
           transition: { duration: 0.35, ease: "easeOut" }
         }}
         whileTap={{ scale: 0.99 }}
-        className="group relative w-[310px] sm:w-[350px] md:w-[380px] h-[460px] sm:h-[490px] rounded-r-2xl rounded-l-md shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] cursor-pointer transition-shadow duration-300 hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)] overflow-hidden"
+        className="group relative w-[290px] sm:w-[330px] md:w-[380px] h-[420px] sm:h-[450px] md:h-[490px] rounded-r-2xl rounded-l-md shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] cursor-pointer transition-shadow duration-300 hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)] overflow-hidden"
       >
         <CoverContent totalAchievements={totalAchievements} />
       </motion.div>
@@ -235,11 +234,11 @@ interface ContentsPageProps {
 
 function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
   return (
-    <div className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
+    <div className="w-full h-full px-5 py-5 sm:px-7 sm:py-7 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
       <div className="flex flex-col">
         {/* Top Label */}
-        <div className="pb-3">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-500 font-medium">
+        <div className="pb-2.5 sm:pb-3">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-zinc-500 font-medium">
             CONTENTS
           </span>
         </div>
@@ -257,13 +256,13 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
                   e.stopPropagation();
                   onSelect(idx);
                 }}
-                className="w-full py-3 sm:py-3.5 flex items-center justify-between text-left transition-colors duration-150 group focus:outline-none text-zinc-400 hover:text-white"
+                className="w-full py-2.5 sm:py-3.5 flex items-center justify-between text-left transition-colors duration-150 group focus:outline-none text-zinc-400 hover:text-white"
               >
-                <div className="flex items-center gap-3 sm:gap-4 min-w-0 pr-3 sm:pr-4">
+                <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 pr-2 sm:pr-4">
                   <span className="font-mono text-xs tabular-nums text-zinc-600 group-hover:text-red-400 transition-colors">
                     0{idx + 1}
                   </span>
-                  <span className="font-serif text-[15px] sm:text-base tracking-tight truncate group-hover:text-white transition-colors">
+                  <span className="font-serif text-[14px] sm:text-base tracking-tight truncate group-hover:text-white transition-colors">
                     {item.title}
                   </span>
                 </div>
@@ -278,8 +277,8 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
       </div>
 
       {/* Bottom Left Footer */}
-      <div className="pt-3.5 border-t border-white/[0.06] flex items-center justify-between mt-auto">
-        <span className="font-serif italic text-xs text-zinc-500">
+      <div className="pt-2.5 sm:pt-3.5 border-t border-white/[0.06] flex items-center justify-between mt-auto">
+        <span className="font-serif italic text-[11px] sm:text-xs text-zinc-500">
           Click a page to turn it.
         </span>
 
@@ -292,13 +291,13 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
 }
 
 // =========================================================================
-// 📄 3. MILESTONE PAGE (USED ON BOTH LEFT & RIGHT SIDES OF SPREADS)
+// 📄 3. MILESTONE PAGE (USED ON BOTH LEFT & RIGHT SIDES OF SPREADS & MOBILE)
 // =========================================================================
 interface MilestonePageProps {
   readonly achievement: Achievement;
   readonly milestoneNumber: number;
   readonly pageNumber: number;
-  readonly isRightSide: boolean;
+  readonly isRightSide?: boolean;
   readonly canGoNext?: boolean;
   readonly canGoPrev?: boolean;
   readonly onNext?: () => void;
@@ -310,7 +309,7 @@ function MilestonePage({
   achievement,
   milestoneNumber,
   pageNumber,
-  isRightSide,
+  isRightSide = false,
   canGoNext,
   canGoPrev,
   onNext,
@@ -319,16 +318,16 @@ function MilestonePage({
 }: MilestonePageProps) {
   return (
     <div className={cn(
-      "w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between relative select-none",
+      "w-full h-full px-5 py-4 sm:px-7 sm:py-6 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between relative select-none",
       isRightSide 
         ? "bg-gradient-to-l from-[#191a1d] to-[#161719]" 
         : "bg-gradient-to-r from-[#191a1d] to-[#161719]"
     )}>
       <div className="flex flex-col relative z-10">
         {/* Top Bar: Spider-Theme Category Tag Pill + NO. 0X */}
-        <div className="h-7 flex items-center justify-between">
+        <div className="h-6 sm:h-7 flex items-center justify-between">
           <span className={cn(
-            "font-mono text-[10px] sm:text-[11px] px-3.5 py-1 rounded-full uppercase tracking-wider font-semibold border flex items-center gap-1.5",
+            "font-mono text-[9.5px] sm:text-[10px] md:text-[11px] px-2.5 py-0.5 sm:px-3.5 sm:py-1 rounded-full uppercase tracking-wider font-semibold border flex items-center gap-1.5",
             SPIDER_THEME.tagBorder,
             SPIDER_THEME.tagText,
             SPIDER_THEME.tagBg,
@@ -338,14 +337,14 @@ function MilestonePage({
             <span>{achievement.category}</span>
           </span>
 
-          <span className="font-mono text-xs text-zinc-500 tracking-[0.25em]">
+          <span className="font-mono text-[11px] sm:text-xs text-zinc-500 tracking-[0.25em]">
             NO.  0{milestoneNumber}
           </span>
         </div>
 
         {/* Title Slot (Compact and refined) */}
-        <div className="min-h-[28px] sm:min-h-[32px] flex items-center mt-2 mb-2">
-          <h3 className="font-serif text-[15px] sm:text-base md:text-[17px] font-normal text-white tracking-tight leading-snug line-clamp-1 sm:line-clamp-2">
+        <div className="min-h-[24px] sm:min-h-[28px] md:min-h-[32px] flex items-center mt-1 mb-1 sm:mt-2 sm:mb-2">
+          <h3 className="font-serif text-sm sm:text-[15px] md:text-[17px] font-normal text-white tracking-tight leading-snug line-clamp-1 sm:line-clamp-2">
             {achievement.title}
           </h3>
         </div>
@@ -361,7 +360,7 @@ function MilestonePage({
             backgroundSize: "16px 16px",
           }}
           className={cn(
-            "group relative w-fit mx-auto h-[250px] sm:h-[265px] md:h-[270px] rounded-xl sm:rounded-2xl border bg-[#141518] shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 p-2.5 sm:p-3",
+            "group relative w-fit mx-auto h-[215px] sm:h-[235px] md:h-[270px] rounded-xl sm:rounded-2xl border bg-[#141518] shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 p-2 sm:p-2.5 md:p-3",
             SPIDER_THEME.boxBorder,
             SPIDER_THEME.boxHover
           )}
@@ -372,14 +371,14 @@ function MilestonePage({
               src={achievement.certificateImage}
               alt={achievement.title}
               fill
-              sizes="(max-width: 768px) 90vw, 420px"
+              sizes="(max-width: 768px) 80vw, 420px"
               className="object-contain"
               priority
             />
           </div>
 
           {/* Subtle Corner Expand Indicator */}
-          <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
+          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-white font-mono text-[10px] border border-white/20 shadow-md">
               <Maximize2 className="size-3 text-white" />
               <span>Zoom</span>
@@ -389,44 +388,44 @@ function MilestonePage({
       </div>
 
       {/* Bottom Bar */}
-      <div className="pt-3.5 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
+      <div className="pt-2.5 sm:pt-3.5 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
         <div className="flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-red-500/80" />
-          <span className="font-mono text-[11px] sm:text-xs text-zinc-400 uppercase tracking-widest">
+          <span className="font-mono text-[10.5px] sm:text-xs text-zinc-400 uppercase tracking-widest">
             VERIFIED
           </span>
         </div>
 
-        <div className="flex items-center gap-4 sm:gap-5">
-          {/* Optional Prev on Left Page */}
-          {!isRightSide && canGoPrev && onPrev && (
+        <div className="flex items-center gap-2.5 sm:gap-4 md:gap-5">
+          {/* Prev Button */}
+          {canGoPrev && onPrev && (
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onPrev();
               }}
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-zinc-400 uppercase tracking-wider hover:text-red-400 transition-colors group/prev focus:outline-none"
+              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-zinc-400 uppercase tracking-wider hover:text-red-400 transition-colors group/prev focus:outline-none"
               aria-label="Previous Page"
             >
-              <ArrowLeft className="size-3.5 transition-transform duration-200 group-hover/prev:-translate-x-1" />
+              <ArrowLeft className="size-3 sm:size-3.5 transition-transform duration-200 group-hover/prev:-translate-x-1" />
               <span>PREV</span>
             </button>
           )}
 
-          {/* Next Button on Right Page */}
-          {isRightSide && onNext && (
+          {/* Next Button */}
+          {canGoNext && onNext && (
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onNext();
               }}
-              className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group/next focus:outline-none"
+              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group/next focus:outline-none"
               aria-label="Next Page"
             >
               <span>READ</span>
-              <ArrowRight className="size-3.5 transition-transform duration-200 group-hover/next:translate-x-1" />
+              <ArrowRight className="size-3 sm:size-3.5 transition-transform duration-200 group-hover/next:translate-x-1" />
             </button>
           )}
 
@@ -447,49 +446,46 @@ interface AfterwordPageProps {
   readonly quoteIndex: number;
   readonly onNextQuote: () => void;
   readonly onReturnToContents: () => void;
+  readonly canGoNext?: boolean;
+  readonly onNext?: () => void;
 }
 
 function AfterwordPage({ 
   totalAchievements, 
   quoteIndex, 
   onNextQuote, 
-  onReturnToContents 
+  onReturnToContents,
+  canGoNext,
+  onNext,
 }: AfterwordPageProps) {
   const currentQuote = PERSONAL_QUOTES[quoteIndex % PERSONAL_QUOTES.length];
 
   return (
-    <div className="w-full h-full px-8 py-6 sm:px-10 sm:py-7 md:px-12 md:py-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
+    <div className="w-full h-full px-5 py-4 sm:px-7 sm:py-6 md:px-12 md:py-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
       {/* Top Header */}
       <div className="shrink-0 flex items-center justify-between pb-1 relative z-10">
-        <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-red-400 font-semibold flex items-center gap-1.5">
+        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-red-400 font-semibold flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-red-500 animate-pulse" />
           <span>EPILOGUE</span>
         </span>
 
-        <span className="font-mono text-[10px] sm:text-xs text-zinc-500 tracking-[0.25em] uppercase">
+        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-xs text-zinc-500 tracking-[0.25em] uppercase">
           WORDS TO LIVE BY
         </span>
       </div>
 
-      {/* Centerpiece: Clean, Fixed-Height Elegant Literary Quote Slot */}
-      <div 
-        onClick={(e) => {
-          e.stopPropagation();
-          onNextQuote();
-        }}
-        className="flex-1 my-auto flex flex-col items-center justify-center cursor-pointer group/quote relative z-10 select-none px-2 py-1"
-        title="Click to read another quote"
-      >
+      {/* Centerpiece: Literary Quote Slot (Passive - clicking outside shuffle button turns page!) */}
+      <div className="flex-1 my-auto flex flex-col items-center justify-center relative z-10 select-none px-1 py-1">
         {/* Large Decorative Serif Quotation Mark */}
         <span 
           aria-hidden="true" 
-          className="font-serif text-4xl sm:text-5xl text-red-500/25 leading-none select-none block text-center mb-1"
+          className="font-serif text-3xl sm:text-4xl md:text-5xl text-red-500/25 leading-none select-none block text-center mb-0.5 sm:mb-1"
         >
           “
         </span>
 
         {/* Fixed Height Slot for Quote and Author so Layout and Bottom Bar NEVER Shift */}
-        <div className="w-full min-h-[175px] sm:min-h-[185px] max-h-[195px] flex items-center justify-center overflow-hidden">
+        <div className="w-full min-h-[135px] sm:min-h-[150px] md:min-h-[185px] max-h-[155px] sm:max-h-[170px] md:max-h-[195px] flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuote.id}
@@ -500,15 +496,15 @@ function AfterwordPage({
               className="w-full text-center flex flex-col items-center justify-center"
             >
               {/* The Quote Text in Grey Great Vibes Script */}
-              <blockquote className="font-great-vibes text-[20px] sm:text-[22px] md:text-[23px] leading-[1.38] sm:leading-[1.42] text-zinc-400 group-hover/quote:text-zinc-200 transition-colors tracking-wide text-center">
+              <blockquote className="font-great-vibes text-[17px] sm:text-[19px] md:text-[23px] leading-[1.35] sm:leading-[1.4] text-zinc-400 tracking-wide text-center line-clamp-4">
                 {currentQuote.quote}
               </blockquote>
 
               {/* Author Attribution */}
               {currentQuote.author && (
-                <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2.5">
-                  <span className="h-px w-6 sm:w-8 bg-gradient-to-r from-red-500/80 to-blue-500/80" />
-                  <cite className="font-mono text-xs sm:text-[13px] text-red-400 not-italic uppercase tracking-widest font-semibold">
+                <div className="mt-2.5 sm:mt-3 md:mt-4 flex items-center justify-center gap-2 sm:gap-2.5">
+                  <span className="h-px w-5 sm:w-8 bg-gradient-to-r from-red-500/80 to-blue-500/80" />
+                  <cite className="font-mono text-[11px] sm:text-xs md:text-[13px] text-red-400 not-italic uppercase tracking-widest font-semibold">
                     {currentQuote.author}
                   </cite>
                 </div>
@@ -517,32 +513,59 @@ function AfterwordPage({
           </AnimatePresence>
         </div>
 
-        {/* Subtle Next Quote Hint */}
-        <div className="h-5 mt-2 flex items-center justify-center gap-1.5 opacity-0 group-hover/quote:opacity-100 transition-opacity duration-200">
-          <Sparkles className="size-3 text-red-400 animate-pulse" />
-          <span className="font-mono text-[10px] text-zinc-500">
-            Click to shuffle quote ({quoteIndex + 1}/{PERSONAL_QUOTES.length})
-          </span>
+        {/* Dedicated Click-to-Shuffle Pill Button (ONLY this shuffles quotes; clicking anywhere else turns page) */}
+        <div className="mt-2 flex items-center justify-center">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onNextQuote();
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.08] active:scale-95 transition-all text-zinc-400 hover:text-white cursor-pointer focus:outline-none"
+            title="Click to shuffle quote"
+          >
+            <Sparkles className="size-3 text-red-400 animate-pulse shrink-0" />
+            <span className="font-mono text-[10px] tracking-wide">
+              click to shuffle quote ({quoteIndex + 1}/{PERSONAL_QUOTES.length})
+            </span>
+          </button>
         </div>
       </div>
 
-      {/* Bottom Bar: Jump Back to Contents (Permanently Anchored) */}
-      <div className="shrink-0 pt-3 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
+      {/* Bottom Bar: Jump Back to Contents & Optional Mobile READ Button */}
+      <div className="shrink-0 pt-2.5 sm:pt-3 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onReturnToContents();
           }}
-          className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group focus:outline-none"
+          className="inline-flex items-center gap-1.5 font-mono text-[11px] sm:text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group focus:outline-none"
         >
           <span>ALL ACHIEVEMENTS ({totalAchievements})</span>
-          <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1 text-red-400" />
+          <ArrowRight className="size-3 sm:size-3.5 transition-transform group-hover:translate-x-1 text-red-400" />
         </button>
 
-        <span className="font-mono text-xs text-zinc-600 tabular-nums">
-          6
-        </span>
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          {canGoNext && onNext && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onNext();
+              }}
+              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group/next focus:outline-none"
+              aria-label="Next Page"
+            >
+              <span>READ</span>
+              <ArrowRight className="size-3 sm:size-3.5 transition-transform duration-200 group-hover/next:translate-x-1" />
+            </button>
+          )}
+
+          <span className="font-mono text-xs text-zinc-600 tabular-nums">
+            6
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -562,20 +585,20 @@ function FinPage({ onClose }: FinPageProps) {
         e.stopPropagation();
         onClose();
       }}
-      className="w-full h-full px-8 py-7 sm:px-10 sm:py-8 md:px-12 md:py-9 flex flex-col items-center justify-center bg-gradient-to-l from-[#191a1d] to-[#161719] relative select-none cursor-pointer group"
+      className="w-full h-full px-5 py-5 sm:px-7 sm:py-7 md:px-12 md:py-9 flex flex-col items-center justify-center bg-gradient-to-l from-[#191a1d] to-[#161719] relative select-none cursor-pointer group"
     >
       {/* Centerpiece: Glowing Spider Crest + To Be Continued + CLICK TO CLOSE */}
-      <div className="flex flex-col items-center justify-center space-y-4 py-2">
+      <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4 py-2">
         {/* Animated Spider Crest Seal */}
-        <div className="relative size-16 sm:size-18 flex items-center justify-center">
+        <div className="relative size-13 sm:size-15 md:size-18 flex items-center justify-center">
           {/* Rotating outer web ring */}
           <div className="absolute inset-0 rounded-full border border-red-500/25 animate-[spin_20s_linear_infinite]" />
           <div className="absolute inset-1.5 rounded-full border border-blue-500/20 border-dashed animate-[spin_15s_linear_infinite_reverse]" />
           {/* Spider-Sense Glow */}
-          <div className="absolute inset-3 rounded-full bg-gradient-to-br from-red-600/20 via-transparent to-blue-600/20 blur-md" />
+          <div className="absolute inset-2 sm:inset-3 rounded-full bg-gradient-to-br from-red-600/20 via-transparent to-blue-600/20 blur-md" />
 
           {/* Spider Icon */}
-          <svg className="size-9 sm:size-10 drop-shadow-[0_0_14px_rgba(220,38,38,0.95)] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 40 40" fill="none">
+          <svg className="size-8 sm:size-9 md:size-10 drop-shadow-[0_0_14px_rgba(220,38,38,0.95)] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 40 40" fill="none">
             <ellipse cx="20" cy="23" rx="4.5" ry="6.5" fill="#dc2626" />
             <circle cx="20" cy="14" r="3.5" fill="#ef4444" />
             <ellipse cx="18.5" cy="13.5" rx="1" ry="1.4" fill="#ffffff" transform="rotate(-15 18.5 13.5)" />
@@ -591,12 +614,12 @@ function FinPage({ onClose }: FinPageProps) {
           </svg>
         </div>
 
-        {/* Narrative Headline & Click to Close (Monochrome Grey, Zero Colors) */}
-        <div className="text-center space-y-2 pt-1">
-          <h4 className="font-serif italic text-2xl sm:text-[28px] font-normal text-white tracking-tight leading-tight">
+        {/* Narrative Headline & Click to Close */}
+        <div className="text-center space-y-1.5 sm:space-y-2 pt-1">
+          <h4 className="font-serif italic text-[22px] sm:text-2xl md:text-[28px] font-normal text-white tracking-tight leading-tight">
             To Be Continued...
           </h4>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-zinc-400 group-hover:text-zinc-300 transition-colors antialiased select-none">
+          <p className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.25em] text-zinc-400 group-hover:text-zinc-300 transition-colors antialiased select-none">
             CLICK TO CLOSE
           </p>
         </div>
@@ -681,21 +704,52 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
 }
 
 // =========================================================================
+// 📱 MOBILE PAGE TURN ANIMATION VARIANTS (CLEAN HARDWARE-ACCELERATED SLIDE)
+// =========================================================================
+const mobilePageVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 50 : -50,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.32,
+      ease: [0.32, 0.72, 0, 1] as [number, number, number, number],
+    },
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -50 : 50,
+    opacity: 0,
+    transition: {
+      duration: 0.26,
+      ease: [0.32, 0.72, 0, 1] as [number, number, number, number],
+    },
+  }),
+};
+
+// =========================================================================
 // 🏛️ MAIN ACHIEVEMENTS BOOK COMPONENT
 // =========================================================================
 export function AchievementsBook({ achievements }: AchievementsBookProps) {
-  // isOpen: true = open 2-page spread; false = closed 3D cover
+  // isOpen: true = open book; false = closed 3D cover
   const [isOpen, setIsOpen] = useState(false);
 
-  // Smooth 3D physical cover transitions
+  // Smooth 3D physical cover transitions for desktop
   const [isClosing, setIsClosing] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
 
-  // currentSpread: 1 = Contents & No.1, 2 = No.2 & No.3, 3 = Afterword & Fin
+  // Desktop spread: 1 = Contents & No.1, 2 = No.2 & No.3, 3 = Epilogue & Fin
   const [currentSpread, setCurrentSpread] = useState(1);
   const [targetSpread, setTargetSpread] = useState<number | null>(null);
   const [isTurning, setIsTurning] = useState(false);
   const [turnDirection, setTurnDirection] = useState<1 | -1>(1);
+
+  // Mobile Single-Page Navigation:
+  // 0 = Cover, 1 = Contents, 2 = Milestone 1, 3 = Milestone 2, 4 = Milestone 3, 5 = Epilogue, 6 = Fin
+  const [mobilePage, setMobilePage] = useState(0);
+  const [mobileDirection, setMobileDirection] = useState<1 | -1>(1);
 
   // Fullscreen Zoom Lightbox
   const [zoomedAchievement, setZoomedAchievement] = useState<Achievement | null>(null);
@@ -704,43 +758,44 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
   const [quoteIndex, setQuoteIndex] = useState(0);
 
   useEffect(() => {
-    if (currentSpread === 3) {
+    if (currentSpread === 3 || mobilePage === 5) {
       setQuoteIndex((prev) => (prev + 1) % PERSONAL_QUOTES.length);
     }
-  }, [currentSpread]);
+  }, [currentSpread, mobilePage]);
 
   const total = achievements.length;
-  const maxSpread = 3; // Spread 1, Spread 2, Spread 3 (Afterword/Fin)
+  const maxSpread = 3;
 
-  const [isMobile, setIsMobile] = useState(false);
+  // Mobile navigation handler
+  const goToMobilePage = useCallback((newPage: number) => {
+    if (newPage < 0 || newPage > 6 || newPage === mobilePage) return;
+    const direction: 1 | -1 = newPage > mobilePage ? 1 : -1;
+    setMobileDirection(direction);
+    setMobilePage(newPage);
+    if (newPage === 0) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+      if (newPage === 1 || newPage === 2) setCurrentSpread(1);
+      else if (newPage === 3 || newPage === 4) setCurrentSpread(2);
+      else if (newPage >= 5) setCurrentSpread(3);
+    }
+  }, [mobilePage]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+  // Desktop navigation handlers
   const handleClose = useCallback(() => {
     if (isTurning || isClosing || isOpening || !isOpen) return;
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      setIsOpen(false);
-      return;
-    }
+    setMobilePage(0);
+    setMobileDirection(-1);
     setIsClosing(true);
   }, [isTurning, isClosing, isOpening, isOpen]);
 
   const handleOpen = useCallback(() => {
     if (isTurning || isClosing || isOpening || isOpen) return;
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      setIsOpen(true);
-      setCurrentSpread(1);
-      return;
-    }
     setIsOpen(true);
     setCurrentSpread(1);
+    setMobilePage(1);
+    setMobileDirection(1);
     setIsOpening(true);
   }, [isTurning, isClosing, isOpening, isOpen]);
 
@@ -750,6 +805,9 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
     setTurnDirection(direction);
     setTargetSpread(newSpread);
     setIsTurning(true);
+    if (newSpread === 1) setMobilePage(1);
+    else if (newSpread === 2) setMobilePage(3);
+    else if (newSpread === 3) setMobilePage(5);
   }, [isTurning, isClosing, isOpening, currentSpread, maxSpread]);
 
   const handleNext = useCallback(() => {
@@ -764,11 +822,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
     }
   }, [currentSpread, turnToSpread]);
 
-  // Map spread to Left & Right pages
-  // Spread 1: Left = Contents, Right = Achievement[0] (IBM)
-  // Spread 2: Left = Achievement[1] (Google), Right = Achievement[2] (Postman)
-  // Spread 3: Left = Afterword/Roadmap, Right = Fin/Dossier Seal
-
+  // Map spread to Left & Right pages on Desktop
   const renderLeftPage = useCallback((spread: number) => {
     if (spread === 1) {
       return (
@@ -846,6 +900,118 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
     );
   }, [achievements, handleNext, handleClose]);
 
+  // Mobile Single Page Renderer (Matches book.mp4 Flow)
+  const renderMobilePage = useCallback((page: number) => {
+    switch (page) {
+      case 0:
+        return (
+          <div 
+            onClick={() => goToMobilePage(1)}
+            className="w-full h-full cursor-pointer"
+          >
+            <CoverContent totalAchievements={total} />
+          </div>
+        );
+      case 1:
+        return (
+          <div 
+            onClick={() => goToMobilePage(2)}
+            className="w-full h-full cursor-pointer"
+          >
+            <ContentsPage 
+              achievements={achievements} 
+              onSelect={(idx) => goToMobilePage(idx + 2)} 
+            />
+          </div>
+        );
+      case 2:
+        return (
+          <div 
+            onClick={() => goToMobilePage(3)}
+            className="w-full h-full cursor-pointer"
+          >
+            <MilestonePage
+              achievement={achievements[0]}
+              milestoneNumber={1}
+              pageNumber={3}
+              isRightSide={true}
+              canGoNext={true}
+              canGoPrev={false}
+              onNext={() => goToMobilePage(3)}
+              onZoom={() => setZoomedAchievement(achievements[0])}
+            />
+          </div>
+        );
+      case 3:
+        return (
+          <div 
+            onClick={() => goToMobilePage(4)}
+            className="w-full h-full cursor-pointer"
+          >
+            <MilestonePage
+              achievement={achievements[1]}
+              milestoneNumber={2}
+              pageNumber={4}
+              isRightSide={false}
+              canGoNext={true}
+              canGoPrev={true}
+              onNext={() => goToMobilePage(4)}
+              onPrev={() => goToMobilePage(2)}
+              onZoom={() => setZoomedAchievement(achievements[1])}
+            />
+          </div>
+        );
+      case 4:
+        return (
+          <div 
+            onClick={() => goToMobilePage(5)}
+            className="w-full h-full cursor-pointer"
+          >
+            <MilestonePage
+              achievement={achievements[2]}
+              milestoneNumber={3}
+              pageNumber={5}
+              isRightSide={true}
+              canGoNext={true}
+              canGoPrev={true}
+              onNext={() => goToMobilePage(5)}
+              onPrev={() => goToMobilePage(3)}
+              onZoom={() => setZoomedAchievement(achievements[2])}
+            />
+          </div>
+        );
+      case 5:
+        return (
+          <div 
+            onClick={() => goToMobilePage(6)}
+            className="w-full h-full cursor-pointer"
+          >
+            <AfterwordPage 
+              totalAchievements={total} 
+              quoteIndex={quoteIndex}
+              onNextQuote={() => setQuoteIndex((prev) => (prev + 1) % PERSONAL_QUOTES.length)}
+              onReturnToContents={() => goToMobilePage(1)}
+              canGoNext={true}
+              onNext={() => goToMobilePage(6)}
+            />
+          </div>
+        );
+      case 6:
+        return (
+          <div 
+            onClick={() => goToMobilePage(0)}
+            className="w-full h-full cursor-pointer"
+          >
+            <FinPage 
+              onClose={() => goToMobilePage(0)} 
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  }, [achievements, total, quoteIndex, goToMobilePage]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -856,14 +1022,22 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
           handleClose();
         }
       } else if (e.key === "ArrowRight") {
-        if (isOpen && !isClosing && !isOpening) handleNext();
+        if (typeof window !== "undefined" && window.innerWidth < 768) {
+          if (mobilePage < 6) goToMobilePage(mobilePage + 1);
+        } else {
+          if (isOpen && !isClosing && !isOpening) handleNext();
+        }
       } else if (e.key === "ArrowLeft") {
-        if (isOpen && !isClosing && !isOpening) handlePrev();
+        if (typeof window !== "undefined" && window.innerWidth < 768) {
+          if (mobilePage > 0) goToMobilePage(mobilePage - 1);
+        } else {
+          if (isOpen && !isClosing && !isOpening) handlePrev();
+        }
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, isClosing, isOpening, zoomedAchievement, handleNext, handlePrev, handleClose]);
+  }, [isOpen, isClosing, isOpening, mobilePage, zoomedAchievement, handleNext, handlePrev, handleClose, goToMobilePage]);
 
   return (
     <div className="w-[92vw] max-w-[768px] relative left-1/2 -translate-x-1/2 py-2 select-none">
@@ -873,266 +1047,279 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
         className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-20 bg-gradient-to-r from-red-600/15 via-blue-600/15 to-red-600/15 blur-2xl rounded-full opacity-60" 
       />
 
-      {/* Persistent 3D Book Container: Stays in exact position when closed, zero glitch/shift */}
-      <motion.div
-        key="open-book-spread"
-        initial={false}
-        animate={{ 
-          opacity: 1, 
-          scale: 1,
-          x: isMobile 
-            ? "0%" 
-            : isClosing 
+      {/* ========================================================================= */}
+      {/* 💻 DESKTOP VIEW: AUTHENTIC TWO-PAGE SPREAD WITH 3D TURNING LEAF (md:block) */}
+      {/* ========================================================================= */}
+      <div className="hidden md:block w-full">
+        <motion.div
+          key="open-book-spread-desktop"
+          initial={false}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            x: isClosing 
               ? ["0%", "-25%"] 
               : isOpening 
                 ? ["-25%", "0%"] 
                 : !isOpen 
                   ? "-25%" 
                   : "0%"
-        }}
-        transition={{ 
-          x: { duration: 0.75, ease: [0.33, 1, 0.68, 1] },
-          duration: 0.25 
-        }}
-        className={cn(
-          "relative rounded-2xl overflow-hidden",
-          (!isOpen || isClosing || isOpening) 
-            ? "bg-transparent border-transparent shadow-none" 
-            : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
-        )}
-      >
-        {/* 2-Page Spread Grid (Fixed Height 490px) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 h-[460px] sm:h-[490px] md:h-[490px] relative">
-          {/* LEFT PAGE (Underneath Base) */}
-          <div 
-            onClick={() => {
-              if (isOpen && !isClosing && !isOpening && currentSpread > 1) handlePrev();
-            }}
-            className={cn(
-              "border-b md:border-b-0 relative md:h-full",
-              isOpen && !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
-              (!isOpen || isClosing || isOpening) && "hidden md:block opacity-0 pointer-events-none"
-            )}
-          >
-            {renderLeftPage(
-              isTurning && targetSpread !== null && turnDirection === -1 
-                ? targetSpread 
-                : currentSpread
-            )}
-          </div>
-
-          {/* RIGHT PAGE (Underneath Base) */}
-          <div 
-            onClick={() => {
-              if (!isOpen && !isClosing && !isOpening) {
-                handleOpen();
-              } else if (isOpen && !isClosing && !isOpening && currentSpread < maxSpread) {
-                handleNext();
-              }
-            }}
-            className={cn(
-              "relative md:h-full",
-              !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
-              isOpen && !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
-              (isClosing || isOpening) && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
-            )}
-          >
-            {!isOpen && !isClosing ? (
-              <div className="w-full h-full min-h-[460px] sm:min-h-[490px] md:min-h-0 overflow-hidden rounded-r-2xl rounded-l-md">
-                <CoverContent totalAchievements={total} />
-              </div>
-            ) : (
-              renderRightPage(
-                isTurning && targetSpread !== null && turnDirection === 1 
+          }}
+          transition={{ 
+            x: { duration: 0.75, ease: [0.33, 1, 0.68, 1] },
+            duration: 0.25 
+          }}
+          className={cn(
+            "relative rounded-2xl overflow-hidden",
+            (!isOpen || isClosing || isOpening) 
+              ? "bg-transparent border-transparent shadow-none" 
+              : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
+          )}
+        >
+          {/* 2-Page Spread Grid (Fixed Height 490px) */}
+          <div className="grid grid-cols-2 h-[490px] relative">
+            {/* LEFT PAGE (Underneath Base) */}
+            <div 
+              onClick={() => {
+                if (isOpen && !isClosing && !isOpening && currentSpread > 1) handlePrev();
+              }}
+              className={cn(
+                "relative h-full",
+                isOpen && !isClosing && !isOpening && currentSpread > 1 && "cursor-pointer",
+                (!isOpen || isClosing || isOpening) && "opacity-0 pointer-events-none"
+              )}
+            >
+              {renderLeftPage(
+                isTurning && targetSpread !== null && turnDirection === -1 
                   ? targetSpread 
                   : currentSpread
-              )
-            )}
-          </div>
-
-              {/* 3D SPINE TURNING LEAF (ACTIVE ONLY DURING NORMAL TURN) */}
-              {isTurning && targetSpread !== null && (
-                <TurningLeaf
-                  direction={turnDirection}
-                  frontContent={
-                    turnDirection === 1 
-                      ? renderRightPage(currentSpread) 
-                      : renderRightPage(targetSpread)
-                  }
-                  backContent={
-                    turnDirection === 1 
-                      ? renderLeftPage(targetSpread) 
-                      : renderLeftPage(currentSpread)
-                  }
-                  onComplete={() => {
-                    setCurrentSpread(targetSpread);
-                    setTargetSpread(null);
-                    setIsTurning(false);
-                  }}
-                />
-              )}
-
-              {/* Soft Realistic Inward Spine Fold Shadow (Continuous across static and turning leaves) */}
-              <div 
-                aria-hidden="true"
-                className={cn(
-                  "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/40 to-transparent transition-opacity duration-300",
-                  (!isOpen || isClosing || isOpening) && "opacity-0"
-                )}
-              />
-
-              {/* 1px Center Crease Line (Symmetric physical spine seam, visible throughout turns) */}
-              <div 
-                aria-hidden="true" 
-                className={cn(
-                  "hidden md:block pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-white/[0.05] transition-opacity duration-300",
-                  (!isOpen || isClosing || isOpening) && "opacity-0"
-                )}
-              />
-
-              {/* 3D BOOK CLOSING LEAF (TURNS FROM LEFT TO RIGHT LIKE A REAL HARDCOVER TURNING CLOSED) */}
-              {isClosing && (
-                <div 
-                  className="hidden md:block pointer-events-none absolute inset-y-0 left-1/2 w-1/2 z-50 [perspective:2000px]"
-                  style={{
-                    transformOrigin: "left center",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <motion.div
-                    initial={{ rotateY: -180 }}
-                    animate={{ rotateY: 0 }}
-                    transition={{ 
-                      duration: 0.75, 
-                      ease: [0.33, 1, 0.68, 1], // Smooth physical hardbound closing momentum
-                    }}
-                    onAnimationComplete={() => {
-                      setIsOpen(false);
-                      setIsClosing(false);
-                    }}
-                    style={{
-                      transformOrigin: "left center",
-                      transformStyle: "preserve-3d",
-                      width: "100%",
-                      height: "100%",
-                      position: "relative",
-                    }}
-                  >
-                    {/* Dynamic Hardbound Closing Shadow Drop */}
-                    <motion.div
-                      aria-hidden="true"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: [0, 0.85, 0] }}
-                      transition={{ duration: 0.75 }}
-                      className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
-                    />
-
-                    {/* FRONT FACE (The Hardbound Leatherette Cover!) */}
-                    <div 
-                      style={{ 
-                        backfaceVisibility: "hidden",
-                        position: "absolute",
-                        inset: 0,
-                        overflow: "hidden",
-                      }}
-                      className="rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#191a1d] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
-                    >
-                      <CoverContent totalAchievements={total} isTurning={true} />
-                    </div>
-
-                    {/* BACK FACE (The Outgoing Left Page) */}
-                    <div 
-                      style={{ 
-                        backfaceVisibility: "hidden",
-                        transform: "rotateY(180deg)",
-                        position: "absolute",
-                        inset: 0,
-                        overflow: "hidden",
-                      }}
-                      className="border-l border-white/[0.06] bg-[#191a1d] shadow-2xl rounded-l-md"
-                    >
-                      {renderLeftPage(currentSpread)}
-                    </div>
-                  </motion.div>
-                </div>
-              )}
-
-              {/* 3D BOOK OPENING LEAF (TURNS FROM RIGHT TO LEFT TO REVEAL THE SPREAD) */}
-              {isOpening && (
-                <div 
-                  className="hidden md:block pointer-events-none absolute inset-y-0 left-1/2 w-1/2 z-50 [perspective:2000px]"
-                  style={{
-                    transformOrigin: "left center",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <motion.div
-                    initial={{ rotateY: 0 }}
-                    animate={{ rotateY: -180 }}
-                    transition={{ 
-                      duration: 0.75, 
-                      ease: [0.33, 1, 0.68, 1], // Smooth physical hardbound opening momentum
-                    }}
-                    onAnimationComplete={() => {
-                      setIsOpening(false);
-                    }}
-                    style={{
-                      transformOrigin: "left center",
-                      transformStyle: "preserve-3d",
-                      width: "100%",
-                      height: "100%",
-                      position: "relative",
-                    }}
-                  >
-                    {/* Dynamic Opening Shadow Drop */}
-                    <motion.div
-                      aria-hidden="true"
-                      initial={{ opacity: 0.2 }}
-                      animate={{ opacity: [0.2, 0.85, 0] }}
-                      transition={{ duration: 0.75 }}
-                      className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
-                    />
-
-                    {/* FRONT FACE (Cover being opened away) */}
-                    <div 
-                      style={{ 
-                        backfaceVisibility: "hidden",
-                        position: "absolute",
-                        inset: 0,
-                        overflow: "hidden",
-                      }}
-                      className="rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#191a1d] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
-                    >
-                      <CoverContent totalAchievements={total} isTurning={true} />
-                    </div>
-
-                    {/* BACK FACE (Contents Page landing on Left) */}
-                    <div 
-                      style={{ 
-                        backfaceVisibility: "hidden",
-                        transform: "rotateY(180deg)",
-                        position: "absolute",
-                        inset: 0,
-                        overflow: "hidden",
-                      }}
-                      className="w-full h-full"
-                    >
-                      {renderLeftPage(1)}
-                    </div>
-                  </motion.div>
-                </div>
               )}
             </div>
 
-            {/* Physical Paper Rim Lines at Bottom */}
+            {/* RIGHT PAGE (Underneath Base) */}
             <div 
-              aria-hidden="true" 
+              onClick={() => {
+                if (!isOpen && !isClosing && !isOpening) {
+                  handleOpen();
+                } else if (isOpen && !isClosing && !isOpening && currentSpread < maxSpread) {
+                  handleNext();
+                }
+              }}
               className={cn(
-                "h-1 w-full bg-[#121315] border-t border-white/[0.04] transition-opacity duration-300",
+                "relative h-full",
+                !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
+                isOpen && !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
+                (isClosing || isOpening) && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+              )}
+            >
+              {!isOpen && !isClosing ? (
+                <div className="w-full h-full overflow-hidden rounded-r-2xl rounded-l-md">
+                  <CoverContent totalAchievements={total} />
+                </div>
+              ) : (
+                renderRightPage(
+                  isTurning && targetSpread !== null && turnDirection === 1 
+                    ? targetSpread 
+                    : currentSpread
+                )
+              )}
+            </div>
+
+            {/* 3D SPINE TURNING LEAF (ACTIVE ONLY DURING NORMAL TURN) */}
+            {isTurning && targetSpread !== null && (
+              <TurningLeaf
+                direction={turnDirection}
+                frontContent={
+                  turnDirection === 1 
+                    ? renderRightPage(currentSpread) 
+                    : renderRightPage(targetSpread)
+                }
+                backContent={
+                  turnDirection === 1 
+                    ? renderLeftPage(targetSpread) 
+                    : renderLeftPage(currentSpread)
+                }
+                onComplete={() => {
+                  setCurrentSpread(targetSpread);
+                  setTargetSpread(null);
+                  setIsTurning(false);
+                }}
+              />
+            )}
+
+            {/* Soft Realistic Inward Spine Fold Shadow */}
+            <div 
+              aria-hidden="true"
+              className={cn(
+                "pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/40 to-transparent transition-opacity duration-300",
                 (!isOpen || isClosing || isOpening) && "opacity-0"
               )}
             />
-          </motion.div>
+
+            {/* 1px Center Crease Line */}
+            <div 
+              aria-hidden="true" 
+              className={cn(
+                "pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-white/[0.05] transition-opacity duration-300",
+                (!isOpen || isClosing || isOpening) && "opacity-0"
+              )}
+            />
+
+            {/* 3D BOOK CLOSING LEAF */}
+            {isClosing && (
+              <div 
+                className="pointer-events-none absolute inset-y-0 left-1/2 w-1/2 z-50 [perspective:2000px]"
+                style={{
+                  transformOrigin: "left center",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <motion.div
+                  initial={{ rotateY: -180 }}
+                  animate={{ rotateY: 0 }}
+                  transition={{ 
+                    duration: 0.75, 
+                    ease: [0.33, 1, 0.68, 1],
+                  }}
+                  onAnimationComplete={() => {
+                    setIsOpen(false);
+                    setIsClosing(false);
+                  }}
+                  style={{
+                    transformOrigin: "left center",
+                    transformStyle: "preserve-3d",
+                    width: "100%",
+                    height: "100%",
+                    position: "relative",
+                  }}
+                >
+                  <motion.div
+                    aria-hidden="true"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 0.85, 0] }}
+                    transition={{ duration: 0.75 }}
+                    className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+                  />
+                  <div 
+                    style={{ 
+                      backfaceVisibility: "hidden",
+                      position: "absolute",
+                      inset: 0,
+                      overflow: "hidden",
+                    }}
+                    className="rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#191a1d] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+                  >
+                    <CoverContent totalAchievements={total} isTurning={true} />
+                  </div>
+                  <div 
+                    style={{ 
+                      backfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)",
+                      position: "absolute",
+                      inset: 0,
+                      overflow: "hidden",
+                    }}
+                    className="border-l border-white/[0.06] bg-[#191a1d] shadow-2xl rounded-l-md"
+                  >
+                    {renderLeftPage(currentSpread)}
+                  </div>
+                </motion.div>
+              </div>
+            )}
+
+            {/* 3D BOOK OPENING LEAF */}
+            {isOpening && (
+              <div 
+                className="pointer-events-none absolute inset-y-0 left-1/2 w-1/2 z-50 [perspective:2000px]"
+                style={{
+                  transformOrigin: "left center",
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                <motion.div
+                  initial={{ rotateY: 0 }}
+                  animate={{ rotateY: -180 }}
+                  transition={{ 
+                    duration: 0.75, 
+                    ease: [0.33, 1, 0.68, 1],
+                  }}
+                  onAnimationComplete={() => {
+                    setIsOpening(false);
+                  }}
+                  style={{
+                    transformOrigin: "left center",
+                    transformStyle: "preserve-3d",
+                    width: "100%",
+                    height: "100%",
+                    position: "relative",
+                  }}
+                >
+                  <motion.div
+                    aria-hidden="true"
+                    initial={{ opacity: 0.2 }}
+                    animate={{ opacity: [0.2, 0.85, 0] }}
+                    transition={{ duration: 0.75 }}
+                    className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+                  />
+                  <div 
+                    style={{ 
+                      backfaceVisibility: "hidden",
+                      position: "absolute",
+                      inset: 0,
+                      overflow: "hidden",
+                    }}
+                    className="rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#191a1d] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+                  >
+                    <CoverContent totalAchievements={total} isTurning={true} />
+                  </div>
+                  <div 
+                    style={{ 
+                      backfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)",
+                      position: "absolute",
+                      inset: 0,
+                      overflow: "hidden",
+                    }}
+                    className="w-full h-full"
+                  >
+                    {renderLeftPage(1)}
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </div>
+
+          {/* Physical Paper Rim Lines at Bottom */}
+          <div 
+            aria-hidden="true" 
+            className={cn(
+              "h-1 w-full bg-[#121315] border-t border-white/[0.04] transition-opacity duration-300",
+              (!isOpen || isClosing || isOpening) && "opacity-0"
+            )}
+          />
+        </motion.div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 📱 MOBILE VIEW: COMPACT SINGLE-PAGE AUTHENTIC BOOK CARD                   */}
+      {/* ========================================================================= */}
+      <div className="block md:hidden w-full max-w-[315px] sm:max-w-[340px] mx-auto">
+        <div className="relative w-full h-[420px] sm:h-[440px] rounded-2xl border border-white/[0.08] bg-[#161719] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] overflow-hidden">
+          <AnimatePresence mode="popLayout" custom={mobileDirection}>
+            <motion.div
+              key={mobilePage}
+              custom={mobileDirection}
+              variants={mobilePageVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="w-full h-full"
+            >
+              {renderMobilePage(mobilePage)}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
 
       {/* ========================================================================= */}
       {/* 🔍 IN-APP FULLSCREEN LIGHTBOX MODAL                                       */}
