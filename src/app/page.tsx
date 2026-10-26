@@ -59,7 +59,7 @@ const BLUR_FADE_DELAY = 0.02;
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10 w-full max-w-2xl mx-auto px-6">
+    <main className="flex flex-col min-h-[100dvh] space-y-6 sm:space-y-10 w-full max-w-2xl mx-auto px-6">
       {/* Primary Semantic H1 for Google Search & SEO */}
       <h1 className="sr-only">Ritik Singh — Full Stack AI Engineer Portfolio</h1>
 
@@ -165,7 +165,7 @@ export default function Page() {
       {/* Projects Section */}
       <section id="projects" className="w-full">
         <BlurFade delay={0.10} inView>
-          <div className="space-y-12 w-full py-12">
+          <div className="space-y-6 sm:space-y-10 md:space-y-12 w-full pt-6 pb-2 sm:pt-12 sm:pb-8">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
@@ -190,7 +190,7 @@ export default function Page() {
       {/* Achievements Section: The Milestone Ledger Book */}
       <section id="achievements" className="w-full">
         <BlurFade delay={0.12} inView>
-          <div className="space-y-5 w-full py-6 sm:py-8">
+          <div className="space-y-4 sm:space-y-5 w-full pt-1 pb-4 sm:py-8">
             <div className="flex flex-col items-center justify-center space-y-2 text-center">
               <div className="space-y-1.5">
                 <div className="inline-block rounded-lg bg-foreground text-background px-3 py-0.5 text-xs">
