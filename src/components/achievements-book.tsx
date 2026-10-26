@@ -31,27 +31,27 @@ interface AchievementsBookProps {
   readonly achievements: readonly Achievement[];
 }
 
-// Single unified Spider-Man Theme matching the rest of the RS-Portfolio website
+// Unified Spider-Man Theme matching ResumeCard & Portfolio light/dark aesthetic
 const SPIDER_THEME = {
   // Category Pill Badge
-  tagBorder: "border-red-500/35 dark:border-red-500/40",
-  tagText: "text-red-400 dark:text-red-400",
-  tagBg: "bg-red-500/10 dark:bg-red-500/15",
-  tagGlow: "shadow-[0_0_12px_rgba(220,38,38,0.18)]",
+  tagBorder: "border-red-500/30 dark:border-red-500/40",
+  tagText: "text-red-600 dark:text-red-400",
+  tagBg: "bg-red-500/[0.08] dark:bg-red-500/15",
+  tagGlow: "shadow-[0_0_12px_rgba(220,38,38,0.12)] dark:shadow-[0_0_12px_rgba(220,38,38,0.18)]",
 
   // Center Plate & Spider Web Matrix
-  boxBorder: "border-red-500/20 dark:border-red-500/25",
-  boxHover: "hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(220,38,38,0.22),0_0_20px_rgba(37,99,235,0.18)]",
-  dotColor: "rgba(220, 38, 38, 0.22)", // Spider web matrix red dots
+  boxBorder: "border-black/[0.08] dark:border-red-500/25",
+  boxHover: "hover:border-red-500/35 dark:hover:border-blue-400/40 hover:shadow-[0_8px_32px_-4px_rgba(220,38,38,0.20),0_8px_28px_-4px_rgba(37,99,235,0.18)]",
+  dotColor: "rgba(220, 38, 38, 0.18)",
 
   // Hover Highlights
-  accentRed: "text-red-400",
-  accentBlue: "text-blue-400",
-  gradientText: "bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent",
+  accentRed: "text-red-600 dark:text-red-400",
+  accentBlue: "text-blue-600 dark:text-blue-400",
+  gradientText: "bg-gradient-to-r from-red-600 via-rose-600 to-blue-600 dark:from-red-500 dark:via-rose-500 dark:to-blue-500 bg-clip-text text-transparent",
 };
 
 // =========================================================================
-// 📕 1. CLOSED BOOK COVER (MATCHES FRAME 00:09 - 00:11 EXACTLY)
+// 📕 1. CLOSED BOOK COVER (MATCHES RESUMECARD FROSTED WHITE + SPIDER GLOW)
 // =========================================================================
 interface ClosedCoverProps {
   readonly totalAchievements: number;
@@ -65,43 +65,53 @@ interface CoverContentProps {
 
 function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
   return (
-    <div className="relative w-full h-full rounded-r-2xl rounded-l-md bg-gradient-to-br from-[#1b1c1f] via-[#16171a] to-[#121315] border border-white/[0.09] flex flex-col justify-between p-5 sm:p-7 md:p-9 select-none overflow-hidden">
+    <div className="relative w-full h-full rounded-r-2xl rounded-l-md bg-white/95 dark:bg-[#161719] border border-black/[0.08] dark:border-white/[0.09] flex flex-col justify-between p-5 sm:p-7 md:p-9 select-none overflow-hidden transition-colors duration-300">
+      {/* Spider-Man Base Ambient Lighting (Soft Red & Blue Corner Glows matching ResumeCard) */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -top-12 -left-12 size-44 sm:size-52 rounded-full bg-red-500/15 dark:bg-red-500/20 blur-2xl transition-opacity duration-300"
+      />
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -bottom-12 -right-12 size-44 sm:size-52 rounded-full bg-blue-500/15 dark:bg-blue-500/20 blur-2xl transition-opacity duration-300"
+      />
+
+      {/* Glossy Specular Glass Reflection Sheen */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/[0.04] dark:via-transparent dark:to-transparent rounded-r-2xl" 
+      />
+
       {/* Left Spine Texture & Embossed Ridges */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute inset-y-0 left-0 w-4 sm:w-5 bg-gradient-to-r from-[#0a0b0c] via-[#141518] to-transparent border-r border-white/[0.04]"
+        className="pointer-events-none absolute inset-y-0 left-0 w-4 sm:w-5 bg-gradient-to-r from-red-500/[0.06] via-black/[0.03] to-transparent dark:from-[#0a0b0c] dark:via-[#141518] dark:to-transparent border-r border-black/[0.05] dark:border-white/[0.04]"
       />
-      <div aria-hidden="true" className="pointer-events-none absolute top-10 sm:top-12 left-0 w-3.5 sm:w-4 h-[1.5px] bg-white/[0.08]" />
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-10 sm:bottom-12 left-0 w-3.5 sm:w-4 h-[1.5px] bg-white/[0.08]" />
+      <div aria-hidden="true" className="pointer-events-none absolute top-10 sm:top-12 left-0 w-3.5 sm:w-4 h-[1.5px] bg-red-500/30 dark:bg-white/[0.08]" />
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-10 sm:bottom-12 left-0 w-3.5 sm:w-4 h-[1.5px] bg-blue-500/30 dark:bg-white/[0.08]" />
 
       {/* Right Paper Stack Edge (Simulating Realistic Physical Book Pages Block) */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute inset-y-2 right-0 w-2 sm:w-2.5 rounded-r-sm bg-gradient-to-l from-white/[0.12] via-zinc-600/20 to-transparent shadow-inner"
-      />
-
-      {/* Soft Leatherette Sheen Overlay */}
-      <div 
-        aria-hidden="true" 
-        className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-white/[0.05] rounded-r-2xl" 
+        className="pointer-events-none absolute inset-y-2 right-0 w-2 sm:w-2.5 rounded-r-sm bg-gradient-to-l from-zinc-300/60 via-zinc-200/40 to-transparent dark:from-white/[0.12] dark:via-zinc-600/20 dark:to-transparent shadow-inner"
       />
 
       {/* Cover Header */}
       <div className="relative z-10 pl-2">
-        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-zinc-500 font-medium">
+        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-zinc-500 dark:text-zinc-400 font-medium">
           VOL. 01 · FIELD NOTES
         </span>
 
         <div className="mt-3 sm:mt-4 md:mt-5 space-y-0.5 sm:space-y-1">
-          <h3 className="font-serif text-[21px] sm:text-2xl md:text-[27px] font-normal text-white tracking-tight leading-[1.18]">
+          <h3 className="font-serif text-[21px] sm:text-2xl md:text-[27px] font-normal text-zinc-950 dark:text-white tracking-tight leading-[1.18] transition-colors">
             Verified Milestones &
           </h3>
-          <p className="font-serif italic text-[21px] sm:text-2xl md:text-[27px] font-normal bg-gradient-to-r from-red-500 via-rose-500 to-blue-500 bg-clip-text text-transparent tracking-tight">
+          <p className="font-serif italic text-[21px] sm:text-2xl md:text-[27px] font-normal bg-gradient-to-r from-red-600 via-rose-600 to-blue-600 dark:from-red-500 dark:via-rose-500 dark:to-blue-500 bg-clip-text text-transparent tracking-tight">
             achievements
           </p>
         </div>
 
-        <p className="font-sans text-[11px] sm:text-xs text-zinc-400 mt-2.5 sm:mt-3 md:mt-4 leading-relaxed font-light line-clamp-2 sm:line-clamp-3">
+        <p className="font-sans text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400 mt-2.5 sm:mt-3 md:mt-4 leading-relaxed font-light line-clamp-2 sm:line-clamp-3 transition-colors">
           A permanent dossier of verified honors, certifications, and virtual engineering milestones.
         </p>
       </div>
@@ -109,19 +119,17 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
       {/* Center Spider Web Graphic in Spider-Man Theme (Red & Royal Blue) */}
       <div className="relative z-10 my-auto py-1 sm:py-2 md:py-3 flex items-center justify-center">
         <svg 
-          className="w-36 h-22 sm:w-44 sm:h-28 md:w-48 md:h-32 overflow-visible opacity-90 group-hover:opacity-100 transition-all duration-300 drop-shadow-[0_0_12px_rgba(220,38,38,0.45)] group-hover:drop-shadow-[0_0_20px_rgba(37,99,235,0.55)]" 
+          className="w-36 h-22 sm:w-44 sm:h-28 md:w-48 md:h-32 overflow-visible opacity-90 group-hover:opacity-100 transition-all duration-300 drop-shadow-[0_0_14px_rgba(220,38,38,0.4)] group-hover:drop-shadow-[0_0_20px_rgba(37,99,235,0.5)]" 
           viewBox="0 0 180 120"
           fill="none"
         >
           <defs>
-            {/* Spider-Man Suit Dual Gradient (Red to Royal Blue) */}
             <linearGradient id="spiderWebGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#ef4444" stopOpacity="0.9" />
               <stop offset="50%" stopColor="#dc2626" stopOpacity="0.75" />
               <stop offset="100%" stopColor="#2563eb" stopOpacity="0.9" />
             </linearGradient>
 
-            {/* Ambient Radial Spider Glow */}
             <radialGradient id="spiderWebAmbient" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#dc2626" stopOpacity="0.16" />
               <stop offset="60%" stopColor="#2563eb" stopOpacity="0.08" />
@@ -151,25 +159,21 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
 
           {/* Concentric Sagging Silk Web Rings in Spider-Man Red & Blue */}
           <g strokeWidth="1.2" fill="none">
-            {/* Ring 0 (Inner Core - Crimson Red) */}
             <path 
               stroke="#ef4444" 
               strokeOpacity="0.85"
               d="M 104.0 60.0 Q 101.4 64.7 99.9 69.9 Q 94.7 71.4 90.0 74.0 Q 85.3 71.4 80.1 69.9 Q 78.6 64.7 76.0 60.0 Q 78.6 55.3 80.1 50.1 Q 85.3 48.6 90.0 46.0 Q 94.7 48.6 99.9 50.1 Q 101.4 55.3 104.0 60.0 Z" 
             />
-            {/* Ring 1 (Spider-Man Dual Red/Blue Gradient) */}
             <path 
               stroke="url(#spiderWebGradient)" 
               strokeOpacity="0.8"
               d="M 115.0 60.0 Q 110.3 68.4 107.7 77.7 Q 98.4 80.3 90.0 85.0 Q 81.6 80.3 72.3 77.7 Q 69.7 68.4 65.0 60.0 Q 69.7 51.6 72.3 42.3 Q 81.6 39.7 90.0 35.0 Q 98.4 39.7 107.7 42.3 Q 110.3 51.6 115.0 60.0 Z" 
             />
-            {/* Ring 2 (Electric Spider Blue) */}
             <path 
               stroke="#2563eb" 
               strokeOpacity="0.85"
               d="M 126.0 60.0 Q 119.3 72.1 115.5 85.5 Q 102.1 89.3 90.0 96.0 Q 77.9 89.3 64.5 85.5 Q 60.7 72.1 54.0 60.0 Q 60.7 47.9 64.5 34.5 Q 77.9 30.7 90.0 24.0 Q 102.1 30.7 115.5 34.5 Q 119.3 47.9 126.0 60.0 Z" 
             />
-            {/* Ring 3 (Outer Perimeter - Spider-Man Gradient) */}
             <path 
               stroke="url(#spiderWebGradient)" 
               strokeOpacity="0.9"
@@ -177,7 +181,6 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
             />
           </g>
 
-          {/* Central Silk Core & Glowing Spider Nodes */}
           <circle cx="90" cy="60" r="3" fill="#dc2626" className="drop-shadow-[0_0_8px_rgba(220,38,38,0.95)]" />
           <circle cx="104" cy="60" r="1.5" fill="#ef4444" className="drop-shadow-[0_0_6px_rgba(239,68,68,0.9)]" />
           <circle cx="76" cy="60" r="1.5" fill="#3b82f6" className="drop-shadow-[0_0_6px_rgba(59,130,246,0.9)]" />
@@ -188,8 +191,8 @@ function CoverContent({ totalAchievements, isTurning }: CoverContentProps) {
 
       {/* Cover Footer */}
       <div className="relative z-10 pl-2">
-        <div className="pt-2.5 sm:pt-3 md:pt-4 border-t border-white/[0.08] flex items-center justify-between">
-          <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-zinc-300 font-medium">
+        <div className="pt-2.5 sm:pt-3 md:pt-4 border-t border-black/[0.08] dark:border-white/[0.08] flex items-center justify-between transition-colors">
+          <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-300 font-medium">
             RITIK SINGH
           </span>
 
@@ -216,7 +219,7 @@ function ClosedBookCover({ totalAchievements, onOpen }: ClosedCoverProps) {
           transition: { duration: 0.35, ease: "easeOut" }
         }}
         whileTap={{ scale: 0.99 }}
-        className="group relative w-[290px] sm:w-[330px] md:w-[380px] h-[420px] sm:h-[450px] md:h-[490px] rounded-r-2xl rounded-l-md shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] cursor-pointer transition-shadow duration-300 hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)] overflow-hidden"
+        className="group relative w-[290px] sm:w-[330px] md:w-[380px] h-[420px] sm:h-[450px] md:h-[490px] rounded-r-2xl rounded-l-md shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18),0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] cursor-pointer transition-all duration-300 hover:shadow-[0_12px_40px_-4px_rgba(220,38,38,0.25),0_12px_36px_-4px_rgba(37,99,235,0.22)] dark:hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)] overflow-hidden"
       >
         <CoverContent totalAchievements={totalAchievements} />
       </motion.div>
@@ -225,7 +228,7 @@ function ClosedBookCover({ totalAchievements, onOpen }: ClosedCoverProps) {
 }
 
 // =========================================================================
-// 📄 2. CONTENTS PAGE (SPREAD 1 LEFT PAGE, EXACT FRAME 00:00)
+// 📄 2. CONTENTS PAGE (SPREAD 1 LEFT PAGE, FROSTED GLASS THEME)
 // =========================================================================
 interface ContentsPageProps {
   readonly achievements: readonly Achievement[];
@@ -234,8 +237,14 @@ interface ContentsPageProps {
 
 function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
   return (
-    <div className="w-full h-full px-5 py-5 sm:px-7 sm:py-7 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
-      <div className="flex flex-col">
+    <div className="w-full h-full px-5 py-5 sm:px-7 sm:py-7 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-white/95 dark:bg-[#161719] relative select-none antialiased transition-colors duration-300 overflow-hidden">
+      {/* Spider-Man Base Ambient Lighting (Soft Red Glow on Top-Left) */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -top-12 -left-12 size-40 rounded-full bg-red-500/12 dark:bg-red-500/15 blur-2xl transition-opacity duration-300"
+      />
+
+      <div className="flex flex-col relative z-10">
         {/* Top Label */}
         <div className="pb-2.5 sm:pb-3">
           <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-zinc-500 font-medium">
@@ -244,9 +253,8 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
         </div>
 
         {/* Numbered Achievements List */}
-        <div className="divide-y divide-white/[0.06]">
+        <div className="divide-y divide-black/[0.06] dark:divide-white/[0.06]">
           {achievements.map((item, idx) => {
-            // Page mapping: Achievement 0 is Page 3, Achievement 1 is Page 4, Achievement 2 is Page 5
             const pageNum = idx + 3;
             return (
               <button
@@ -256,18 +264,18 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
                   e.stopPropagation();
                   onSelect(idx);
                 }}
-                className="w-full py-2.5 sm:py-3.5 flex items-center justify-between text-left transition-colors duration-150 group focus:outline-none text-zinc-400 hover:text-white"
+                className="w-full py-2.5 sm:py-3.5 flex items-center justify-between text-left transition-colors duration-150 group focus:outline-none text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
               >
                 <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 pr-2 sm:pr-4">
-                  <span className="font-mono text-xs tabular-nums text-zinc-600 group-hover:text-red-400 transition-colors">
+                  <span className="font-mono text-xs tabular-nums text-zinc-400 dark:text-zinc-600 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                     0{idx + 1}
                   </span>
-                  <span className="font-serif text-[14px] sm:text-base tracking-tight truncate group-hover:text-white transition-colors">
+                  <span className="font-serif text-[14px] sm:text-base tracking-tight truncate text-zinc-900 dark:text-zinc-300 group-hover:text-black dark:group-hover:text-white transition-colors">
                     {item.title}
                   </span>
                 </div>
 
-                <span className="font-mono text-xs text-zinc-600 shrink-0 tabular-nums group-hover:text-red-400 transition-colors">
+                <span className="font-mono text-xs text-zinc-400 dark:text-zinc-600 shrink-0 tabular-nums group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                   {pageNum}
                 </span>
               </button>
@@ -277,12 +285,12 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
       </div>
 
       {/* Bottom Left Footer */}
-      <div className="pt-2.5 sm:pt-3.5 border-t border-white/[0.06] flex items-center justify-between mt-auto">
+      <div className="pt-2.5 sm:pt-3.5 border-t border-black/[0.08] dark:border-white/[0.06] flex items-center justify-between mt-auto relative z-10 transition-colors">
         <span className="font-serif italic text-[11px] sm:text-xs text-zinc-500">
           Click a page to turn it.
         </span>
 
-        <span className="font-mono text-xs text-zinc-600 tabular-nums">
+        <span className="font-mono text-xs text-zinc-500 dark:text-zinc-600 tabular-nums">
           2
         </span>
       </div>
@@ -291,7 +299,7 @@ function ContentsPage({ achievements, onSelect }: ContentsPageProps) {
 }
 
 // =========================================================================
-// 📄 3. MILESTONE PAGE (USED ON BOTH LEFT & RIGHT SIDES OF SPREADS & MOBILE)
+// 📄 3. MILESTONE PAGE (MATCHES RESUMECARD DUAL GLOW & SHADOW)
 // =========================================================================
 interface MilestonePageProps {
   readonly achievement: Achievement;
@@ -317,12 +325,18 @@ function MilestonePage({
   onZoom,
 }: MilestonePageProps) {
   return (
-    <div className={cn(
-      "w-full h-full px-5 py-4 sm:px-7 sm:py-6 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between relative select-none",
-      isRightSide 
-        ? "bg-gradient-to-l from-[#191a1d] to-[#161719]" 
-        : "bg-gradient-to-r from-[#191a1d] to-[#161719]"
-    )}>
+    <div className="w-full h-full px-5 py-4 sm:px-7 sm:py-6 md:px-12 md:pt-9 md:pb-8 flex flex-col justify-between bg-white/95 dark:bg-[#161719] relative select-none transition-colors duration-300 overflow-hidden">
+      {/* Spider-Man Base Ambient Lighting (Red & Blue corner glows) */}
+      <div 
+        aria-hidden="true" 
+        className={cn(
+          "pointer-events-none absolute size-44 rounded-full blur-2xl transition-opacity duration-300",
+          isRightSide
+            ? "-bottom-10 -right-10 bg-blue-500/12 dark:bg-blue-500/18"
+            : "-top-10 -left-10 bg-red-500/12 dark:bg-red-500/18"
+        )}
+      />
+
       <div className="flex flex-col relative z-10">
         {/* Top Bar: Spider-Theme Category Tag Pill + NO. 0X */}
         <div className="h-6 sm:h-7 flex items-center justify-between">
@@ -344,12 +358,12 @@ function MilestonePage({
 
         {/* Title Slot (Compact and refined) */}
         <div className="min-h-[24px] sm:min-h-[28px] md:min-h-[32px] flex items-center mt-1 mb-1 sm:mt-2 sm:mb-2">
-          <h3 className="font-serif text-sm sm:text-[15px] md:text-[17px] font-normal text-white tracking-tight leading-snug line-clamp-1 sm:line-clamp-2">
+          <h3 className="font-serif text-sm sm:text-[15px] md:text-[17px] font-normal text-zinc-950 dark:text-white tracking-tight leading-snug line-clamp-1 sm:line-clamp-2 transition-colors">
             {achievement.title}
           </h3>
         </div>
 
-        {/* Center Visual Certificate Plate (Full A4 Portrait Display - Spider Web Matrix Theme) */}
+        {/* Center Visual Certificate Plate (Matches ResumeCard Card styling) */}
         <div 
           onClick={(e) => {
             e.stopPropagation();
@@ -360,13 +374,13 @@ function MilestonePage({
             backgroundSize: "16px 16px",
           }}
           className={cn(
-            "group relative w-fit mx-auto h-[215px] sm:h-[235px] md:h-[270px] rounded-xl sm:rounded-2xl border bg-[#141518] shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 p-2 sm:p-2.5 md:p-3",
+            "group relative w-fit mx-auto h-[215px] sm:h-[235px] md:h-[270px] rounded-xl sm:rounded-2xl border bg-white/90 dark:bg-[#141518] shadow-[0_4px_20px_-2px_rgba(220,38,38,0.10),0_4px_20px_-2px_rgba(37,99,235,0.10),0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-xl flex items-center justify-center cursor-pointer transition-all duration-300 p-2 sm:p-2.5 md:p-3",
             SPIDER_THEME.boxBorder,
             SPIDER_THEME.boxHover
           )}
         >
           {/* Document Sheet Frame */}
-          <div className="relative h-full aspect-[1/1.38] rounded-md sm:rounded-lg overflow-hidden shadow-[0_12px_28px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(255,255,255,0.06)] border border-white/20 bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]">
+          <div className="relative h-full aspect-[1/1.38] rounded-md sm:rounded-lg overflow-hidden shadow-[0_8px_20px_-4px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_28px_-5px_rgba(0,0,0,0.85),0_0_15px_rgba(255,255,255,0.06)] border border-black/[0.08] dark:border-white/20 bg-white flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02]">
             <Image
               src={achievement.certificateImage}
               alt={achievement.title}
@@ -379,7 +393,7 @@ function MilestonePage({
 
           {/* Subtle Corner Expand Indicator */}
           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-white font-mono text-[10px] border border-white/20 shadow-md">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/80 dark:bg-black/80 text-white font-mono text-[10px] border border-white/20 shadow-md">
               <Maximize2 className="size-3 text-white" />
               <span>Zoom</span>
             </span>
@@ -388,10 +402,10 @@ function MilestonePage({
       </div>
 
       {/* Bottom Bar */}
-      <div className="pt-2.5 sm:pt-3.5 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
+      <div className="pt-2.5 sm:pt-3.5 border-t border-black/[0.08] dark:border-white/[0.06] flex items-center justify-between mt-auto relative z-10 transition-colors">
         <div className="flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-red-500/80" />
-          <span className="font-mono text-[10.5px] sm:text-xs text-zinc-400 uppercase tracking-widest">
+          <span className="font-mono text-[10.5px] sm:text-xs text-zinc-600 dark:text-zinc-400 uppercase tracking-widest">
             VERIFIED
           </span>
         </div>
@@ -405,7 +419,7 @@ function MilestonePage({
                 e.stopPropagation();
                 onPrev();
               }}
-              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-zinc-400 uppercase tracking-wider hover:text-red-400 transition-colors group/prev focus:outline-none"
+              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-zinc-600 hover:text-red-600 dark:text-zinc-400 dark:hover:text-red-400 transition-colors group/prev focus:outline-none"
               aria-label="Previous Page"
             >
               <ArrowLeft className="size-3 sm:size-3.5 transition-transform duration-200 group-hover/prev:-translate-x-1" />
@@ -421,7 +435,7 @@ function MilestonePage({
                 e.stopPropagation();
                 onNext();
               }}
-              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group/next focus:outline-none"
+              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-zinc-950 hover:text-red-600 dark:text-white dark:hover:text-red-400 transition-colors group/next focus:outline-none"
               aria-label="Next Page"
             >
               <span>READ</span>
@@ -429,7 +443,7 @@ function MilestonePage({
             </button>
           )}
 
-          <span className="font-mono text-xs text-zinc-600 tabular-nums">
+          <span className="font-mono text-xs text-zinc-500 dark:text-zinc-600 tabular-nums">
             {pageNumber}
           </span>
         </div>
@@ -439,7 +453,7 @@ function MilestonePage({
 }
 
 // =========================================================================
-// 📄 4. EPILOGUE PAGE (SPREAD 3 LEFT PAGE: INSPIRATIONAL QUOTE SERIES)
+// 📄 4. EPILOGUE PAGE (FROSTED WHITE + SPIDER GLOW THEME)
 // =========================================================================
 interface AfterwordPageProps {
   readonly totalAchievements: number;
@@ -461,10 +475,16 @@ function AfterwordPage({
   const currentQuote = PERSONAL_QUOTES[quoteIndex % PERSONAL_QUOTES.length];
 
   return (
-    <div className="w-full h-full px-5 py-4 sm:px-7 sm:py-6 md:px-12 md:py-8 flex flex-col justify-between bg-gradient-to-r from-[#191a1d] to-[#161719] relative select-none antialiased">
+    <div className="w-full h-full px-5 py-4 sm:px-7 sm:py-6 md:px-12 md:py-8 flex flex-col justify-between bg-white/95 dark:bg-[#161719] relative select-none antialiased transition-colors duration-300 overflow-hidden">
+      {/* Spider-Man Base Ambient Lighting (Soft Red Glow on Top-Left) */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -top-12 -left-12 size-40 rounded-full bg-red-500/12 dark:bg-red-500/15 blur-2xl transition-opacity duration-300"
+      />
+
       {/* Top Header */}
       <div className="shrink-0 flex items-center justify-between pb-1 relative z-10">
-        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-red-400 font-semibold flex items-center gap-1.5">
+        <span className="font-mono text-[9.5px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] text-red-600 dark:text-red-400 font-semibold flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-red-500 animate-pulse" />
           <span>EPILOGUE</span>
         </span>
@@ -484,7 +504,7 @@ function AfterwordPage({
           “
         </span>
 
-        {/* Fixed Height Slot for Quote and Author so Layout and Bottom Bar NEVER Shift */}
+        {/* Fixed Height Slot for Quote and Author */}
         <div className="w-full min-h-[135px] sm:min-h-[150px] md:min-h-[185px] max-h-[155px] sm:max-h-[170px] md:max-h-[195px] flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
@@ -495,8 +515,8 @@ function AfterwordPage({
               transition={{ duration: 0.28, ease: "easeInOut" }}
               className="w-full text-center flex flex-col items-center justify-center"
             >
-              {/* The Quote Text in Grey Great Vibes Script */}
-              <blockquote className="font-great-vibes text-[17px] sm:text-[19px] md:text-[23px] leading-[1.35] sm:leading-[1.4] text-zinc-400 tracking-wide text-center line-clamp-4">
+              {/* The Quote Text in Great Vibes Script */}
+              <blockquote className="font-great-vibes text-[17px] sm:text-[19px] md:text-[23px] leading-[1.35] sm:leading-[1.4] text-zinc-800 dark:text-zinc-400 tracking-wide text-center line-clamp-4 transition-colors">
                 {currentQuote.quote}
               </blockquote>
 
@@ -504,7 +524,7 @@ function AfterwordPage({
               {currentQuote.author && (
                 <div className="mt-2.5 sm:mt-3 md:mt-4 flex items-center justify-center gap-2 sm:gap-2.5">
                   <span className="h-px w-5 sm:w-8 bg-gradient-to-r from-red-500/80 to-blue-500/80" />
-                  <cite className="font-mono text-[11px] sm:text-xs md:text-[13px] text-red-400 not-italic uppercase tracking-widest font-semibold">
+                  <cite className="font-mono text-[11px] sm:text-xs md:text-[13px] text-red-600 dark:text-red-400 not-italic uppercase tracking-widest font-semibold">
                     {currentQuote.author}
                   </cite>
                 </div>
@@ -513,7 +533,7 @@ function AfterwordPage({
           </AnimatePresence>
         </div>
 
-        {/* Dedicated Click-to-Shuffle Pill Button (ONLY this shuffles quotes; clicking anywhere else turns page) */}
+        {/* Dedicated Click-to-Shuffle Pill Button */}
         <div className="mt-2 flex items-center justify-center">
           <button
             type="button"
@@ -521,10 +541,10 @@ function AfterwordPage({
               e.stopPropagation();
               onNextQuote();
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.09] border border-white/[0.08] active:scale-95 transition-all text-zinc-400 hover:text-white cursor-pointer focus:outline-none"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 dark:bg-white/[0.04] hover:bg-zinc-100 dark:hover:bg-white/[0.09] border border-black/[0.08] dark:border-white/[0.08] shadow-sm active:scale-95 transition-all text-zinc-700 hover:text-black dark:text-zinc-400 dark:hover:text-white cursor-pointer focus:outline-none"
             title="Click to shuffle quote"
           >
-            <Sparkles className="size-3 text-red-400 animate-pulse shrink-0" />
+            <Sparkles className="size-3 text-red-500 dark:text-red-400 animate-pulse shrink-0" />
             <span className="font-mono text-[10px] tracking-wide">
               click to shuffle quote ({quoteIndex + 1}/{PERSONAL_QUOTES.length})
             </span>
@@ -533,17 +553,17 @@ function AfterwordPage({
       </div>
 
       {/* Bottom Bar: Jump Back to Contents & Optional Mobile READ Button */}
-      <div className="shrink-0 pt-2.5 sm:pt-3 border-t border-white/[0.06] flex items-center justify-between mt-auto relative z-10">
+      <div className="shrink-0 pt-2.5 sm:pt-3 border-t border-black/[0.08] dark:border-white/[0.06] flex items-center justify-between mt-auto relative z-10 transition-colors">
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onReturnToContents();
           }}
-          className="inline-flex items-center gap-1.5 font-mono text-[11px] sm:text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group focus:outline-none"
+          className="inline-flex items-center gap-1.5 font-mono text-[11px] sm:text-xs font-semibold text-zinc-950 hover:text-red-600 dark:text-white dark:hover:text-red-400 transition-colors group focus:outline-none"
         >
           <span>ALL ACHIEVEMENTS ({totalAchievements})</span>
-          <ArrowRight className="size-3 sm:size-3.5 transition-transform group-hover:translate-x-1 text-red-400" />
+          <ArrowRight className="size-3 sm:size-3.5 transition-transform group-hover:translate-x-1 text-red-500 dark:text-red-400" />
         </button>
 
         <div className="flex items-center gap-2.5 sm:gap-3">
@@ -554,7 +574,7 @@ function AfterwordPage({
                 e.stopPropagation();
                 onNext();
               }}
-              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-white uppercase tracking-wider hover:text-red-400 transition-colors group/next focus:outline-none"
+              className="inline-flex items-center gap-1 font-mono text-[11px] sm:text-xs font-semibold text-zinc-950 hover:text-red-600 dark:text-white dark:hover:text-red-400 transition-colors group/next focus:outline-none"
               aria-label="Next Page"
             >
               <span>READ</span>
@@ -562,7 +582,7 @@ function AfterwordPage({
             </button>
           )}
 
-          <span className="font-mono text-xs text-zinc-600 tabular-nums">
+          <span className="font-mono text-xs text-zinc-500 dark:text-zinc-600 tabular-nums">
             6
           </span>
         </div>
@@ -572,7 +592,7 @@ function AfterwordPage({
 }
 
 // =========================================================================
-// 📄 5. FIN PAGE (SPREAD 3 RIGHT PAGE: AUTHENTIC SPIDER DOSSIER SEAL)
+// 📄 5. FIN PAGE (FROSTED WHITE + SPIDER GLOW THEME)
 // =========================================================================
 interface FinPageProps {
   readonly onClose: () => void;
@@ -585,17 +605,21 @@ function FinPage({ onClose }: FinPageProps) {
         e.stopPropagation();
         onClose();
       }}
-      className="w-full h-full px-5 py-5 sm:px-7 sm:py-7 md:px-12 md:py-9 flex flex-col items-center justify-center bg-gradient-to-l from-[#191a1d] to-[#161719] relative select-none cursor-pointer group"
+      className="w-full h-full px-5 py-5 sm:px-7 sm:py-7 md:px-12 md:py-9 flex flex-col items-center justify-center bg-white/95 dark:bg-[#161719] relative select-none cursor-pointer group transition-colors duration-300 overflow-hidden"
     >
+      {/* Spider-Man Base Ambient Lighting (Soft Blue Glow on Bottom-Right) */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute -bottom-10 -right-10 size-40 rounded-full bg-blue-500/12 dark:bg-blue-500/18 blur-2xl transition-opacity duration-300"
+      />
+
       {/* Centerpiece: Glowing Spider Crest + To Be Continued + CLICK TO CLOSE */}
-      <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4 py-2">
+      <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4 py-2 relative z-10">
         {/* Animated Spider Crest Seal */}
         <div className="relative size-13 sm:size-15 md:size-18 flex items-center justify-center">
-          {/* Rotating outer web ring */}
-          <div className="absolute inset-0 rounded-full border border-red-500/25 animate-[spin_20s_linear_infinite]" />
-          <div className="absolute inset-1.5 rounded-full border border-blue-500/20 border-dashed animate-[spin_15s_linear_infinite_reverse]" />
-          {/* Spider-Sense Glow */}
-          <div className="absolute inset-2 sm:inset-3 rounded-full bg-gradient-to-br from-red-600/20 via-transparent to-blue-600/20 blur-md" />
+          <div className="absolute inset-0 rounded-full border border-red-500/30 dark:border-red-500/25 animate-[spin_20s_linear_infinite]" />
+          <div className="absolute inset-1.5 rounded-full border border-blue-500/25 dark:border-blue-500/20 border-dashed animate-[spin_15s_linear_infinite_reverse]" />
+          <div className="absolute inset-2 sm:inset-3 rounded-full bg-gradient-to-br from-red-600/15 via-transparent to-blue-600/15 dark:from-red-600/20 dark:to-blue-600/20 blur-md" />
 
           {/* Spider Icon */}
           <svg className="size-8 sm:size-9 md:size-10 drop-shadow-[0_0_14px_rgba(220,38,38,0.95)] transition-transform duration-300 group-hover:scale-110" viewBox="0 0 40 40" fill="none">
@@ -616,10 +640,10 @@ function FinPage({ onClose }: FinPageProps) {
 
         {/* Narrative Headline & Click to Close */}
         <div className="text-center space-y-1.5 sm:space-y-2 pt-1">
-          <h4 className="font-serif italic text-[22px] sm:text-2xl md:text-[28px] font-normal text-white tracking-tight leading-tight">
+          <h4 className="font-serif italic text-[22px] sm:text-2xl md:text-[28px] font-normal text-zinc-950 dark:text-white tracking-tight leading-tight transition-colors">
             To Be Continued...
           </h4>
-          <p className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.25em] text-zinc-400 group-hover:text-zinc-300 transition-colors antialiased select-none">
+          <p className="font-mono text-[10.5px] sm:text-xs uppercase tracking-[0.25em] text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition-colors antialiased select-none">
             CLICK TO CLOSE
           </p>
         </div>
@@ -629,7 +653,7 @@ function FinPage({ onClose }: FinPageProps) {
 }
 
 // =========================================================================
-// 📖 6. 3D TURNING LEAF COMPONENT (AUTHENTIC 180° SPINE-HINGED PAGE FLIP)
+// 📖 6. 3D TURNING LEAF COMPONENT
 // =========================================================================
 interface TurningLeafProps {
   readonly direction: 1 | -1;
@@ -667,9 +691,9 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
         <motion.div
           aria-hidden="true"
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.35, 0] }}
+          animate={{ opacity: [0, 0.25, 0] }}
           transition={{ duration: 0.65 }}
-          className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-r from-black/40 via-black/15 to-transparent"
+          className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-r from-black/20 via-black/10 to-transparent dark:from-black/40 dark:via-black/15 dark:to-transparent"
         />
 
         {/* FRONT FACE (Visible 0deg to -90deg) */}
@@ -680,7 +704,7 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
             inset: 0,
             overflow: "hidden",
           }}
-          className="border-r border-white/[0.06] bg-[#161719] shadow-2xl"
+          className="border-r border-black/[0.08] dark:border-white/[0.06] bg-white/95 dark:bg-[#161719] shadow-2xl transition-colors duration-300"
         >
           {frontContent}
         </div>
@@ -694,7 +718,7 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
             inset: 0,
             overflow: "hidden",
           }}
-          className="border-l border-white/[0.06] bg-[#191a1d] shadow-2xl"
+          className="border-l border-black/[0.08] dark:border-white/[0.06] bg-white/95 dark:bg-[#191a1d] shadow-2xl transition-colors duration-300"
         >
           {backContent}
         </div>
@@ -704,7 +728,7 @@ function TurningLeaf({ direction, frontContent, backContent, onComplete }: Turni
 }
 
 // =========================================================================
-// 📱 MOBILE PAGE TURN ANIMATION VARIANTS (CLEAN HARDWARE-ACCELERATED SLIDE)
+// 📱 MOBILE PAGE TURN ANIMATION VARIANTS
 // =========================================================================
 const mobilePageVariants = {
   enter: (direction: number) => ({
@@ -1041,10 +1065,10 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
 
   return (
     <div className="w-[92vw] max-w-[768px] relative left-1/2 -translate-x-1/2 py-2 select-none">
-      {/* Soft Ambient Glow Behind Book (Spider Theme Red & Blue) */}
+      {/* Soft Ambient Glow Behind Book (Spider Theme Red & Blue matching ResumeCard) */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-20 bg-gradient-to-r from-red-600/15 via-blue-600/15 to-red-600/15 blur-2xl rounded-full opacity-60" 
+        className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 max-w-2xl h-20 bg-gradient-to-r from-red-500/15 via-blue-500/15 to-red-500/15 dark:from-red-600/15 dark:via-blue-600/15 dark:to-red-600/15 blur-2xl rounded-full opacity-70 transition-opacity" 
       />
 
       {/* ========================================================================= */}
@@ -1070,10 +1094,10 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             duration: 0.25 
           }}
           className={cn(
-            "relative rounded-2xl overflow-hidden",
+            "relative rounded-2xl overflow-hidden transition-colors duration-300",
             (!isOpen || isClosing || isOpening) 
               ? "bg-transparent border-transparent shadow-none" 
-              : "border border-white/[0.08] bg-[#191a1d] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
+              : "border border-black/[0.08] dark:border-white/[0.08] bg-white/80 dark:bg-[#191a1d] backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18),0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.6)]"
           )}
         >
           {/* 2-Page Spread Grid (Fixed Height 490px) */}
@@ -1106,10 +1130,10 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 }
               }}
               className={cn(
-                "relative h-full",
-                !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
+                "relative h-full transition-shadow duration-300",
+                !isOpen && "cursor-pointer rounded-r-2xl rounded-l-md border border-black/[0.08] dark:border-white/[0.09] bg-white/95 dark:bg-[#161719] shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18),0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] hover:shadow-[0_12px_40px_-4px_rgba(220,38,38,0.25),0_12px_36px_-4px_rgba(37,99,235,0.22)] dark:hover:shadow-[0_35px_80px_-10px_rgba(0,0,0,0.98),0_0_45px_rgba(255,255,255,0.06)]",
                 isOpen && !isClosing && !isOpening && currentSpread < maxSpread && "cursor-pointer",
-                (isClosing || isOpening) && "rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#161719] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+                (isClosing || isOpening) && "rounded-r-2xl rounded-l-md border border-black/[0.08] dark:border-white/[0.09] bg-white/95 dark:bg-[#161719] shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18),0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
               )}
             >
               {!isOpen && !isClosing ? (
@@ -1151,7 +1175,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             <div 
               aria-hidden="true"
               className={cn(
-                "pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/40 to-transparent transition-opacity duration-300",
+                "pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-16 z-[45] bg-gradient-to-r from-transparent via-black/10 dark:via-black/40 to-transparent transition-opacity duration-300",
                 (!isOpen || isClosing || isOpening) && "opacity-0"
               )}
             />
@@ -1160,7 +1184,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
             <div 
               aria-hidden="true" 
               className={cn(
-                "pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-white/[0.05] transition-opacity duration-300",
+                "pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] z-[45] bg-black/[0.06] dark:bg-white/[0.05] transition-opacity duration-300",
                 (!isOpen || isClosing || isOpening) && "opacity-0"
               )}
             />
@@ -1196,9 +1220,9 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                   <motion.div
                     aria-hidden="true"
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 0.85, 0] }}
+                    animate={{ opacity: [0, 0.6, 0] }}
                     transition={{ duration: 0.75 }}
-                    className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+                    className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/40 via-black/20 to-transparent dark:from-black/90 dark:via-black/40 dark:to-transparent"
                   />
                   <div 
                     style={{ 
@@ -1207,7 +1231,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                       inset: 0,
                       overflow: "hidden",
                     }}
-                    className="rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#191a1d] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+                    className="rounded-r-2xl rounded-l-md border border-black/[0.08] dark:border-white/[0.09] bg-white/95 dark:bg-[#191a1d] shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
                   >
                     <CoverContent totalAchievements={total} isTurning={true} />
                   </div>
@@ -1219,7 +1243,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                       inset: 0,
                       overflow: "hidden",
                     }}
-                    className="border-l border-white/[0.06] bg-[#191a1d] shadow-2xl rounded-l-md"
+                    className="border-l border-black/[0.08] dark:border-white/[0.06] bg-white/95 dark:bg-[#191a1d] shadow-2xl rounded-l-md"
                   >
                     {renderLeftPage(currentSpread)}
                   </div>
@@ -1256,10 +1280,10 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 >
                   <motion.div
                     aria-hidden="true"
-                    initial={{ opacity: 0.2 }}
-                    animate={{ opacity: [0.2, 0.85, 0] }}
+                    initial={{ opacity: 0.1 }}
+                    animate={{ opacity: [0.1, 0.6, 0] }}
                     transition={{ duration: 0.75 }}
-                    className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+                    className="pointer-events-none absolute inset-0 z-30 bg-gradient-to-r from-black/40 via-black/20 to-transparent dark:from-black/90 dark:via-black/40 dark:to-transparent"
                   />
                   <div 
                     style={{ 
@@ -1268,7 +1292,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                       inset: 0,
                       overflow: "hidden",
                     }}
-                    className="rounded-r-2xl rounded-l-md border border-white/[0.09] bg-[#191a1d] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
+                    className="rounded-r-2xl rounded-l-md border border-black/[0.08] dark:border-white/[0.09] bg-white/95 dark:bg-[#191a1d] shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)]"
                   >
                     <CoverContent totalAchievements={total} isTurning={true} />
                   </div>
@@ -1293,7 +1317,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
           <div 
             aria-hidden="true" 
             className={cn(
-              "h-1 w-full bg-[#121315] border-t border-white/[0.04] transition-opacity duration-300",
+              "h-1 w-full bg-zinc-200/80 dark:bg-[#121315] border-t border-black/[0.04] dark:border-white/[0.04] transition-opacity duration-300",
               (!isOpen || isClosing || isOpening) && "opacity-0"
             )}
           />
@@ -1301,10 +1325,10 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 📱 MOBILE VIEW: COMPACT SINGLE-PAGE AUTHENTIC BOOK CARD                   */}
+      {/* 📱 MOBILE VIEW: COMPACT SINGLE-PAGE BOOK CARD                             */}
       {/* ========================================================================= */}
       <div className="block md:hidden w-full max-w-[315px] sm:max-w-[340px] mx-auto">
-        <div className="relative w-full h-[420px] sm:h-[440px] rounded-2xl border border-white/[0.08] bg-[#161719] shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] overflow-hidden">
+        <div className="relative w-full h-[420px] sm:h-[440px] rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-white/95 dark:bg-[#161719] shadow-[0_8px_32px_-4px_rgba(220,38,38,0.18),0_8px_28px_-4px_rgba(37,99,235,0.18),0_4px_16px_rgba(0,0,0,0.06)] dark:shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(0,0,0,0.6)] overflow-hidden transition-colors duration-300">
           <AnimatePresence mode="popLayout" custom={mobileDirection}>
             <motion.div
               key={mobilePage}
@@ -1328,18 +1352,18 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
         <div 
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-black/80 dark:bg-black/90 backdrop-blur-xl animate-in fade-in duration-200"
           onClick={() => setZoomedAchievement(null)}
         >
           <div 
-            className="relative max-w-4xl w-full max-h-[92vh] bg-[#191a1d] rounded-2xl border border-white/20 p-3 sm:p-5 shadow-2xl flex flex-col"
+            className="relative max-w-4xl w-full max-h-[92vh] bg-white/95 dark:bg-[#191a1d] rounded-2xl border border-black/10 dark:border-white/20 p-3 sm:p-5 shadow-2xl flex flex-col transition-colors"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Top Bar */}
-            <div className="flex items-center justify-between pb-3 px-1 border-b border-white/10">
+            <div className="flex items-center justify-between pb-3 px-1 border-b border-black/10 dark:border-white/10">
               <div className="flex items-center gap-2 truncate pr-4">
-                <CheckCircle2 className="size-4 text-emerald-400 shrink-0" />
-                <h4 className="font-mono text-xs sm:text-sm text-white truncate">
+                <CheckCircle2 className="size-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <h4 className="font-mono text-xs sm:text-sm text-zinc-900 dark:text-white truncate">
                   {zoomedAchievement.title} · {zoomedAchievement.issuer}
                 </h4>
               </div>
@@ -1348,14 +1372,14 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 type="button"
                 onClick={() => setZoomedAchievement(null)}
                 aria-label="Close Preview"
-                className="size-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-all shrink-0"
+                className="size-8 rounded-full bg-black/10 hover:bg-black/20 text-zinc-800 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white flex items-center justify-center transition-all shrink-0"
               >
                 <X className="size-4" />
               </button>
             </div>
 
             {/* High-Res Document Preview */}
-            <div className="relative w-full h-[62vh] sm:h-[74vh] my-3 bg-[#0c0d0f] rounded-xl overflow-hidden flex items-center justify-center border border-white/10">
+            <div className="relative w-full h-[62vh] sm:h-[74vh] my-3 bg-zinc-100 dark:bg-[#0c0d0f] rounded-xl overflow-hidden flex items-center justify-center border border-black/10 dark:border-white/10">
               <Image
                 src={zoomedAchievement.certificateImage}
                 alt={zoomedAchievement.title}
