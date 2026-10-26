@@ -156,7 +156,7 @@ export function CurvedProjectCarousel({ projects }: Props) {
   return (
     <div
       ref={stageRef}
-      className="relative w-full overflow-hidden pt-1 pb-1 sm:py-4 select-none touch-pan-y"
+      className="relative w-full overflow-hidden py-4 select-none touch-pan-y"
     >
       {/* 3D Perspective Stage - Spans full width */}
       <div
@@ -165,12 +165,12 @@ export function CurvedProjectCarousel({ projects }: Props) {
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         style={{ perspective: isMobile ? "950px" : "1400px" }}
-        className="relative w-full h-[245px] sm:h-[380px] md:h-[490px] flex items-center justify-center cursor-grab active:cursor-grabbing"
+        className="relative w-full h-[360px] sm:h-[440px] md:h-[490px] flex items-center justify-center cursor-grab active:cursor-grabbing"
       >
         {/* Subtle floor ambient shadow for 3D depth */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-1 sm:bottom-4 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-10 sm:h-14 bg-gradient-to-r from-red-500/15 via-blue-500/20 to-red-500/15 blur-2xl sm:blur-3xl rounded-full opacity-70"
+          className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-14 bg-gradient-to-r from-red-500/15 via-blue-500/20 to-red-500/15 blur-3xl rounded-full opacity-70"
         />
 
         {projects.map((project, index) => {
@@ -301,8 +301,8 @@ export function CurvedProjectCarousel({ projects }: Props) {
       </div>
 
       {/* Dynamic Segmented Dotted Progress Bar (Replaces old arrow buttons & dots) */}
-      <div className="mt-2.5 sm:mt-5 flex flex-col items-center justify-center gap-2">
-        <div className="inline-flex items-center gap-2 sm:gap-3.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-black/10 dark:border-white/10 bg-card/60 dark:bg-zinc-950/70 backdrop-blur-xl shadow-lg">
+      <div className="mt-5 flex flex-col items-center justify-center gap-2">
+        <div className="inline-flex items-center gap-2.5 sm:gap-3.5 px-4 py-2 rounded-full border border-black/10 dark:border-white/10 bg-card/60 dark:bg-zinc-950/70 backdrop-blur-xl shadow-lg">
           {/* Active project number */}
           <span className="font-mono text-xs font-semibold text-foreground/90 tabular-nums">
             0{activeIndex + 1}
