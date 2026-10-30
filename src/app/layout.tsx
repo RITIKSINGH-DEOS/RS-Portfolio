@@ -74,13 +74,13 @@ export const metadata: Metadata = {
     "Full Stack AI Engineer",
     "AI Engineer Portfolio",
   ],
-  icons: {
+    icons: {
     icon: [
-      { url: "/me.png", sizes: "any" },
-      { url: "/me.png", type: "image/png" },
+      { url: "/icon.png", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
     ],
-    shortcut: "/me.png",
-    apple: "/me.png",
+    shortcut: "/favicon.ico",
+    apple: "/icon.png",
   },
   openGraph: {
     title: "Ritik Singh - Full Stack AI Engineer",

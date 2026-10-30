@@ -132,7 +132,7 @@ export function TopNav() {
                 width={36}
                 height={36}
                 priority
-                className="size-full scale-[1.28] object-cover"
+                className="size-full object-cover"
               />
             </div>
 
