@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 
 interface BlurFadeProps {
   children: React.ReactNode;
@@ -30,14 +30,9 @@ const BlurFade = ({
   blur = "4px",
 }: BlurFadeProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [mounted, setMounted] = useState(false);
   const inViewResult = useInView(ref, { once: true, margin: inViewMargin as any });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isInView = !inView || inViewResult || mounted;
+  const isInView = !inView || inViewResult;
 
   const defaultVariants: Variants = {
     hidden: { y: yOffset, opacity: 0 },

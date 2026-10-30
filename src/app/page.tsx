@@ -5,7 +5,18 @@ import { Interactive3DName } from "@/components/interactive-3d-name";
 import { RagnarQuote } from "@/components/ragnar-quote";
 import { FooterSignature } from "@/components/footer-signature";
 import { ProjectsShowcase } from "@/components/projects-showcase";
-import { AchievementsBook } from "@/components/achievements-book";
+const AchievementsBook = dynamic(
+  () =>
+    import("@/components/achievements-book").then(
+      (mod) => mod.AchievementsBook
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[420px] w-full max-w-[340px] md:max-w-2xl mx-auto rounded-2xl bg-muted/10 animate-pulse border border-border/40" />
+    ),
+  }
+);
 import { ResumeCard } from "@/components/resume-card";
 import { DATA } from "@/data/resume";
 import Markdown from "react-markdown";

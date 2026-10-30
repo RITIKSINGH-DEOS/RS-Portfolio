@@ -75,6 +75,7 @@
       color-scheme: light;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
     }
     html.dark {
       color-scheme: dark;

@@ -28,16 +28,87 @@ interface Props {
   projects: readonly ProjectItem[];
 }
 
+
+interface ProjectVideoProps {
+  src: string;
+  isActive: boolean;
+  isInView: boolean;
+  title: string;
+}
+
+function ProjectVideo({ src, isActive, isInView, title }: ProjectVideoProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (isInView && isActive) {
+      setShouldLoad(true);
+    }
+  }, [isInView, isActive]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
+    if (isActive) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [isActive, shouldLoad]);
+
+  return (
+    <div className="absolute inset-0 w-full h-full bg-zinc-950">
+      {shouldLoad ? (
+        <video
+          ref={videoRef}
+          src={src}
+          loop
+          muted
+          playsInline
+          autoPlay={isActive}
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-950">
+          <div className="flex flex-col items-center gap-2 text-zinc-500">
+            <span className="font-mono text-[11px] uppercase tracking-wider">{title}</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function CurvedProjectCarousel({ projects }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
   const stageRef = useRef<HTMLDivElement>(null);
   const dragStartX = useRef<number | null>(null);
   const wheelLock = useRef(false);
   const total = projects.length;
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { rootMargin: "300px 0px" }
+    );
+
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -227,14 +298,11 @@ export function CurvedProjectCarousel({ projects }: Props) {
               {/* Media Layer (Video or High-Res Image) */}
               <div className="relative w-full h-full overflow-hidden bg-zinc-950">
                 {project.video ? (
-                  <video
+                  <ProjectVideo
                     src={project.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
+                    isActive={isActive}
+                    isInView={isInView}
+                    title={project.title}
                   />
                 ) : project.image ? (
                   <Image

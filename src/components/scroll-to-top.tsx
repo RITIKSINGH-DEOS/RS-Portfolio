@@ -16,10 +16,25 @@ export function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const lenis = (
+      window as unknown as {
+        __lenis?: {
+          scrollTo: (
+            target: number | string | HTMLElement,
+            options?: { duration?: number }
+          ) => void;
+        };
+      }
+    ).__lenis;
+
+    if (lenis && typeof lenis.scrollTo === "function") {
+      lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (

@@ -16,8 +16,15 @@ import { Inter as FontSans, Fraunces as FontSerif } from "next/font/google";
 import "./globals.css";
 import dynamic from "next/dynamic";
 
-import { SpiderCanvas } from "@/components/spider-canvas";
-import { ClickShockwave } from "@/components/click-shockwave";
+const SpiderCanvas = dynamic(
+  () => import("@/components/spider-canvas").then((mod) => mod.SpiderCanvas),
+  { ssr: false }
+);
+
+const ClickShockwave = dynamic(
+  () => import("@/components/click-shockwave").then((mod) => mod.ClickShockwave),
+  { ssr: false }
+);
 
 const AIChatbot = dynamic(
   () => import("@/components/ai-chatbot").then((mod) => mod.AIChatbot),
@@ -40,6 +47,7 @@ const fontGreatVibes = localFont({
   src: "../fonts/GreatVibes-Regular.ttf",
   variable: "--font-great-vibes",
   display: "swap",
+  preload: false,
 });
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-VR87QHF107";
@@ -47,6 +55,10 @@ const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-VR87QHF107";
 
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
+  alternates: {
+    canonical: DATA.url,
+  },
+  applicationName: "Ritik Singh",
   title: {
     default: "Ritik Singh - Full Stack AI Engineer",
     template: `%s | Ritik Singh`,
@@ -186,12 +198,12 @@ export default function RootLayout({
       >
         {/* Google Analytics (GA4) */}
         <Script
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         />
         <Script
           id="google-analytics"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useThemeTransition } from "@/hooks/use-theme-transition";
 import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon, DownloadIcon } from "@radix-ui/react-icons";
@@ -37,6 +38,7 @@ const pillVariants = {
 };
 
 export function TopNav() {
+  const pathname = usePathname();
   const { theme, toggleTheme } = useThemeTransition();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -69,6 +71,30 @@ export function TopNav() {
       if (el) {
         e.preventDefault();
         el.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (pathname === "/") {
+      e.preventDefault();
+      if (typeof window !== "undefined" && window.location.hash) {
+        window.history.replaceState(null, "", "/");
+      }
+      const lenis = (
+        window as unknown as {
+          __lenis?: {
+            scrollTo: (
+              target: number | string | HTMLElement,
+              options?: { duration?: number }
+            ) => void;
+          };
+        }
+      ).__lenis;
+
+      if (lenis && typeof lenis.scrollTo === "function") {
+        lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       }
     }
   };

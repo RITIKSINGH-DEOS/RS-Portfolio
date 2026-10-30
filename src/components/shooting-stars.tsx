@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 
 interface MeteorData {
@@ -86,18 +86,6 @@ const TWINKLE_STARS: TwinkleStar[] = [
 ];
 
 export function ShootingStars() {
-  const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    setIsMobile(window.innerWidth < 640);
-  }, []);
-
-  if (!mounted) return null;
-
-  const stars = isMobile ? TWINKLE_STARS.slice(0, 5) : TWINKLE_STARS;
-  const meteors = isMobile ? METEOR_CONFIGS.slice(0, 3) : METEOR_CONFIGS;
 
   return (
     <div
@@ -107,10 +95,10 @@ export function ShootingStars() {
       {/* ============================================================ */}
       {/* 1. AMBIENT CONSTELLATION TWINKLE STARS                       */}
       {/* ============================================================ */}
-      {stars.map((star) => (
+      {TWINKLE_STARS.map((star, idx) => (
         <span
           key={`star-${star.id}`}
-          className="celestial-star absolute pointer-events-none flex items-center justify-center"
+          className={cn("celestial-star absolute pointer-events-none flex items-center justify-center", idx >= 5 && "hidden sm:flex")}
           style={{
             left: star.left,
             top: star.top,
@@ -138,10 +126,10 @@ export function ShootingStars() {
       {/* ============================================================ */}
       {/* 2. CINEMATIC SHOOTING STARS / METEORS                        */}
       {/* ============================================================ */}
-      {meteors.map((meteor) => (
+      {METEOR_CONFIGS.map((meteor, idx) => (
         <span
           key={`meteor-${meteor.id}`}
-          className="meteor absolute pointer-events-none"
+          className={cn("meteor absolute pointer-events-none", idx >= 3 && "hidden sm:block")}
           style={{
             left: meteor.left,
             top: meteor.top,

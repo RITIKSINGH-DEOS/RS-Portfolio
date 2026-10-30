@@ -387,7 +387,7 @@ function MilestonePage({
               fill
               sizes="(max-width: 768px) 80vw, 420px"
               className="object-contain"
-              priority
+              loading="lazy"
             />
           </div>
 
@@ -1386,7 +1386,7 @@ export function AchievementsBook({ achievements }: AchievementsBookProps) {
                 fill
                 sizes="100vw"
                 className="object-contain p-2"
-                priority
+                loading="lazy"
               />
             </div>
 

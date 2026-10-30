@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { AIChatTrigger } from "@/components/ai-chat-trigger";
 import { buttonVariants } from "@/components/ui/button";
@@ -12,6 +15,42 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (href === "/") {
+      if (pathname === "/") {
+        e.preventDefault();
+        if (typeof window !== "undefined" && window.location.hash) {
+          window.history.replaceState(null, "", "/");
+        }
+
+        const lenis = (
+          window as unknown as {
+            __lenis?: {
+              scrollTo: (
+                target: number | string | HTMLElement,
+                options?: { duration?: number }
+              ) => void;
+            };
+          }
+        ).__lenis;
+
+        if (lenis && typeof lenis.scrollTo === "function") {
+          lenis.scrollTo(0, { duration: 1.2 });
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      }
+    }
+  };
+
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-2 sm:bottom-3 z-50 mx-auto flex justify-center items-center py-2 sm:py-3">
       <Dock className="z-50 pointer-events-auto relative mx-auto flex h-14 items-center px-2 rounded-full bg-background border border-red-500/40 dark:border-blue-500/40 shadow-[0_0_22px_rgba(220,38,38,0.38),0_0_14px_rgba(37,99,235,0.32),0_4px_16px_rgba(0,0,0,0.09)] dark:shadow-[0_0_26px_rgba(220,38,38,0.55),0_0_18px_rgba(37,99,235,0.5)] hover:shadow-[0_0_32px_rgba(220,38,38,0.7),0_0_22px_rgba(37,99,235,0.6)] hover:border-red-500/60 dark:hover:border-blue-400/60 transition-[background-color,border-color,box-shadow] duration-300">
@@ -21,6 +60,8 @@ export default function Navbar() {
               <TooltipTrigger asChild>
                 <Link
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  scroll={item.href === "/" ? false : true}
                   aria-label={item.label}
                   {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className={cn(

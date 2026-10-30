@@ -374,10 +374,15 @@ export function CommitMatrixCanvas() {
     };
 
     let isVisible = true;
+    const isMobileDevice = typeof window !== "undefined" && (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches);
+    const minFrameTime = isMobileDevice ? 33 : 16;
+    let lastFrameTime = 0;
 
     const loop = (timestamp: number) => {
       if (!isVisible) return;
       animId = requestAnimationFrame(loop);
+      if (timestamp - lastFrameTime < minFrameTime) return;
+      lastFrameTime = timestamp;
       draw(timestamp);
     };
 
