@@ -79,18 +79,18 @@ export function RagnarQuote() {
         <span className="h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-blue-500" />
       </div>
 
-      {/* Animated Quote in Great Vibes Cursive Script */}
-      <div className="min-h-[110px] sm:min-h-[90px] flex flex-col items-center justify-center">
+      {/* Animated Quote in Great Vibes Cursive Script with Fixed Height Slot to Prevent Layout Shift */}
+      <div className="relative w-full h-[210px] sm:h-[160px] md:h-[145px] flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentQuote.id}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.45, ease: "easeInOut" }}
-            className="w-full"
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className="w-full flex flex-col items-center justify-center"
           >
-            <blockquote className="relative z-10 font-great-vibes text-2xl sm:text-3xl md:text-[32px] leading-relaxed tracking-wide text-zinc-400 group-hover:text-zinc-200 transition-colors drop-shadow-sm">
+            <blockquote className="relative z-10 font-great-vibes text-[22px] sm:text-3xl md:text-[32px] leading-relaxed tracking-wide text-zinc-400 group-hover:text-zinc-200 transition-colors drop-shadow-sm">
               “{currentQuote.quote}”
             </blockquote>
 
