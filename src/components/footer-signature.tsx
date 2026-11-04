@@ -25,15 +25,21 @@ export function FooterSignature() {
           ref={nameRef}
           className="group relative inline-block font-serif font-light text-[13.5vw] sm:text-[13vw] md:text-[12.5vw] lg:text-[11.5vw] tracking-[-0.04em] leading-[0.88] whitespace-nowrap select-none cursor-pointer"
         >
-          {/* Base Layer: Subtle signature in default quiet translucent tone */}
+          {/* Base Layer: Subtle signature in default quiet translucent tone with vertical top-to-bottom fade */}
           <span className="bg-gradient-to-b from-foreground/[0.18] via-foreground/[0.10] to-foreground/[0.02] dark:from-white/[0.18] dark:via-white/[0.09] dark:to-white/[0.02] bg-clip-text text-transparent inline-block">
             {fullName}
           </span>
 
-          {/* Smooth Festive Glow Layer: Fades in/out with 700ms luxurious ease and smooth wave */}
+          {/* Smooth Festive Glow Layer: Vertical Top-to-Bottom Faded Gradient matching Image 1 aesthetic */}
           <span
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-r from-amber-500 via-yellow-300 via-rose-500 to-amber-500 dark:from-amber-400 dark:via-yellow-300 dark:via-orange-400 dark:to-amber-400 bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none inline-block animate-diwali-shimmer drop-shadow-[0_0_24px_rgba(245,158,11,0.22)]"
+            style={{
+              WebkitMaskImage:
+                "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.68) 40%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0.02) 100%)",
+              maskImage:
+                "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.68) 40%, rgba(0,0,0,0.22) 75%, rgba(0,0,0,0.02) 100%)",
+            }}
+            className="absolute inset-0 bg-gradient-to-b from-yellow-300 via-amber-400/80 to-orange-500/[0.04] dark:from-yellow-300 dark:via-amber-400/75 dark:to-orange-500/[0.03] bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none inline-block drop-shadow-[0_0_24px_rgba(245,158,11,0.22)]"
           >
             {fullName}
           </span>
