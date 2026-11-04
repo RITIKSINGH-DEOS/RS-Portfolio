@@ -1,18 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { DATA } from "@/data/resume";
+import { DiwaliCrackers } from "@/components/diwali-crackers";
 
 export function FooterSignature() {
+  const footerRef = useRef<HTMLElement | null>(null);
   const fullName = "Ritik Singh";
 
   return (
-    <footer className="relative left-1/2 -translate-x-1/2 w-screen max-w-[100vw] overflow-hidden select-none cursor-default mt-6 sm:mt-10 pt-4 pb-6 sm:pb-10 text-center">
+    <footer
+      ref={footerRef}
+      className="group relative left-1/2 -translate-x-1/2 w-screen max-w-[100vw] overflow-hidden select-none cursor-default mt-6 sm:mt-10 pt-4 pb-6 sm:pb-10 text-center"
+    >
+      {/* Interactive Diwali Crackers, Sparklers & Sky Burst Canvas strictly bounded to this footer */}
+      <DiwaliCrackers containerRef={footerRef} />
+
+      {/* Subtle festive Diwali indicator pill */}
+      <div className="relative z-10 flex items-center justify-center gap-2 mb-2 sm:mb-3">
+        <span className="text-amber-500/80 text-[11px] sm:text-xs">🪔</span>
+        <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.28em] text-amber-500/70 dark:text-amber-400/80 uppercase font-medium">
+          Shubh Deepawali
+        </span>
+        <span className="text-amber-500/80 text-[11px] sm:text-xs">✨</span>
+      </div>
+
       {/* Giant Editorial Serif Signature matching reference image */}
       <div className="relative z-10 w-full overflow-hidden flex justify-center items-center">
         <h1 className="font-serif font-light text-[13.5vw] sm:text-[13vw] md:text-[12.5vw] lg:text-[11.5vw] tracking-[-0.04em] leading-[0.88] whitespace-nowrap select-none">
-          <span className="bg-gradient-to-b from-foreground/[0.18] via-foreground/[0.10] to-foreground/[0.02] dark:from-white/[0.18] dark:via-white/[0.09] dark:to-white/[0.02] bg-clip-text text-transparent hover:from-red-500/40 hover:via-foreground/25 hover:to-blue-500/30 transition-all duration-500 inline-block">
+          <span className="bg-gradient-to-b from-foreground/[0.18] via-foreground/[0.10] to-foreground/[0.02] dark:from-white/[0.18] dark:via-white/[0.09] dark:to-white/[0.02] bg-clip-text text-transparent group-hover:from-amber-400/70 group-hover:via-orange-400/50 group-hover:to-rose-500/40 transition-all duration-500 inline-block">
             {fullName}
           </span>
         </h1>
