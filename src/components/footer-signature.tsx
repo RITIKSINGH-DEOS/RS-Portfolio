@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import Link from "next/link";
 import { DATA } from "@/data/resume";
 import { DiwaliCrackers } from "@/components/diwali-crackers";
 
@@ -44,23 +43,46 @@ export function FooterSignature() {
         </h1>
       </div>
 
-      {/* Footer Navigation Links for Google Sitelinks & Quick Access */}
+      {/* Footer Navigation Links: Direct External URLs opened in New Tab */}
       <nav aria-label="Quick Links" className="relative z-10 mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-mono text-muted-foreground/80">
-        <Link href="/github" className="hover:text-red-500 transition-colors">
+        <a
+          href={DATA.contact.social.GitHub.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-red-500 transition-colors"
+        >
           GitHub
-        </Link>
+        </a>
         <span className="text-muted-foreground/40">·</span>
-        <Link href="/linkedin" className="hover:text-blue-500 transition-colors">
+        <a
+          href={DATA.contact.social.LinkedIn.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-blue-500 transition-colors"
+        >
           LinkedIn
-        </Link>
+        </a>
         <span className="text-muted-foreground/40">·</span>
-        <Link href="/book-a-call" className="hover:text-red-500 transition-colors">
+        <a
+          href={DATA.contact.social.WhatsApp.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-red-500 transition-colors"
+        >
           Book a Call
-        </Link>
+        </a>
         <span className="text-muted-foreground/40">·</span>
-        <Link href="/talk-with-ai" className="hover:text-blue-500 transition-colors">
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new CustomEvent("open-ai-chat"));
+            }
+          }}
+          className="hover:text-blue-500 transition-colors cursor-pointer"
+        >
           Talk with AI Assistant
-        </Link>
+        </button>
       </nav>
 
       {/* Subtle minimal copyright tagline */}
