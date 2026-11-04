@@ -66,12 +66,6 @@ export function RagnarQuote() {
       title="Click to view next quote in loop"
       className="group relative w-full max-w-2xl mx-auto px-4 sm:px-6 my-6 sm:my-8 text-center select-none cursor-pointer transition-transform duration-300 active:scale-[0.99]"
     >
-      {/* Subtle Spider-Man themed ambient glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-20 bg-gradient-to-r from-red-500/10 via-blue-500/10 to-red-500/10 blur-2xl opacity-60 dark:opacity-40 group-hover:opacity-80 transition-opacity duration-500"
-      />
-
       {/* Decorative subtle top separator line */}
       <div className="flex items-center justify-center gap-3 mb-4 sm:mb-5 opacity-40 group-hover:opacity-70 transition-opacity">
         <span className="h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-red-500" />

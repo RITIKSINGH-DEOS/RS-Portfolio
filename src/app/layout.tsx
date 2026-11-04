@@ -5,7 +5,6 @@ import { DottedCanvas } from "@/components/dotted-canvas";
 import { ShootingStars } from "@/components/shooting-stars";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TopNav } from "@/components/top-nav";
-import { RoundedCanvasFrame } from "@/components/rounded-canvas-frame";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -21,10 +20,6 @@ const SpiderCanvas = dynamic(
   { ssr: false }
 );
 
-const ClickShockwave = dynamic(
-  () => import("@/components/click-shockwave").then((mod) => mod.ClickShockwave),
-  { ssr: false }
-);
 
 const AIChatbot = dynamic(
   () => import("@/components/ai-chatbot").then((mod) => mod.AIChatbot),
@@ -228,8 +223,6 @@ export default function RootLayout({
               <AIChatbot />
               <ScrollToTop />
               <SpiderCanvas />
-              <ClickShockwave />
-              <RoundedCanvasFrame />
             </SmoothScrollProvider>
           </TooltipProvider>
         </ThemeProvider>
