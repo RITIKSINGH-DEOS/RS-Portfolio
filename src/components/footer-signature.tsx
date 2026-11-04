@@ -6,17 +6,11 @@ import { DATA } from "@/data/resume";
 import { DiwaliCrackers } from "@/components/diwali-crackers";
 
 export function FooterSignature() {
-  const footerRef = useRef<HTMLElement | null>(null);
+  const nameRef = useRef<HTMLHeadingElement | null>(null);
   const fullName = "Ritik Singh";
 
   return (
-    <footer
-      ref={footerRef}
-      className="group relative left-1/2 -translate-x-1/2 w-screen max-w-[100vw] overflow-hidden select-none cursor-default mt-6 sm:mt-10 pt-4 pb-6 sm:pb-10 text-center"
-    >
-      {/* Interactive Diwali Crackers, Sparklers & Sky Burst Canvas strictly bounded to this footer */}
-      <DiwaliCrackers containerRef={footerRef} />
-
+    <footer className="relative left-1/2 -translate-x-1/2 w-screen max-w-[100vw] overflow-hidden select-none cursor-default mt-6 sm:mt-10 pt-4 pb-6 sm:pb-10 text-center">
       {/* Subtle festive Diwali indicator pill */}
       <div className="relative z-10 flex items-center justify-center gap-2 mb-2 sm:mb-3">
         <span className="text-amber-500/80 text-[11px] sm:text-xs">🪔</span>
@@ -27,11 +21,26 @@ export function FooterSignature() {
       </div>
 
       {/* Giant Editorial Serif Signature matching reference image */}
-      <div className="relative z-10 w-full overflow-hidden flex justify-center items-center">
-        <h1 className="font-serif font-light text-[13.5vw] sm:text-[13vw] md:text-[12.5vw] lg:text-[11.5vw] tracking-[-0.04em] leading-[0.88] whitespace-nowrap select-none">
-          <span className="bg-gradient-to-b from-foreground/[0.18] via-foreground/[0.10] to-foreground/[0.02] dark:from-white/[0.18] dark:via-white/[0.09] dark:to-white/[0.02] bg-clip-text text-transparent group-hover:from-amber-400/70 group-hover:via-orange-400/50 group-hover:to-rose-500/40 transition-all duration-500 inline-block">
+      <div className="relative z-10 w-full flex justify-center items-center">
+        <h1
+          ref={nameRef}
+          className="group relative inline-block font-serif font-light text-[13.5vw] sm:text-[13vw] md:text-[12.5vw] lg:text-[11.5vw] tracking-[-0.04em] leading-[0.88] whitespace-nowrap select-none cursor-pointer"
+        >
+          {/* Base Layer: Subtle signature in default quiet translucent tone */}
+          <span className="bg-gradient-to-b from-foreground/[0.18] via-foreground/[0.10] to-foreground/[0.02] dark:from-white/[0.18] dark:via-white/[0.09] dark:to-white/[0.02] bg-clip-text text-transparent inline-block">
             {fullName}
           </span>
+
+          {/* Smooth Festive Glow Layer: Fades in/out with 700ms luxurious ease and smooth wave */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-amber-500 via-yellow-300 via-rose-500 to-amber-500 dark:from-amber-400 dark:via-yellow-300 dark:via-orange-400 dark:to-amber-400 bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none inline-block animate-diwali-shimmer drop-shadow-[0_0_24px_rgba(245,158,11,0.22)]"
+          >
+            {fullName}
+          </span>
+
+          {/* Diwali Crackers Canvas: Attached exclusively to the Ritik Singh characters */}
+          <DiwaliCrackers targetRef={nameRef} />
         </h1>
       </div>
 

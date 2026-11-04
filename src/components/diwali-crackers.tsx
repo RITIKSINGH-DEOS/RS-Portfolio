@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 
 interface Particle {
   x: number;
@@ -18,7 +18,7 @@ interface Particle {
   hasCrackle?: boolean;
 }
 
-// Authentic Diwali Festive Palette
+// Authentic Diwali Festive Palette: Gold, Saffron, Crimson, Emerald, White Hot, Royal Violet
 const DIWALI_COLORS = [
   "#FFD700", // Bright Diwali Gold
   "#FFA500", // Marigold Saffron
@@ -30,12 +30,13 @@ const DIWALI_COLORS = [
   "#38BDF8", // Electric Blue Spark
 ];
 
-const MAX_PARTICLES = 90;
+const MAX_PARTICLES = 80;
+const PADDING = 70; // Padding around text so sparks can spray freely without clipping
 
 export function DiwaliCrackers({
-  containerRef,
+  targetRef,
 }: {
-  containerRef: React.RefObject<HTMLElement | null>;
+  targetRef: React.RefObject<HTMLElement | null>;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -44,17 +45,14 @@ export function DiwaliCrackers({
   const distanceTraveled = useRef<number>(0);
   const lastPos = useRef<{ x: number; y: number } | null>(null);
 
-  // Smooth GPU-composited CSS ambient glow tracking
-  const [ambientGlow, setAmbientGlow] = useState({ x: 0, y: 0, active: false });
-
-  // 1. Phuljhadi (Sparkler) sparks at cursor - Lightweight & Throttled
+  // 1. Phuljhadi (Sparkler) sparks directly at cursor over characters
   const spawnSparkler = useCallback((x: number, y: number, count = 2) => {
     if (particlesRef.current.length >= MAX_PARTICLES) return;
     const available = Math.min(count, MAX_PARTICLES - particlesRef.current.length);
 
     for (let i = 0; i < available; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = 1.0 + Math.random() * 3.5;
+      const speed = 1.0 + Math.random() * 3.6;
       const color =
         DIWALI_COLORS[Math.floor(Math.random() * DIWALI_COLORS.length)];
       particlesRef.current.push({
@@ -63,28 +61,28 @@ export function DiwaliCrackers({
         prevX: x,
         prevY: y,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 0.35,
+        vy: Math.sin(angle) * speed - 0.4,
         alpha: 0.95,
         color,
         size: 1.2 + Math.random() * 1.4,
         decay: 0.026 + Math.random() * 0.022,
-        gravity: 0.06,
+        gravity: 0.065,
         friction: 0.96,
         hasCrackle: Math.random() < 0.3,
       });
     }
   }, []);
 
-  // 2. Mini Firecracker Pop (Every ~120px of movement)
+  // 2. Mini Firecracker Pop across characters
   const spawnMiniPop = useCallback((x: number, y: number) => {
     if (particlesRef.current.length >= MAX_PARTICLES) return;
     const burstColor =
       DIWALI_COLORS[Math.floor(Math.random() * DIWALI_COLORS.length)];
-    const count = Math.min(8, MAX_PARTICLES - particlesRef.current.length);
+    const count = Math.min(7, MAX_PARTICLES - particlesRef.current.length);
 
     for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.3;
-      const speed = 1.8 + Math.random() * 3.2;
+      const speed = 1.6 + Math.random() * 3.2;
       particlesRef.current.push({
         x,
         y,
@@ -94,7 +92,7 @@ export function DiwaliCrackers({
         vy: Math.sin(angle) * speed - 0.5,
         alpha: 1.0,
         color: Math.random() < 0.7 ? burstColor : "#FFFFFF",
-        size: 1.4 + Math.random() * 1.0,
+        size: 1.3 + Math.random() * 1.0,
         decay: 0.028 + Math.random() * 0.02,
         gravity: 0.07,
         friction: 0.95,
@@ -103,12 +101,11 @@ export function DiwaliCrackers({
     }
   }, []);
 
-  // 3. Celebratory Cracker / Sky Shot Burst on click or tap
+  // 3. Celebratory Cracker / Sky Shot Burst on click or tap on the name
   const spawnCrackerBurst = useCallback(
     (x: number, y: number, particleCount = 26) => {
-      // Clear half if full to ensure new burst always renders smoothly
-      if (particlesRef.current.length > 50) {
-        particlesRef.current = particlesRef.current.slice(-30);
+      if (particlesRef.current.length > 40) {
+        particlesRef.current = particlesRef.current.slice(-25);
       }
 
       const primaryColor =
@@ -119,7 +116,7 @@ export function DiwaliCrackers({
       for (let i = 0; i < particleCount; i++) {
         const angle =
           (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.25;
-        const speed = 2.4 + Math.random() * 4.8;
+        const speed = 2.2 + Math.random() * 4.6;
         const color = Math.random() < 0.65 ? primaryColor : secondaryColor;
 
         particlesRef.current.push({
@@ -139,10 +136,10 @@ export function DiwaliCrackers({
         });
       }
 
-      // 6 Golden fountain sparks spraying upward
-      for (let j = 0; j < 6; j++) {
+      // Golden fountain (Anar) sparks spraying upward
+      for (let j = 0; j < 5; j++) {
         const fAngle = -Math.PI / 2 + (Math.random() - 0.5) * 0.55;
-        const fSpeed = 3.0 + Math.random() * 3.8;
+        const fSpeed = 2.8 + Math.random() * 3.6;
         particlesRef.current.push({
           x,
           y,
@@ -163,24 +160,28 @@ export function DiwaliCrackers({
   );
 
   useEffect(() => {
-    const container = containerRef.current;
+    const target = targetRef.current;
     const canvas = canvasRef.current;
-    if (!container || !canvas) return;
+    if (!target || !canvas) return;
 
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let width = 0;
-    let height = 0;
+    let canvasWidth = 0;
+    let canvasHeight = 0;
 
     const updateSize = () => {
-      const rect = container.getBoundingClientRect();
-      // Cap DPR to 1.25 for buttery 120 FPS performance on high-DPI / 4K displays
+      const rect = target.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
-      width = rect.width;
-      height = rect.height;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
+      canvasWidth = rect.width + PADDING * 2;
+      canvasHeight = rect.height + PADDING * 2;
+      canvas.width = Math.floor(canvasWidth * dpr);
+      canvas.height = Math.floor(canvasHeight * dpr);
+      canvas.style.width = `${canvasWidth}px`;
+      canvas.style.height = `${canvasHeight}px`;
+      canvas.style.left = `-${PADDING}px`;
+      canvas.style.top = `-${PADDING}px`;
+
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
     };
@@ -190,7 +191,7 @@ export function DiwaliCrackers({
     const resizeObserver = new ResizeObserver(() => {
       updateSize();
     });
-    resizeObserver.observe(container);
+    resizeObserver.observe(target);
 
     let isRunning = false;
 
@@ -201,25 +202,22 @@ export function DiwaliCrackers({
       }
     };
 
-    // Ultra-Fast GPU-Friendly Render Loop (ZERO shadowBlur, ZERO createRadialGradient per frame)
+    // Fast 120 FPS render loop - completely transparent background
     const render = () => {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
       const particles = particlesRef.current;
       if (particles.length > 0) {
         ctx.save();
-        // Hardware-accelerated additive blending creates intense radiant glow with 0% CPU blur penalty
         ctx.globalCompositeOperation = "lighter";
         ctx.lineCap = "round";
 
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
 
-          // Store previous position
           p.prevX = p.x;
           p.prevY = p.y;
 
-          // Physics update
           p.vx *= p.friction;
           p.vy *= p.friction;
           p.vy += p.gravity;
@@ -227,17 +225,20 @@ export function DiwaliCrackers({
           p.y += p.vy;
           p.alpha -= p.decay;
 
-          // Remove dead particles
-          if (p.alpha <= 0 || p.x < -10 || p.x > width + 10 || p.y > height + 20) {
+          if (
+            p.alpha <= 0 ||
+            p.x < 0 ||
+            p.x > canvasWidth ||
+            p.y > canvasHeight
+          ) {
             particles.splice(i, 1);
             continue;
           }
 
-          // Crackle flash effect without array allocations
           const isCrackling = p.hasCrackle && p.alpha < 0.35 && Math.random() < 0.45;
           const renderColor = isCrackling ? "#FFFFFF" : p.color;
 
-          // 1. Soft Outer Glow Streak (Fast 2-pass additive stroke, 10x faster than shadowBlur)
+          // 1. Soft Outer Glow (Additive stroke)
           ctx.strokeStyle = renderColor;
           ctx.globalAlpha = Math.max(0, p.alpha * 0.3);
           ctx.lineWidth = p.size * 2.2;
@@ -246,7 +247,7 @@ export function DiwaliCrackers({
           ctx.lineTo(p.x, p.y);
           ctx.stroke();
 
-          // 2. Crisp Bright Core Streak
+          // 2. Crisp Core Streak
           ctx.globalAlpha = Math.max(0, p.alpha);
           ctx.lineWidth = p.size;
           ctx.beginPath();
@@ -254,7 +255,7 @@ export function DiwaliCrackers({
           ctx.lineTo(p.x, p.y);
           ctx.stroke();
 
-          // 3. Bright spark head
+          // 3. Bright Spark Head
           ctx.fillStyle = renderColor;
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.size * 0.7, 0, Math.PI * 2);
@@ -264,7 +265,6 @@ export function DiwaliCrackers({
         ctx.restore();
       }
 
-      // Continue loop only when particles exist
       if (particles.length > 0) {
         animIdRef.current = requestAnimationFrame(render);
       } else {
@@ -273,9 +273,9 @@ export function DiwaliCrackers({
       }
     };
 
-    // Pointer Event Handlers
+    // Pointer Events attached ONLY to the "Ritik Singh" target element
     const handlePointerMove = (e: MouseEvent | TouchEvent) => {
-      const rect = container.getBoundingClientRect();
+      const rect = target.getBoundingClientRect();
       let clientX = 0;
       let clientY = 0;
 
@@ -288,18 +288,16 @@ export function DiwaliCrackers({
         clientY = e.clientY;
       }
 
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
+      // Convert to canvas coordinates (including PADDING offset)
+      const x = clientX - rect.left + PADDING;
+      const y = clientY - rect.top + PADDING;
 
-      setAmbientGlow({ x, y, active: true });
-
-      // Track distance traveled to trigger mini pops
       if (lastPos.current) {
         const dx = x - lastPos.current.x;
         const dy = y - lastPos.current.y;
         distanceTraveled.current += Math.hypot(dx, dy);
 
-        if (distanceTraveled.current > 110) {
+        if (distanceTraveled.current > 90) {
           spawnMiniPop(x, y);
           distanceTraveled.current = 0;
         }
@@ -307,7 +305,6 @@ export function DiwaliCrackers({
       lastPos.current = { x, y };
 
       const now = performance.now();
-      // Throttle spark generation to ~35ms for silky smooth 60/120 FPS
       if (now - lastSpawnTime.current > 35) {
         spawnSparkler(x, y, 2);
         lastSpawnTime.current = now;
@@ -317,13 +314,12 @@ export function DiwaliCrackers({
     };
 
     const handlePointerLeave = () => {
-      setAmbientGlow((prev) => ({ ...prev, active: false }));
       lastPos.current = null;
       distanceTraveled.current = 0;
     };
 
     const handleClick = (e: MouseEvent | TouchEvent) => {
-      const rect = container.getBoundingClientRect();
+      const rect = target.getBoundingClientRect();
       let clientX = 0;
       let clientY = 0;
 
@@ -336,53 +332,38 @@ export function DiwaliCrackers({
         clientY = e.clientY;
       }
 
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
+      const x = clientX - rect.left + PADDING;
+      const y = clientY - rect.top + PADDING;
 
       spawnCrackerBurst(x, y, 26);
       startLoop();
     };
 
-    container.addEventListener("mousemove", handlePointerMove, { passive: true });
-    container.addEventListener("mouseleave", handlePointerLeave);
-    container.addEventListener("click", handleClick, { passive: true });
+    target.addEventListener("mousemove", handlePointerMove, { passive: true });
+    target.addEventListener("mouseleave", handlePointerLeave);
+    target.addEventListener("click", handleClick, { passive: true });
 
-    container.addEventListener("touchstart", handlePointerMove, { passive: true });
-    container.addEventListener("touchmove", handlePointerMove, { passive: true });
-    container.addEventListener("touchend", handlePointerLeave);
+    target.addEventListener("touchstart", handlePointerMove, { passive: true });
+    target.addEventListener("touchmove", handlePointerMove, { passive: true });
+    target.addEventListener("touchend", handlePointerLeave);
 
     return () => {
       if (animIdRef.current) cancelAnimationFrame(animIdRef.current);
       resizeObserver.disconnect();
-      container.removeEventListener("mousemove", handlePointerMove);
-      container.removeEventListener("mouseleave", handlePointerLeave);
-      container.removeEventListener("click", handleClick);
-      container.removeEventListener("touchstart", handlePointerMove);
-      container.removeEventListener("touchmove", handlePointerMove);
-      container.removeEventListener("touchend", handlePointerLeave);
+      target.removeEventListener("mousemove", handlePointerMove);
+      target.removeEventListener("mouseleave", handlePointerLeave);
+      target.removeEventListener("click", handleClick);
+      target.removeEventListener("touchstart", handlePointerMove);
+      target.removeEventListener("touchmove", handlePointerMove);
+      target.removeEventListener("touchend", handlePointerLeave);
     };
-  }, [containerRef, spawnSparkler, spawnMiniPop, spawnCrackerBurst]);
+  }, [targetRef, spawnSparkler, spawnMiniPop, spawnCrackerBurst]);
 
   return (
-    <>
-      {/* 1. Hardware-Accelerated CSS Ambient Diya Glow (Offloaded to GPU compositor thread, 0% CPU) */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
-        style={{
-          opacity: ambientGlow.active ? 1 : 0,
-          background: ambientGlow.active
-            ? `radial-gradient(180px circle at ${ambientGlow.x}px ${ambientGlow.y}px, rgba(251, 191, 36, 0.16), rgba(249, 115, 22, 0.05), transparent 70%)`
-            : "none",
-        }}
-      />
-
-      {/* 2. High-Performance Particle Canvas */}
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-20 h-full w-full select-none"
-      />
-    </>
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="pointer-events-none absolute z-20 select-none"
+    />
   );
 }
